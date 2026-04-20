@@ -10,6 +10,7 @@ const MAPPINGS = {
     'IIIT': 'Indian Institute of Information Technology (IIIT)',
     'IIEST': 'IIEST Shibpur',
     'GFTI': 'Govt. Funded Technical Institute (GFTI)',
+    'SPA': 'School of Planning and Architecture (SPA)',
     
     // Quotas
     'AI': 'All India',
@@ -29,8 +30,10 @@ const MAPPINGS = {
     'EWS (PwD)': 'GEN-EWS (PwD)',
     'OBC-NCL (PwD)': 'OBC-NCL (PwD)',
     'SC (PwD)': 'SC (PwD)',
-    'ST (PwD)': 'ST (PwD)'
+    'ST (PwD)': 'ST (PwD)',
+    'SPA': 'School of Planning and Architecture (SPA)'
 };
+
 
 function getDisplayName(val) {
     return MAPPINGS[val] || val;
@@ -54,6 +57,8 @@ const themeToggle = document.getElementById('theme-toggle');
 const googleSearchToggle = document.getElementById('google-search-toggle');
 
 let isGoogleSearchEnabled = false;
+let currentMode = 'JOSAA'; // 'JOSAA' or 'CSAB'
+
 
 // Initialize
 async function init() {
@@ -68,8 +73,9 @@ async function init() {
             closing_rank_val: parseInt(String(item.closing_rank).replace('P', '')) || 0
         }));
 
+        setupModeSwitching();
         setupDropdowns();
-        populateFilters();
+        populateAllFilters();
         applyFilters();
         
         loadingSpinner.style.display = 'none';
@@ -79,6 +85,34 @@ async function init() {
         console.error("Error loading data:", error);
     }
 }
+
+function setupModeSwitching() {
+    const navJosaa = document.getElementById('nav-josaa');
+    const navCsab = document.getElementById('nav-csab');
+    const modeText = document.getElementById('mode-text');
+    const heroDesc = document.getElementById('hero-desc');
+
+    const switchMode = (mode) => {
+        currentMode = mode;
+        navJosaa.classList.toggle('active', mode === 'JOSAA');
+        navCsab.classList.toggle('active', mode === 'CSAB');
+        
+        if (mode === 'JOSAA') {
+            modeText.textContent = "JoSAA Explorer";
+            heroDesc.textContent = "Comprehensive JoSAA 2025 Data Explorer. Round opening and closing ranks at your fingertips.";
+        } else {
+            modeText.textContent = "CSAB Explorer";
+            heroDesc.textContent = "Comprehensive CSAB 2025 Special Round Data Explorer. Allocation details for NITs, IIITs and GFTIs.";
+        }
+
+        populateAllFilters();
+        applyFilters();
+    };
+
+    navJosaa.addEventListener('click', () => switchMode('JOSAA'));
+    navCsab.addEventListener('click', () => switchMode('CSAB'));
+}
+
 
 function setupDropdowns() {
     const dropdowns = document.querySelectorAll('.custom-dropdown');
@@ -103,33 +137,35 @@ function setupDropdowns() {
     });
 }
 
-function populateFilters() {
-    const quotas = [...new Set(allData.map(item => item.quota))].sort();
-    const seats = [...new Set(allData.map(item => item.seat_type))].sort();
-    const genders = [...new Set(allData.map(item => item.gender))].sort();
-    const programs = [...new Set(allData.map(item => item.program))].sort();
+function populateAllFilters() {
+    const modeData = allData.filter(item => item.source === currentMode);
+    
+    const types = [...new Set(modeData.map(item => item.type))].sort();
+    const rounds = [...new Set(modeData.map(item => item.round))].sort((a, b) => {
+        // Special case for rounds to ensure 1, 2, 3... order
+        const aNum = parseInt(a);
+        const bNum = parseInt(b);
+        if (!isNaN(aNum) && !isNaN(bNum)) return aNum - bNum;
+        return a.localeCompare(b);
+    });
+    const quotas = [...new Set(modeData.map(item => item.quota))].sort();
+    const seats = [...new Set(modeData.map(item => item.seat_type))].sort();
+    const genders = [...new Set(modeData.map(item => item.gender))].sort();
+    const programs = [...new Set(modeData.map(item => item.program))].sort();
 
+    renderCheckboxOptions('type-options', types, 'dropdown-type');
+    renderCheckboxOptions('round-options', rounds, 'dropdown-round', (val) => `Round ${val}`);
     renderCheckboxOptions('quota-options', quotas, 'dropdown-quota');
     renderCheckboxOptions('seat-options', seats, 'dropdown-seat');
     renderCheckboxOptions('gender-options', genders, 'dropdown-gender');
     renderCheckboxOptions('program-options', programs, 'dropdown-program');
 
     setupInternalSearch('program-option-search', 'program-options');
-
-    // Handle Type dropdown (hardcoded in HTML)
-    const typeContent = document.querySelector('#dropdown-type .dropdown-content');
-    const currentTypeHtml = typeContent.innerHTML;
-    typeContent.innerHTML = `
-        <label class="select-all-label">
-            <input type="checkbox" class="select-all" checked> <strong>(Select All)</strong>
-        </label>
-        <div class="divider"></div>
-        ${currentTypeHtml}
-    `;
-    setupCheckboxHandlers(typeContent, 'dropdown-type');
 }
 
-function renderCheckboxOptions(containerId, options, dropdownId) {
+
+
+function renderCheckboxOptions(containerId, options, dropdownId, displayNameFn = getDisplayName) {
     const container = document.getElementById(containerId);
     if (!container) return;
     
@@ -142,7 +178,7 @@ function renderCheckboxOptions(containerId, options, dropdownId) {
 
     html += options.map(opt => `
         <label>
-            <input type="checkbox" value="${opt}" checked> ${getDisplayName(opt)}
+            <input type="checkbox" value="${opt}" checked> ${displayNameFn(opt)}
         </label>
     `).join('');
 
@@ -211,8 +247,13 @@ function updateDropdownButtonText(dropdownId) {
 function applyFilters() {
     const searchTerm = mainSearch.value.toLowerCase();
     
-    const getCheckedValues = (id) => Array.from(document.querySelectorAll(`#${id} input:checked`)).map(cb => cb.value);
+    const getCheckedValues = (id) => {
+        const dropdown = document.getElementById(id);
+        if (!dropdown) return [];
+        return Array.from(dropdown.querySelectorAll('input:not(.select-all):checked')).map(cb => cb.value);
+    };
     
+    const selectedRounds = getCheckedValues('dropdown-round');
     const selectedTypes = getCheckedValues('dropdown-type');
     const selectedQuotas = getCheckedValues('dropdown-quota');
     const selectedSeats = getCheckedValues('dropdown-seat');
@@ -223,10 +264,14 @@ function applyFilters() {
     const maxR = parseInt(rankMax.value) || Infinity;
 
     filteredData = allData.filter(item => {
+        // Filter by Mode (Source)
+        if (item.source !== currentMode) return false;
+
         const matchesSearch = !searchTerm || 
             item.institute.toLowerCase().includes(searchTerm) || 
             item.program.toLowerCase().includes(searchTerm);
         
+        const matchesRound = selectedRounds.includes(item.round);
         const matchesType = selectedTypes.includes(item.type);
         const matchesQuota = selectedQuotas.includes(item.quota);
         const matchesSeat = selectedSeats.includes(item.seat_type);
@@ -234,8 +279,9 @@ function applyFilters() {
         const matchesProgram = selectedPrograms.includes(item.program);
         const matchesRank = item.closing_rank_val >= minR && item.closing_rank_val <= maxR;
 
-        return matchesSearch && matchesType && matchesQuota && matchesSeat && matchesGender && matchesProgram && matchesRank;
+        return matchesSearch && matchesRound && matchesType && matchesQuota && matchesSeat && matchesGender && matchesProgram && matchesRank;
     });
+
 
     sortData();
     currentPage = 1;
@@ -275,6 +321,7 @@ function renderResults() {
         row.innerHTML = `
             <td><div class="inst-cell" data-institute="${item.institute}"><span class="badge type-badge ${item.type.toLowerCase()}">${item.type}</span> ${item.institute}</div></td>
             <td>${item.program}</td>
+            <td><span class="badge round-badge">${item.round}</span></td>
             <td>${getDisplayName(item.type)}</td>
             <td><span class="badge">${getDisplayName(item.quota)}</span></td>
             <td><span class="badge">${getDisplayName(item.seat_type)}</span></td>
@@ -350,7 +397,8 @@ resetBtn.addEventListener('click', () => {
     document.querySelectorAll('.custom-dropdown input').forEach(cb => cb.checked = true);
     document.querySelectorAll('.dropdown-search input').forEach(input => input.value = '');
     document.querySelectorAll('.options-list label').forEach(label => label.style.display = 'flex');
-    ['dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender', 'dropdown-program'].forEach(id => updateDropdownButtonText(id));
+    ['dropdown-round', 'dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender', 'dropdown-program'].forEach(id => updateDropdownButtonText(id));
+
     applyFilters();
 });
 

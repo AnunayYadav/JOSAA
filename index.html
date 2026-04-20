@@ -18,11 +18,12 @@
         <div class="nav-container">
             <div class="logo">
                 <span class="logo-icon"><i data-lucide="graduation-cap"></i></span>
-                <span class="logo-text">JoSAA<span>Explorer</span></span>
+                <span class="logo-text">Admission<span>Explorer</span></span>
             </div>
             <div class="nav-links">
-                <a href="javascript:void(0)" class="active">Search</a>
-                <a href="javascript:void(0)">About</a>
+                <a href="javascript:void(0)" id="nav-josaa" class="active">JoSAA Mode</a>
+                <a href="javascript:void(0)" id="nav-csab">CSAB Mode</a>
+                <a href="javascript:void(0)" id="nav-about">About</a>
                 <button id="theme-toggle" class="theme-btn"><i data-lucide="moon"></i></button>
             </div>
         </div>
@@ -30,8 +31,8 @@
 
     <main class="main-content">
         <header class="hero">
-            <h1 class="hero-title">Find Your Future <span class="gradient-text">Institution</span></h1>
-            <p class="hero-subtitle">Comprehensive JoSAA 2025 Data Explorer. Round 6 opening and closing ranks at your fingertips.</p>
+            <h1 class="hero-title">Find Your Future <span class="gradient-text" id="mode-text">Institution</span></h1>
+            <p class="hero-subtitle" id="hero-desc">Comprehensive JoSAA 2025 Data Explorer. Round opening and closing ranks at your fingertips.</p>
             
             <div class="search-container">
                 <div class="search-wrapper">
@@ -44,15 +45,21 @@
         <section class="explorer-section">
             <aside class="filters-panel">
                 <div class="filter-group">
+                    <label><i data-lucide="calendar"></i> Round</label>
+                    <div class="custom-dropdown" id="dropdown-round">
+                        <button class="dropdown-btn"><span>All Rounds</span> <i data-lucide="chevron-down"></i></button>
+                        <div class="dropdown-content" id="round-options">
+                            <!-- Dynamic options -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
                     <label><i data-lucide="building"></i> Inst. Type</label>
                     <div class="custom-dropdown" id="dropdown-type">
                         <button class="dropdown-btn"><span>All Types</span> <i data-lucide="chevron-down"></i></button>
-                        <div class="dropdown-content">
-                            <label><input type="checkbox" value="IIT" checked> Indian Institute of Technology (IIT)</label>
-                            <label><input type="checkbox" value="NIT" checked> National Institute of Technology (NIT)</label>
-                            <label><input type="checkbox" value="IIIT" checked> Indian Institute of Information Technology (IIIT)</label>
-                            <label><input type="checkbox" value="IIEST" checked> IIEST Shibpur</label>
-                            <label><input type="checkbox" value="GFTI" checked> Govt. Funded Technical Institute (GFTI)</label>
+                        <div class="dropdown-content" id="type-options">
+                            <!-- Dynamic options -->
                         </div>
                     </div>
                 </div>
@@ -154,13 +161,15 @@
                         <thead>
                             <tr>
                                 <th>Institute</th>
-                                <th>Academic Program</th>
+                                <th>Program</th>
+                                <th>Round</th>
                                 <th>Type</th>
                                 <th>Quota</th>
                                 <th>Seat Type</th>
                                 <th>Gender</th>
                                 <th>Opening</th>
                                 <th>Closing</th>
+
                             </tr>
                         </thead>
                         <tbody id="results-body">
@@ -179,7 +188,7 @@
     </main>
 
     <footer class="footer">
-        <p>&copy; 2026 JoSAA Explorer. Data provided for guidance only.</p>
+        <p>&copy; 2026 Admission Explorer. Data provided for guidance only.</p>
     </footer>
 
     <script src="data.js"></script>
