@@ -141,16 +141,43 @@
             <div class="results-container">
                 <div class="results-header">
                     <div class="results-title-group">
-                        <h2>Available Seats & Ranks</h2>
+                        <div class="title-with-tabs">
+                            <h2>Available Seats & Ranks</h2>
+                            <div id="round-tabs" class="round-tabs">
+                                <!-- Dynamic tabs injected here -->
+                            </div>
+                        </div>
                         <span class="results-count"><span id="total-results">0</span> Records Found</span>
                     </div>
                     <div class="sorting">
+
                         <span>Sort by:</span>
                         <select id="sort-by">
                             <option value="closing_rank_asc">Closing Rank (Low to High)</option>
                             <option value="closing_rank_desc">Closing Rank (High to Low)</option>
                             <option value="institute_asc">Institute (A-Z)</option>
                         </select>
+                    </div>
+                </div>
+
+                <div id="csab-info-note" class="csab-specific-note hidden">
+                    <div class="note-content">
+                        <div class="note-header">
+                            <i data-lucide="info"></i>
+                            <p>Opening and closing rank for New and Upgraded candidates only in First/Second Round (As selected above) of Special Vacant Seats Filling Rounds.</p>
+                        </div>
+                        <div class="note-details">
+                            <strong>Note :</strong>
+                            <ol>
+                                <li>All ranks are All India CRL Rank.</li>
+                                <li>These ranks are based on following types of Candidates:
+                                    <ul>
+                                        <li>who reported online at PI (Secured admission) in JoSAA round 6 and upgraded the institute/program/category/quota/gender pool in CSAB Special Round.</li>
+                                        <li>who got fresh allotment in CSAB Special Round.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
 
