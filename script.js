@@ -107,37 +107,87 @@ function populateFilters() {
     const quotas = [...new Set(allData.map(item => item.quota))].sort();
     const seats = [...new Set(allData.map(item => item.seat_type))].sort();
     const genders = [...new Set(allData.map(item => item.gender))].sort();
+    const programs = [...new Set(allData.map(item => item.program))].sort();
 
     renderCheckboxOptions('quota-options', quotas, 'dropdown-quota');
     renderCheckboxOptions('seat-options', seats, 'dropdown-seat');
     renderCheckboxOptions('gender-options', genders, 'dropdown-gender');
+    renderCheckboxOptions('program-options', programs, 'dropdown-program');
 
-    // Add listener for hardcoded Type checkboxes
-    document.querySelectorAll('#dropdown-type input').forEach(cb => {
-        cb.addEventListener('change', () => {
-            updateDropdownButtonText('dropdown-type');
-            applyFilters();
-        });
-    });
+    setupInternalSearch('program-option-search', 'program-options');
+
+    // Handle Type dropdown (hardcoded in HTML)
+    const typeContent = document.querySelector('#dropdown-type .dropdown-content');
+    const currentTypeHtml = typeContent.innerHTML;
+    typeContent.innerHTML = `
+        <label class="select-all-label">
+            <input type="checkbox" class="select-all" checked> <strong>(Select All)</strong>
+        </label>
+        <div class="divider"></div>
+        ${currentTypeHtml}
+    `;
+    setupCheckboxHandlers(typeContent, 'dropdown-type');
 }
 
 function renderCheckboxOptions(containerId, options, dropdownId) {
     const container = document.getElementById(containerId);
     if (!container) return;
     
-    container.innerHTML = options.map(opt => `
+    let html = `
+        <label class="select-all-label">
+            <input type="checkbox" class="select-all" checked> <strong>(Select All)</strong>
+        </label>
+        <div class="divider"></div>
+    `;
+
+    html += options.map(opt => `
         <label>
             <input type="checkbox" value="${opt}" checked> ${getDisplayName(opt)}
         </label>
     `).join('');
 
-    container.querySelectorAll('input').forEach(cb => {
+    container.innerHTML = html;
+    setupCheckboxHandlers(container, dropdownId);
+}
+
+function setupCheckboxHandlers(container, dropdownId) {
+    const allCb = container.querySelector('.select-all');
+    const itemCbs = container.querySelectorAll('input:not(.select-all)');
+
+    if (allCb) {
+        allCb.addEventListener('change', () => {
+            itemCbs.forEach(cb => cb.checked = allCb.checked);
+            updateDropdownButtonText(dropdownId);
+            applyFilters();
+        });
+    }
+
+    itemCbs.forEach(cb => {
         cb.addEventListener('change', () => {
+            if (allCb) {
+                const allChecked = Array.from(itemCbs).every(i => i.checked);
+                allCb.checked = allChecked;
+            }
             updateDropdownButtonText(dropdownId);
             applyFilters();
         });
     });
     updateDropdownButtonText(dropdownId);
+}
+
+function setupInternalSearch(inputId, containerId) {
+    const input = document.getElementById(inputId);
+    const container = document.getElementById(containerId);
+    
+    input.addEventListener('input', () => {
+        const term = input.value.toLowerCase();
+        const labels = container.querySelectorAll('label');
+        
+        labels.forEach(label => {
+            const text = label.textContent.toLowerCase();
+            label.style.display = text.includes(term) ? 'flex' : 'none';
+        });
+    });
 }
 
 function updateDropdownButtonText(dropdownId) {
@@ -166,6 +216,7 @@ function applyFilters() {
     const selectedQuotas = getCheckedValues('dropdown-quota');
     const selectedSeats = getCheckedValues('dropdown-seat');
     const selectedGenders = getCheckedValues('dropdown-gender');
+    const selectedPrograms = getCheckedValues('dropdown-program');
     
     const minR = parseInt(rankMin.value) || 0;
     const maxR = parseInt(rankMax.value) || Infinity;
@@ -179,9 +230,10 @@ function applyFilters() {
         const matchesQuota = selectedQuotas.includes(item.quota);
         const matchesSeat = selectedSeats.includes(item.seat_type);
         const matchesGender = selectedGenders.includes(item.gender);
+        const matchesProgram = selectedPrograms.includes(item.program);
         const matchesRank = item.closing_rank_val >= minR && item.closing_rank_val <= maxR;
 
-        return matchesSearch && matchesType && matchesQuota && matchesSeat && matchesGender && matchesRank;
+        return matchesSearch && matchesType && matchesQuota && matchesSeat && matchesGender && matchesProgram && matchesRank;
     });
 
     sortData();
@@ -295,7 +347,9 @@ resetBtn.addEventListener('click', () => {
     rankMin.value = '';
     rankMax.value = '';
     document.querySelectorAll('.custom-dropdown input').forEach(cb => cb.checked = true);
-    ['dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender'].forEach(id => updateDropdownButtonText(id));
+    document.querySelectorAll('.dropdown-search input').forEach(input => input.value = '');
+    document.querySelectorAll('.options-list label').forEach(label => label.style.display = 'flex');
+    ['dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender', 'dropdown-program'].forEach(id => updateDropdownButtonText(id));
     applyFilters();
 });
 

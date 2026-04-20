@@ -335,15 +335,35 @@ input:checked + .slider:before {
     top: calc(100% + 8px);
     left: 0;
     width: 100%;
-    background: #0f172a; /* Solid dark background for readability */
+    min-width: 250px;
+    background: #0f172a; 
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 0.75rem;
+    padding: 0;
     z-index: 1000;
-    max-height: 250px;
-    overflow-y: auto;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
+    overflow: hidden; /* Important for rounding search header */
+}
+
+.dropdown-search {
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dropdown-search input {
+    width: 100% !important;
+    padding: 0.5rem 0.75rem !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-radius: 8px !important;
+    font-size: 0.8rem !important;
+}
+
+.options-list {
+    padding: 0.5rem;
+    max-height: 250px;
+    overflow-y: auto;
 }
 
 .dropdown-content.show {
@@ -361,14 +381,15 @@ input:checked + .slider:before {
     flex-direction: row !important;
     align-items: center !important;
     gap: 0.75rem;
-    padding: 0.6rem 0.5rem;
+    padding: 0.6rem 0.75rem;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s;
     font-size: 0.85rem !important;
+    font-weight: 400 !important; /* Cleaner, thinner font */
     color: var(--text-secondary) !important;
     text-transform: none !important;
-    letter-spacing: normal !important;
+    letter-spacing: 0.01em !important;
 }
 
 .dropdown-content label:hover {
@@ -381,6 +402,23 @@ input:checked + .slider:before {
     height: 16px !important;
     accent-color: var(--accent-primary);
     cursor: pointer;
+}
+
+.divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 0.25rem 0.75rem;
+    opacity: 0.5;
+}
+
+.select-all-label {
+    background: rgba(255, 255, 255, 0.03);
+    margin-bottom: 2px;
+}
+
+.select-all-label strong {
+    color: var(--primary-color);
+    font-weight: 500;
 }
 
 .range-inputs {
