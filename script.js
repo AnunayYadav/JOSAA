@@ -58,7 +58,6 @@ const googleSearchToggle = document.getElementById('google-search-toggle');
 
 let isGoogleSearchEnabled = false;
 let currentMode = 'JOSAA'; // 'JOSAA' or 'CSAB'
-let activeRoundTab = 'all'; 
 
 
 // Initialize
@@ -95,7 +94,6 @@ function setupModeSwitching() {
 
     const switchMode = (mode) => {
         currentMode = mode;
-        activeRoundTab = 'all'; // Reset round selection on mode change
         navJosaa.classList.toggle('active', mode === 'JOSAA');
         navCsab.classList.toggle('active', mode === 'CSAB');
 
@@ -166,50 +164,9 @@ function populateAllFilters() {
     renderCheckboxOptions('gender-options', genders, 'dropdown-gender');
     renderCheckboxOptions('program-options', programs, 'dropdown-program');
 
-    renderRoundTabs(rounds);
     setupInternalSearch('program-option-search', 'program-options');
 }
 
-function renderRoundTabs(rounds) {
-    const container = document.getElementById('round-tabs');
-    if (!container) return;
-
-    let html = `<button class="round-tab ${activeRoundTab === 'all' ? 'active' : ''}" data-round="all">All Rounds</button>`;
-    
-    html += rounds.map(r => `
-        <button class="round-tab ${activeRoundTab === r ? 'active' : ''}" data-round="${r}">
-            Round ${r}
-        </button>
-    `).join('');
-
-    container.innerHTML = html;
-
-    container.querySelectorAll('.round-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            activeRoundTab = tab.getAttribute('data-round');
-            
-            // Sync with sidebar checkboxes
-            const roundCheckboxes = document.querySelectorAll('#dropdown-round input[type="checkbox"]');
-            if (activeRoundTab === 'all') {
-                roundCheckboxes.forEach(cb => cb.checked = true);
-            } else {
-                roundCheckboxes.forEach(cb => {
-                    cb.checked = (cb.value === activeRoundTab);
-                });
-            }
-            
-            updateDropdownButtonText('dropdown-round');
-            updateRoundTabsUI();
-            applyFilters();
-        });
-    });
-}
-
-function updateRoundTabsUI() {
-    document.querySelectorAll('.round-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.getAttribute('data-round') === activeRoundTab);
-    });
-}
 
 
 
@@ -242,12 +199,6 @@ function setupCheckboxHandlers(container, dropdownId) {
     if (allCb) {
         allCb.addEventListener('change', () => {
             itemCbs.forEach(cb => cb.checked = allCb.checked);
-            
-            if (dropdownId === 'dropdown-round') {
-                activeRoundTab = allCb.checked ? 'all' : 'none';
-                updateRoundTabsUI();
-            }
-
             updateDropdownButtonText(dropdownId);
             applyFilters();
         });
@@ -261,15 +212,7 @@ function setupCheckboxHandlers(container, dropdownId) {
             }
 
             if (dropdownId === 'dropdown-round') {
-                const checked = Array.from(itemCbs).filter(cb => cb.checked);
-                if (checked.length === itemCbs.length) {
-                    activeRoundTab = 'all';
-                } else if (checked.length === 1) {
-                    activeRoundTab = checked[0].value;
-                } else {
-                    activeRoundTab = 'multiple'; 
-                }
-                updateRoundTabsUI();
+                // Removed tab sync logic
             }
 
             updateDropdownButtonText(dropdownId);
@@ -465,8 +408,6 @@ resetBtn.addEventListener('click', () => {
     document.querySelectorAll('.custom-dropdown input').forEach(cb => cb.checked = true);
     document.querySelectorAll('.dropdown-search input').forEach(input => input.value = '');
     document.querySelectorAll('.options-list label').forEach(label => label.style.display = 'flex');
-    activeRoundTab = 'all';
-    updateRoundTabsUI();
     ['dropdown-round', 'dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender', 'dropdown-program'].forEach(id => updateDropdownButtonText(id));
 
 
