@@ -181,7 +181,8 @@ function setupInternalSearch(inputId, containerId) {
     
     input.addEventListener('input', () => {
         const term = input.value.toLowerCase();
-        const labels = container.querySelectorAll('label');
+        // Skip the 'select-all' label and only filter specific program labels
+        const labels = container.querySelectorAll('label:not(.select-all-label)');
         
         labels.forEach(label => {
             const text = label.textContent.toLowerCase();
