@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JoSAA 2025 Explorer | Find Your College</title>
+    <meta name="description" content="Explore JoSAA 2025 opening and closing ranks for all IITs, NITs, IIITs, and GFTIs. Filter by category, quota, and gender.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-theme">
+    <div class="background-glow"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon"><i data-lucide="graduation-cap"></i></span>
+                <span class="logo-text">JoSAA<span>Explorer</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="javascript:void(0)" class="active">Search</a>
+                <a href="javascript:void(0)">About</a>
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header class="hero">
+            <h1 class="hero-title">Find Your Future <span class="gradient-text">Institution</span></h1>
+            <p class="hero-subtitle">Comprehensive JoSAA 2025 Data Explorer. Round 6 opening and closing ranks at your fingertips.</p>
+            
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="main-search" placeholder="Search by Institute or Academic Program...">
+                </div>
+            </div>
+        </header>
+
+        <section class="explorer-section">
+            <aside class="filters-panel">
+                <div class="filter-group">
+                    <label><i data-lucide="building"></i> Inst. Type</label>
+                    <div class="custom-dropdown" id="dropdown-type">
+                        <button class="dropdown-btn"><span>All Types</span> <i data-lucide="chevron-down"></i></button>
+                        <div class="dropdown-content">
+                            <label><input type="checkbox" value="IIT" checked> Indian Institute of Technology (IIT)</label>
+                            <label><input type="checkbox" value="NIT" checked> National Institute of Technology (NIT)</label>
+                            <label><input type="checkbox" value="IIIT" checked> Indian Institute of Information Technology (IIIT)</label>
+                            <label><input type="checkbox" value="IIEST" checked> IIEST Shibpur</label>
+                            <label><input type="checkbox" value="GFTI" checked> Govt. Funded Technical Institute (GFTI)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label><i data-lucide="map-pin"></i> Quota</label>
+                    <div class="custom-dropdown" id="dropdown-quota">
+                        <button class="dropdown-btn"><span>All Quotas</span> <i data-lucide="chevron-down"></i></button>
+                        <div class="dropdown-content" id="quota-options">
+                            <!-- Dynamic options -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label><i data-lucide="user"></i> Category</label>
+                    <div class="custom-dropdown" id="dropdown-seat">
+                        <button class="dropdown-btn"><span>All Categories</span> <i data-lucide="chevron-down"></i></button>
+                        <div class="dropdown-content" id="seat-options">
+                            <!-- Dynamic options -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label><i data-lucide="users"></i> Gender</label>
+                    <div class="custom-dropdown" id="dropdown-gender">
+                        <button class="dropdown-btn"><span>All Genders</span> <i data-lucide="chevron-down"></i></button>
+                        <div class="dropdown-content" id="gender-options">
+                            <!-- Dynamic options -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label><i data-lucide="hash"></i> Rank Range</label>
+                    <div class="range-inputs">
+                        <input type="number" id="rank-min" placeholder="Min Rank">
+                        <input type="number" id="rank-max" placeholder="Max Rank">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label><i data-lucide="link"></i> Search Mode</label>
+                    <div class="toggle-container">
+                        <span class="toggle-label">Google Search on Click</span>
+                        <label class="switch">
+                            <input type="checkbox" id="google-search-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <button id="reset-filters" class="btn-secondary">
+                    <i data-lucide="rotate-ccw"></i> Reset
+                </button>
+            </aside>
+
+            <div class="info-note">
+                <i data-lucide="info"></i>
+                <p><strong>Note:</strong> Ranks ending with <strong>'P'</strong> belong to the Preparatory Rank List.</p>
+            </div>
+
+            <div class="results-container">
+                <div class="results-header">
+                    <div class="results-title-group">
+                        <h2>Available Seats & Ranks</h2>
+                        <span class="results-count"><span id="total-results">0</span> Records Found</span>
+                    </div>
+                    <div class="sorting">
+                        <span>Sort by:</span>
+                        <select id="sort-by">
+                            <option value="closing_rank_asc">Closing Rank (Low to High)</option>
+                            <option value="closing_rank_desc">Closing Rank (High to Low)</option>
+                            <option value="institute_asc">Institute (A-Z)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="loading-spinner" class="spinner"></div>
+
+                <div class="table-wrapper">
+                    <table id="results-table">
+                        <thead>
+                            <tr>
+                                <th>Institute</th>
+                                <th>Academic Program</th>
+                                <th>Type</th>
+                                <th>Quota</th>
+                                <th>Seat Type</th>
+                                <th>Gender</th>
+                                <th>Opening</th>
+                                <th>Closing</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                            <!-- Rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="pagination" class="pagination">
+                    <button id="prev-page" class="btn-icon"><i data-lucide="chevron-left"></i></button>
+                    <span id="page-info">Page 1 of 1</span>
+                    <button id="next-page" class="btn-icon"><i data-lucide="chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 JoSAA Explorer. Data provided for guidance only.</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
