@@ -33,10 +33,12 @@ def parse_josaa_data(file_path):
         else:
             round_num = "Special"
     else:
-        # Check for JoSAA round in filename if possible, otherwise keep default
-        match = re.search(r'round(\d+)', file_name_lower)
+        # Check for JoSAA round in filename (e.g. data1.txt, round2.txt)
+        match = re.search(r'(?:round|data)(\d+)', file_name_lower)
         if match:
             round_num = match.group(1)
+        elif "data6" in file_name_lower or file_name_lower == "data.txt":
+            round_num = "6"
 
     for line in lines:
         line = line.strip()
