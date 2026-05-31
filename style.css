@@ -739,6 +739,7 @@ tr:hover td {
 .type-badge.iiit { background: rgba(16, 185, 129, 0.2); color: #34d399; }
 .type-badge.iiest { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
 .type-badge.gfti { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+.type-badge.jac { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
 
 /* Pagination */
 .pagination {

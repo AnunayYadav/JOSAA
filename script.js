@@ -11,6 +11,7 @@ const MAPPINGS = {
     'IIEST': 'IIEST Shibpur',
     'GFTI': 'Govt. Funded Technical Institute (GFTI)',
     'SPA': 'School of Planning and Architecture (SPA)',
+    'JAC': 'JAC Chandigarh',
     
     // Quotas
     'AI': 'All India',
@@ -89,6 +90,7 @@ async function init() {
 function setupModeSwitching() {
     const navJosaa = document.getElementById('nav-josaa');
     const navCsab = document.getElementById('nav-csab');
+    const navJac = document.getElementById('nav-jac');
     const modeText = document.getElementById('mode-text');
     const heroDesc = document.getElementById('hero-desc');
 
@@ -96,17 +98,21 @@ function setupModeSwitching() {
         currentMode = mode;
         navJosaa.classList.toggle('active', mode === 'JOSAA');
         navCsab.classList.toggle('active', mode === 'CSAB');
+        if (navJac) navJac.classList.toggle('active', mode === 'JAC');
 
-        
         const csabNote = document.getElementById('csab-info-note');
         if (mode === 'JOSAA') {
             modeText.textContent = "JoSAA Explorer";
             heroDesc.textContent = "Comprehensive JoSAA 2025 Data Explorer. Round opening and closing ranks at your fingertips.";
             if (csabNote) csabNote.classList.add('hidden');
-        } else {
+        } else if (mode === 'CSAB') {
             modeText.textContent = "CSAB Explorer";
             heroDesc.textContent = "Comprehensive CSAB 2025 Special Round Data Explorer. Allocation details for NITs, IIITs and GFTIs.";
             if (csabNote) csabNote.classList.remove('hidden');
+        } else if (mode === 'JAC') {
+            modeText.textContent = "JAC Chandigarh Explorer";
+            heroDesc.textContent = "Comprehensive JAC Chandigarh 2025 Data Explorer. Opening and closing ranks for UIET, UICET, CCET, and CCA.";
+            if (csabNote) csabNote.classList.add('hidden');
         }
 
         populateAllFilters();
@@ -115,6 +121,7 @@ function setupModeSwitching() {
 
     navJosaa.addEventListener('click', () => switchMode('JOSAA'));
     navCsab.addEventListener('click', () => switchMode('CSAB'));
+    if (navJac) navJac.addEventListener('click', () => switchMode('JAC'));
 }
 
 
@@ -141,15 +148,31 @@ function setupDropdowns() {
     });
 }
 
+function toggleFilterVisibility(dropdownId, options) {
+    const dropdown = document.getElementById(dropdownId);
+    if (!dropdown) return;
+    const filterGroup = dropdown.closest('.filter-group');
+    if (!filterGroup) return;
+    
+    if (options.length <= 1) {
+        filterGroup.style.display = 'none';
+    } else {
+        filterGroup.style.display = 'flex';
+    }
+}
+
 function populateAllFilters() {
     const modeData = allData.filter(item => item.source === currentMode);
     
     const types = [...new Set(modeData.map(item => item.type))].sort();
     const rounds = [...new Set(modeData.map(item => item.round))].sort((a, b) => {
-        // Special case for rounds to ensure 1, 2, 3... order
         const aNum = parseInt(a);
         const bNum = parseInt(b);
-        if (!isNaN(aNum) && !isNaN(bNum)) return aNum - bNum;
+        const aIsNum = !isNaN(aNum) && /^\d+$/.test(a);
+        const bIsNum = !isNaN(bNum) && /^\d+$/.test(b);
+        if (aIsNum && bIsNum) return aNum - bNum;
+        if (aIsNum) return -1;
+        if (bIsNum) return 1;
         return a.localeCompare(b);
     });
     const quotas = [...new Set(modeData.map(item => item.quota))].sort();
@@ -158,11 +181,25 @@ function populateAllFilters() {
     const programs = [...new Set(modeData.map(item => item.program))].sort();
 
     renderCheckboxOptions('type-options', types, 'dropdown-type');
-    renderCheckboxOptions('round-options', rounds, 'dropdown-round', (val) => `Round ${val}`);
+    toggleFilterVisibility('dropdown-type', types);
+
+    renderCheckboxOptions('round-options', rounds, 'dropdown-round', (val) => {
+        if (val.startsWith('SPOT') || isNaN(parseInt(val))) return val;
+        return `Round ${val}`;
+    });
+    toggleFilterVisibility('dropdown-round', rounds);
+
     renderCheckboxOptions('quota-options', quotas, 'dropdown-quota');
+    toggleFilterVisibility('dropdown-quota', quotas);
+
     renderCheckboxOptions('seat-options', seats, 'dropdown-seat');
+    toggleFilterVisibility('dropdown-seat', seats);
+
     renderCheckboxOptions('gender-options', genders, 'dropdown-gender');
+    toggleFilterVisibility('dropdown-gender', genders);
+
     renderCheckboxOptions('program-options', programs, 'dropdown-program');
+    toggleFilterVisibility('dropdown-program', programs);
 
     setupInternalSearch('program-option-search', 'program-options');
 }

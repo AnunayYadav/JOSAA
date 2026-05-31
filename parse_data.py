@@ -3,6 +3,89 @@ import re
 import os
 import glob
 
+def clean_rank(rank_str):
+    rank_str = rank_str.strip()
+    if rank_str.endswith('.0'):
+        return rank_str[:-2]
+    return rank_str
+
+def parse_jac_chandigarh_data(file_path):
+    print(f"Parsing {os.path.basename(file_path)}...")
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except:
+        try:
+            with open(file_path, 'r', encoding='utf-16') as f:
+                content = f.read()
+        except:
+             with open(file_path, 'r', encoding='latin-1') as f:
+                content = f.read()
+
+    lines = content.split('\n')
+    data = []
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+            
+        parts = line.split('\t')
+        if len(parts) < 8:
+            continue
+            
+        sr_no = parts[0].strip()
+        if not sr_no.isdigit():
+            continue
+            
+        round_raw = parts[1].strip()
+        if "Round" in round_raw:
+            round_match = re.search(r'Round\s+(\d+)', round_raw)
+            if round_match:
+                round_num = round_match.group(1)
+            elif "First SPOT" in round_raw or "1st SPOT" in round_raw:
+                round_num = "SPOT 1"
+            elif "Second SPOT" in round_raw or "2nd SPOT" in round_raw:
+                round_num = "SPOT 2"
+            else:
+                round_num = round_raw
+        else:
+            round_num = round_raw
+
+        inst_name = parts[2].strip()
+        program = parts[3].strip()
+        quota_raw = parts[4].strip()
+        
+        if quota_raw == "All India":
+            quota = "AI"
+        elif quota_raw == "Home State":
+            quota = "HS"
+        elif quota_raw == "Other State":
+            quota = "OS"
+        else:
+            quota = quota_raw
+            
+        seat_type = parts[5].strip()
+        gender = "Gender-Neutral"
+        opening_rank = clean_rank(parts[6])
+        closing_rank = clean_rank(parts[7])
+        
+        entry = {
+            "institute": inst_name,
+            "type": "JAC",
+            "program": program,
+            "quota": quota,
+            "seat_type": seat_type,
+            "gender": gender,
+            "opening_rank": opening_rank,
+            "closing_rank": closing_rank,
+            "source": "JAC",
+            "round": round_num
+        }
+        data.append(entry)
+        
+    return data
+
 def parse_josaa_data(file_path):
     print(f"Parsing {os.path.basename(file_path)}...")
     # Using utf-16 or utf-8 based on typical text extracts, but trial and error
@@ -90,7 +173,11 @@ if __name__ == "__main__":
     
     all_results = []
     for txt_file in txt_files:
-        all_results.extend(parse_josaa_data(txt_file))
+        file_name_lower = os.path.basename(txt_file).lower()
+        if "jac_chandigarh" in file_name_lower:
+            all_results.extend(parse_jac_chandigarh_data(txt_file))
+        else:
+            all_results.extend(parse_josaa_data(txt_file))
         
     output_js_path = os.path.join(base_dir, 'data.js')
     with open(output_js_path, 'w', encoding='utf-8') as f:
