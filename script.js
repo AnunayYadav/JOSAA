@@ -2,6 +2,7 @@ let allData = [];
 let filteredData = [];
 let currentPage = 1;
 const itemsPerPage = 50;
+let selectedOptionIds = new Set();
 
 const MAPPINGS = {
     // Institute Types
@@ -139,8 +140,9 @@ async function init() {
             throw new Error("Data not found. Please run parse_data.py first.");
         }
         
-        allData = window.JOSAA_DATA.map(item => ({
+        allData = window.JOSAA_DATA.map((item, index) => ({
             ...item,
+            id: index,
             opening_rank_val: parseInt(String(item.opening_rank).replace('P', '')) || 0,
             closing_rank_val: parseInt(String(item.closing_rank).replace('P', '')) || 0
         }));
@@ -151,6 +153,7 @@ async function init() {
         setupInternalSearch('institute-option-search', 'institute-options');
         populateAllFilters();
         applyFilters();
+        setupSelectionEvents();
         
         loadingSpinner.style.display = 'none';
         lucide.createIcons();
@@ -616,7 +619,7 @@ function renderResults() {
     totalResultsEl.textContent = filteredData.length.toLocaleString();
     
     if (pageData.length === 0) {
-        resultsBody.innerHTML = '<tr><td colspan="8" class="no-results">No matches found for your criteria.</td></tr>';
+        resultsBody.innerHTML = '<tr><td colspan="10" class="no-results">No matches found for your criteria.</td></tr>';
         updatePagination(0);
         return;
     }
@@ -625,8 +628,12 @@ function renderResults() {
         const row = document.createElement('tr');
         const isPrepOpening = String(item.opening_rank).includes('P');
         const isPrepClosing = String(item.closing_rank).includes('P');
+        const isSelected = selectedOptionIds.has(item.id);
 
         row.innerHTML = `
+            <td style="text-align: center; vertical-align: middle;">
+                <input type="checkbox" class="row-select-cb" data-id="${item.id}" ${isSelected ? 'checked' : ''} style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer;">
+            </td>
             <td><div class="inst-cell" data-institute="${item.institute}"><span class="badge type-badge ${item.type.toLowerCase()}">${item.type}</span> ${item.institute}</div></td>
             <td>${item.program}</td>
             <td><span class="badge round-badge">${item.round}</span></td>
@@ -641,6 +648,7 @@ function renderResults() {
     });
 
     updatePagination(Math.ceil(filteredData.length / itemsPerPage));
+    updateSelectAllResultsCbState();
 }
 
 function setupGoogleSearch() {
@@ -1063,10 +1071,14 @@ function renderPredictorCards() {
             'GGSIPU': 'GGSIPU'
         };
         const counsellingName = counsellingDisplayNames[item.source] || item.source;
+        const isSelected = selectedOptionIds.has(item.id);
         
         card.innerHTML = `
             <div class="pred-card-header">
-                <span class="badge type-badge ${item.type.toLowerCase()}">${badgeText}</span>
+                <div class="pred-card-select-wrapper">
+                    <input type="checkbox" class="card-select-cb" data-id="${item.id}" ${isSelected ? 'checked' : ''}>
+                    <span class="badge type-badge ${item.type.toLowerCase()}">${badgeText}</span>
+                </div>
                 <span class="pred-card-prob ${probClass}">${probLabel} (${marginText})</span>
             </div>
             <div class="pred-card-body">
@@ -1542,4 +1554,182 @@ function getInstituteState(inst) {
 
 // Start app
 init();
+
+// Floating wishlist selection bar controllers
+function updateSelectionBarUI() {
+    const bar = document.getElementById('selection-bar');
+    const text = document.getElementById('selection-count-text');
+    if (!bar || !text) return;
+    
+    const count = selectedOptionIds.size;
+    text.textContent = `${count} Option${count === 1 ? '' : 's'} Selected`;
+    
+    if (count > 0) {
+        bar.classList.remove('hidden');
+    } else {
+        bar.classList.add('hidden');
+    }
+    
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+    }
+}
+
+function clearSelections() {
+    selectedOptionIds.clear();
+    
+    document.querySelectorAll('.row-select-cb, .card-select-cb, #select-all-results-cb').forEach(cb => cb.checked = false);
+    
+    updateSelectionBarUI();
+}
+
+function downloadSelectedOptions() {
+    if (selectedOptionIds.size === 0) return;
+    
+    const selectedItems = allData.filter(item => selectedOptionIds.has(item.id));
+    
+    const timestamp = new Date().toLocaleString();
+    let content = `===========================================================
+ADMISSION EXPLORER - WISHLIST OF SELECTED SEATS
+Downloaded on: ${timestamp}
+Total Selected Options: ${selectedItems.length}
+===========================================================
+
+`;
+
+    selectedItems.forEach((item, index) => {
+        const counsellingDisplayNames = {
+            'JOSAA': 'JoSAA',
+            'CSAB': 'CSAB',
+            'JAC': 'JAC Chandigarh',
+            'JAC_DELHI': 'JAC Delhi',
+            'UPTAC': 'UPTAC',
+            'GGSIPU': 'GGSIPU'
+        };
+        const counselling = counsellingDisplayNames[item.source] || item.source;
+        
+        content += `${index + 1}. [${counselling} - Round ${item.round}] ${item.institute}
+   Academic Program:   ${item.program}
+   Seat Type/Category: ${getDisplayName(item.seat_type)}
+   Quota:              ${getDisplayName(item.quota)}
+   Gender Pool:        ${item.gender}
+   Opening Rank:       ${item.opening_rank}
+   Closing Rank:       ${item.closing_rank}
+   Counselling Type:   ${getDisplayName(item.type)}
+   
+-----------------------------------------------------------
+`;
+    });
+    
+    content += `\nGenerated by Admission Explorer. Ranks are for guidance only.`;
+    
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `selected_admission_options_${new Date().toISOString().slice(0, 10)}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+function updateSelectAllResultsCbState() {
+    const selectAllCb = document.getElementById('select-all-results-cb');
+    if (!selectAllCb) return;
+    
+    const rowCbs = resultsBody.querySelectorAll('.row-select-cb');
+    if (rowCbs.length === 0) {
+        selectAllCb.checked = false;
+        return;
+    }
+    
+    const allChecked = Array.from(rowCbs).every(cb => cb.checked);
+    selectAllCb.checked = allChecked;
+}
+
+function setupSelectionEvents() {
+    resultsBody.addEventListener('change', (e) => {
+        if (e.target.classList.contains('row-select-cb')) {
+            const id = parseInt(e.target.getAttribute('data-id'));
+            const checked = e.target.checked;
+            if (checked) {
+                selectedOptionIds.add(id);
+            } else {
+                selectedOptionIds.delete(id);
+            }
+            updateSelectionBarUI();
+            updateSelectAllResultsCbState();
+            
+            const predCardsList = document.getElementById('pred-cards-list');
+            if (predCardsList) {
+                const matchingCardCb = predCardsList.querySelector(`.card-select-cb[data-id="${id}"]`);
+                if (matchingCardCb) {
+                    matchingCardCb.checked = checked;
+                }
+            }
+        }
+    });
+
+    const selectAllResultsCb = document.getElementById('select-all-results-cb');
+    if (selectAllResultsCb) {
+        selectAllResultsCb.addEventListener('change', () => {
+            const checked = selectAllResultsCb.checked;
+            const rowCbs = resultsBody.querySelectorAll('.row-select-cb');
+            rowCbs.forEach(cb => {
+                const id = parseInt(cb.getAttribute('data-id'));
+                cb.checked = checked;
+                if (checked) {
+                    selectedOptionIds.add(id);
+                } else {
+                    selectedOptionIds.delete(id);
+                }
+            });
+            updateSelectionBarUI();
+            
+            const predCardsList = document.getElementById('pred-cards-list');
+            if (predCardsList) {
+                rowCbs.forEach(cb => {
+                    const id = parseInt(cb.getAttribute('data-id'));
+                    const matchingCardCb = predCardsList.querySelector(`.card-select-cb[data-id="${id}"]`);
+                    if (matchingCardCb) {
+                        matchingCardCb.checked = checked;
+                    }
+                });
+            }
+        });
+    }
+    
+    const predCardsList = document.getElementById('pred-cards-list');
+    if (predCardsList) {
+        predCardsList.addEventListener('change', (e) => {
+            if (e.target.classList.contains('card-select-cb')) {
+                const id = parseInt(e.target.getAttribute('data-id'));
+                const checked = e.target.checked;
+                if (checked) {
+                    selectedOptionIds.add(id);
+                } else {
+                    selectedOptionIds.delete(id);
+                }
+                updateSelectionBarUI();
+                
+                const matchingRowCb = resultsBody.querySelector(`.row-select-cb[data-id="${id}"]`);
+                if (matchingRowCb) {
+                    matchingRowCb.checked = checked;
+                    updateSelectAllResultsCbState();
+                }
+            }
+        });
+    }
+    
+    const downloadBtn = document.getElementById('download-selected-btn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', downloadSelectedOptions);
+    }
+    
+    const clearBtn = document.getElementById('clear-selected-btn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearSelections);
+    }
+}
 

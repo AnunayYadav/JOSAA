@@ -1740,3 +1740,134 @@ tr:hover td {
 .checkbox-label:hover {
     color: var(--text-primary) !important;
 }
+
+/* Floating Wishlist Selection Bar */
+.selection-bar {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: var(--shadow-xl);
+    z-index: 1000;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.selection-bar.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(30px);
+}
+
+.selection-bar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.selection-count-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.selection-count-info i {
+    color: var(--primary-color);
+    width: 18px;
+    height: 18px;
+}
+
+.selection-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.btn-primary-small {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--transition);
+}
+
+.btn-primary-small:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-outline-small {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--transition);
+}
+
+.btn-outline-small:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.05);
+}
+
+/* Predictor Card Selection Header */
+.pred-card-select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pred-card-select-wrapper input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Responsive adjustment for floating bar */
+@media (max-width: 640px) {
+    .selection-bar {
+        width: calc(100% - 2rem);
+        bottom: 1rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .selection-bar-content {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .selection-actions {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .btn-primary-small, .btn-outline-small {
+        flex: 1;
+        justify-content: center;
+    }
+}

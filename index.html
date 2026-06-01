@@ -211,6 +211,7 @@
                     <table id="results-table">
                         <thead>
                             <tr>
+                                <th style="width: 40px; text-align: center;"><input type="checkbox" id="select-all-results-cb" style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer;"></th>
                                 <th>Institute</th>
                                 <th>Program</th>
                                 <th>Round</th>
@@ -220,7 +221,6 @@
                                 <th>Gender</th>
                                 <th>Opening</th>
                                 <th>Closing</th>
-
                             </tr>
                         </thead>
                         <tbody id="results-body">
@@ -457,6 +457,23 @@
     <footer class="footer">
         <p>&copy; 2026 Admission Explorer. Data provided for guidance only.</p>
     </footer>
+
+    <div id="selection-bar" class="selection-bar hidden">
+        <div class="selection-bar-content">
+            <div class="selection-count-info">
+                <i data-lucide="check-square"></i>
+                <span id="selection-count-text">0 Options Selected</span>
+            </div>
+            <div class="selection-actions">
+                <button id="download-selected-btn" class="btn-primary-small">
+                    <i data-lucide="download"></i> Download Details
+                </button>
+                <button id="clear-selected-btn" class="btn-outline-small">
+                    <i data-lucide="trash-2"></i> Clear
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="data.js"></script>
     <script src="script.js"></script>
