@@ -458,5 +458,31 @@ themeToggle.addEventListener('click', () => {
     lucide.createIcons();
 });
 
+// About Modal Event Listeners
+const aboutModal = document.getElementById('about-modal');
+const navAbout = document.getElementById('nav-about');
+const closeModal = document.getElementById('close-modal');
+
+if (navAbout && aboutModal) {
+    navAbout.addEventListener('click', () => {
+        aboutModal.classList.remove('hidden');
+        lucide.createIcons();
+    });
+}
+
+if (closeModal && aboutModal) {
+    closeModal.addEventListener('click', () => {
+        aboutModal.classList.add('hidden');
+    });
+}
+
+if (aboutModal) {
+    aboutModal.addEventListener('click', (e) => {
+        if (e.target === aboutModal) {
+            aboutModal.classList.add('hidden');
+        }
+    });
+}
+
 // Start app
 init();
