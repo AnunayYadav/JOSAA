@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.1">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="dark-theme">
@@ -34,6 +34,7 @@
                         <a href="javascript:void(0)" id="nav-ggsipu">GGSIPU</a>
                     </div>
                 </div>
+                <a href="javascript:void(0)" id="nav-predictor">Seat Predictor</a>
                 <a href="javascript:void(0)" id="nav-about" class="nav-about-btn"><i data-lucide="info"></i><span>About</span></a>
                 <button id="theme-toggle" class="theme-btn"><i data-lucide="moon"></i></button>
             </div>
@@ -232,6 +233,181 @@
                     <button id="prev-page" class="btn-icon"><i data-lucide="chevron-left"></i></button>
                     <span id="page-info">Page 1 of 1</span>
                     <button id="next-page" class="btn-icon"><i data-lucide="chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Predictor Section -->
+        <section id="predictor-section" class="predictor-section hidden">
+            <header class="predictor-hero">
+                <h1 class="predictor-title">Best Seat <span class="gradient-text">Predictor</span></h1>
+                <p class="predictor-subtitle">Enter your rank details below to discover the best college options you qualify for across all counsellings.</p>
+            </header>
+
+            <div class="predictor-grid">
+                <!-- Form Card -->
+                <aside class="predictor-form-card">
+                    <h2><i data-lucide="sliders"></i> Rank Details</h2>
+                    <form id="predictor-form" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="pred-crl-rank">JEE Main CRL Rank <span class="required">*</span></label>
+                            <input type="number" id="pred-crl-rank" placeholder="Enter your CRL Rank" required min="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pred-category">Category</label>
+                            <select id="pred-category">
+                                <option value="OPEN">Open / General</option>
+                                <option value="EWS">GEN-EWS</option>
+                                <option value="OBC-NCL">OBC-NCL</option>
+                                <option value="SC">SC</option>
+                                <option value="ST">ST</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="category-rank-group" style="display: none;">
+                            <label for="pred-cat-rank">Category Rank <span class="required">*</span></label>
+                            <input type="number" id="pred-cat-rank" placeholder="Enter Category Rank" min="1">
+                            <small class="help-text">Used for JoSAA / CSAB category-specific seat allotments.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pred-gender">Gender</label>
+                            <select id="pred-gender">
+                                <option value="Gender-Neutral">Gender-Neutral (Male/Other)</option>
+                                <option value="Female-only">Female-only</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pred-state">State of Eligibility (Home State)</label>
+                            <select id="pred-state">
+                                <option value="Delhi">Delhi</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu & Kashmir">Jammu & Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value="Andaman & Nicobar">Andaman & Nicobar</option>
+                                <option value="Dadra & Nagar Haveli">Dadra & Nagar Haveli</option>
+                                <option value="Daman & Diu">Daman & Diu</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Ladakh">Ladakh</option>
+                            </select>
+                            <small class="help-text">Used to predict Home State (HS) quota seats.</small>
+                        </div>
+
+                        <div class="form-group special-categories-group">
+                            <label>Special Reservation Quotas (Optional)</label>
+                            <div class="special-checkboxes-grid" style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; background: rgba(0, 0, 0, 0.15); border: 1px solid var(--border-color); padding: 1rem; border-radius: 12px; margin-top: 0.25rem;">
+                                <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+                                    <input type="checkbox" id="pred-special-pwd" style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer; flex-shrink: 0; margin: 0;">
+                                    <span>Person with Disability (PwD)</span>
+                                </label>
+                                <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+                                    <input type="checkbox" id="pred-special-cw" style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer; flex-shrink: 0; margin: 0;">
+                                    <span>Defence Personnel / CW / FF</span>
+                                </label>
+                                <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+                                    <input type="checkbox" id="pred-special-km" style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer; flex-shrink: 0; margin: 0;">
+                                    <span>Kashmiri Migrant / J&K Resident</span>
+                                </label>
+                                <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+                                    <input type="checkbox" id="pred-special-sg" style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer; flex-shrink: 0; margin: 0;">
+                                    <span>Single Girl Child (SG)</span>
+                                </label>
+                                <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+                                    <input type="checkbox" id="pred-special-tfw" style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer; flex-shrink: 0; margin: 0;">
+                                    <span>Tuition Fee Waiver (TFW)</span>
+                                </label>
+                                <label class="checkbox-label" style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-secondary); font-size: 0.875rem;">
+                                    <input type="checkbox" id="pred-special-other" style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer; flex-shrink: 0; margin: 0;">
+                                    <span>Other (Sports, Rural, Border, Sikh)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="pred-submit-btn" class="btn-primary">
+                            <i data-lucide="sparkles"></i> Predict My Best Seats
+                        </button>
+                    </form>
+                </aside>
+
+                <!-- Results Panel -->
+                <div class="predictor-results-panel">
+                    <!-- Placeholder/State before search -->
+                    <div id="pred-placeholder" class="pred-placeholder-card">
+                        <i data-lucide="sparkles" class="floating-icon"></i>
+                        <h3>Ready to Find Your Seats?</h3>
+                        <p>Fill out your ranks and category details on the left, then click "Predict My Best Seats" to view your predicted options categorized by probability.</p>
+                    </div>
+
+                    <!-- Prediction Results content -->
+                    <div id="pred-content" style="display: none;">
+                        <!-- Summary Stats -->
+                        <div class="pred-summary-cards">
+                            <div class="pred-summary-card reach" id="tab-reach-btn">
+                                <span class="label">Ambitious (Reach)</span>
+                                <span class="value" id="count-reach">0</span>
+                            </div>
+                            <div class="pred-summary-card match active" id="tab-match-btn">
+                                <span class="label">Best Match</span>
+                                <span class="value" id="count-match">0</span>
+                            </div>
+                            <div class="pred-summary-card safe" id="tab-safe-btn">
+                                <span class="label">Safe Options</span>
+                                <span class="value" id="count-safe">0</span>
+                            </div>
+                        </div>
+
+                        <!-- College Breakdown -->
+                        <div class="pred-college-breakdown" id="pred-college-breakdown">
+                            <!-- Dynamic items will be injected here -->
+                        </div>
+
+                        <!-- Results List -->
+                        <div class="pred-list-wrapper">
+                            <div class="pred-list-header">
+                                <h3 id="current-tab-title">Best Match Options</h3>
+                                <p id="current-tab-desc">Ranks close to your input where you have a very strong chance of admission.</p>
+                            </div>
+
+                            <div class="pred-search-container">
+                                <i data-lucide="search" class="pred-search-icon"></i>
+                                <input type="text" id="pred-card-search" placeholder="Search by college, branch, place (state), type (IIT/NIT/etc.), or counselling...">
+                            </div>
+                            
+                            <div id="pred-cards-list" class="pred-cards-grid">
+                                <!-- Predictor Card elements will be dynamically generated here -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
