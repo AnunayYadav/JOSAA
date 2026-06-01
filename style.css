@@ -647,7 +647,9 @@ input[type="number"] {
     background: var(--surface-color);
     border-radius: 24px;
     border: 1px solid var(--border-color);
-    overflow: auto; /* Enable both scrolls if needed */
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
     max-width: 100%;
 }
 
@@ -729,8 +731,9 @@ tr:hover td {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-secondary);
     display: inline-block;
-    width: fit-content;
-    white-space: nowrap;
+    max-width: 100%;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .type-badge { text-transform: uppercase; }
@@ -740,6 +743,8 @@ tr:hover td {
 .type-badge.iiest { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
 .type-badge.gfti { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
 .type-badge.jac { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+.type-badge.uptac { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+.type-badge.ggsipu { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
 
 /* Pagination */
 .pagination {

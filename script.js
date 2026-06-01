@@ -12,6 +12,8 @@ const MAPPINGS = {
     'GFTI': 'Govt. Funded Technical Institute (GFTI)',
     'SPA': 'School of Planning and Architecture (SPA)',
     'JAC': 'JAC Chandigarh',
+    'UPTAC': 'UPTAC Institutes',
+    'GGSIPU': 'GGSIPU Affiliated',
     
     // Quotas
     'AI': 'All India',
@@ -32,7 +34,30 @@ const MAPPINGS = {
     'OBC-NCL (PwD)': 'OBC-NCL (PwD)',
     'SC (PwD)': 'SC (PwD)',
     'ST (PwD)': 'ST (PwD)',
-    'SPA': 'School of Planning and Architecture (SPA)'
+    'SPA': 'School of Planning and Architecture (SPA)',
+
+    // GGSIPU Categories
+    'OPNOHS': 'Open General (Delhi - HS)',
+    'OPNOOS': 'Open General (Outside Delhi - OS)',
+    'BCNOHS': 'OBC (Delhi - HS)',
+    'EWNOHS': 'EWS (Delhi - HS)',
+    'EWNOOS': 'EWS (Outside Delhi - OS)',
+    'SCNOHS': 'SC (Delhi - HS)',
+    'SCNOOS': 'SC (Outside Delhi - OS)',
+    'STNOHS': 'ST (Delhi - HS)',
+    'STNOOS': 'ST (Outside Delhi - OS)',
+    'BCDFHS': 'OBC Defence (Delhi - HS)',
+    'BCPHHS': 'OBC PwD (Delhi - HS)',
+    'OPDFHS': 'General Defence (Delhi - HS)',
+    'OPPHHS': 'General PwD (Delhi - HS)',
+    'SCDFHS': 'SC Defence (Delhi - HS)',
+    'OPDFOS': 'General Defence (Outside Delhi - OS)',
+    'OPPHOS': 'General PwD (Outside Delhi - OS)',
+    'SCDFOS': 'SC Defence (Outside Delhi - OS)',
+    'STDFOS': 'ST Defence (Outside Delhi - OS)',
+    'NOJNAI': 'J&K Migrant (All India - AI)',
+    'NOKMAI': 'Kashmiri Migrant (All India - AI)',
+    'NOSMAI': 'Sikh Minority (All India - AI)'
 };
 
 
@@ -76,6 +101,7 @@ async function init() {
 
         setupModeSwitching();
         setupDropdowns();
+        setupInternalSearch('program-option-search', 'program-options');
         populateAllFilters();
         applyFilters();
         
@@ -91,6 +117,8 @@ function setupModeSwitching() {
     const navJosaa = document.getElementById('nav-josaa');
     const navCsab = document.getElementById('nav-csab');
     const navJac = document.getElementById('nav-jac');
+    const navUptac = document.getElementById('nav-uptac');
+    const navGgsipu = document.getElementById('nav-ggsipu');
     const modeText = document.getElementById('mode-text');
     const heroDesc = document.getElementById('hero-desc');
 
@@ -99,6 +127,8 @@ function setupModeSwitching() {
         navJosaa.classList.toggle('active', mode === 'JOSAA');
         navCsab.classList.toggle('active', mode === 'CSAB');
         if (navJac) navJac.classList.toggle('active', mode === 'JAC');
+        if (navUptac) navUptac.classList.toggle('active', mode === 'UPTAC');
+        if (navGgsipu) navGgsipu.classList.toggle('active', mode === 'GGSIPU');
 
         const csabNote = document.getElementById('csab-info-note');
         if (mode === 'JOSAA') {
@@ -113,6 +143,23 @@ function setupModeSwitching() {
             modeText.textContent = "JAC Chandigarh Explorer";
             heroDesc.textContent = "Comprehensive JAC Chandigarh 2025 Data Explorer. Opening and closing ranks for UIET, UICET, CCET, and CCA.";
             if (csabNote) csabNote.classList.add('hidden');
+        } else if (mode === 'UPTAC') {
+            modeText.textContent = "UPTAC Explorer";
+            heroDesc.textContent = "Comprehensive UPTAC 2025 Counselling Data Explorer. Opening and closing ranks for technical institutes in Uttar Pradesh.";
+            if (csabNote) csabNote.classList.add('hidden');
+        } else if (mode === 'GGSIPU') {
+            modeText.textContent = "GGSIPU Explorer";
+            heroDesc.textContent = "Comprehensive GGSIPU 2025 Counselling Data Explorer. Round 1 opening and closing ranks for affiliated engineering colleges.";
+            if (csabNote) csabNote.classList.add('hidden');
+        }
+
+        // Reset search and rank filter inputs when switching modes to avoid stale criteria
+        mainSearch.value = '';
+        rankMin.value = '';
+        rankMax.value = '';
+        const programSearch = document.getElementById('program-option-search');
+        if (programSearch) {
+            programSearch.value = '';
         }
 
         populateAllFilters();
@@ -122,6 +169,8 @@ function setupModeSwitching() {
     navJosaa.addEventListener('click', () => switchMode('JOSAA'));
     navCsab.addEventListener('click', () => switchMode('CSAB'));
     if (navJac) navJac.addEventListener('click', () => switchMode('JAC'));
+    if (navUptac) navUptac.addEventListener('click', () => switchMode('UPTAC'));
+    if (navGgsipu) navGgsipu.addEventListener('click', () => switchMode('GGSIPU'));
 }
 
 
@@ -200,8 +249,6 @@ function populateAllFilters() {
 
     renderCheckboxOptions('program-options', programs, 'dropdown-program');
     toggleFilterVisibility('dropdown-program', programs);
-
-    setupInternalSearch('program-option-search', 'program-options');
 }
 
 
@@ -275,6 +322,15 @@ function setupInternalSearch(inputId, containerId) {
     });
 }
 
+const dropdownDisplayNames = {
+    'dropdown-round': 'Rounds',
+    'dropdown-type': 'Types',
+    'dropdown-program': 'Programs',
+    'dropdown-quota': 'Quotas',
+    'dropdown-seat': 'Categories',
+    'dropdown-gender': 'Genders'
+};
+
 function updateDropdownButtonText(dropdownId) {
     const dropdown = document.getElementById(dropdownId);
     const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
@@ -282,7 +338,8 @@ function updateDropdownButtonText(dropdownId) {
     const btnSpan = dropdown.querySelector('.dropdown-btn span');
     
     if (checked.length === checkboxes.length) {
-        btnSpan.textContent = `All ${dropdown.previousElementSibling.textContent.trim().split(' ')[0]}s`;
+        const label = dropdownDisplayNames[dropdownId] || 'Items';
+        btnSpan.textContent = `All ${label}`;
     } else if (checked.length === 0) {
         btnSpan.textContent = "None Selected";
     } else if (checked.length === 1) {

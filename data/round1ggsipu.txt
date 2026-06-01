@@ -1,0 +1,792 @@
+Sr.No	Round	Institute	Program	Quota	Category	Opening Rank	Closing Rank
+1	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Home State	OPDFHS	258845	272986
+2	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Home State	OPNOHS	62808	142454
+3	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Home State	OPPHHS	1080773	1080773
+4	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Home State	SCNOHS	297154	591996
+5	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Home State	STNOHS	839650	839650
+6	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Other State	OPDFOS	1105726	1105726
+7	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Other State	OPNOOS	58557	66003
+8	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Other State	OPPHOS	670115	670115
+9	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Other State	SCNOOS	201768	278109
+10	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Computer Science & Engineering	Other State	STNOOS	576006	614745
+11	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	CSE- DS	Home State	OPDFHS	286415	301823
+12	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	CSE- DS	Home State	OPNOHS	89951	148663
+13	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	CSE- DS	Home State	SCNOHS	535946	649445
+14	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	CSE- DS	Other State	OPNOOS	61784	66782
+15	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	CSE- DS	Other State	SCDFOS	332165	332165
+16	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	CSE- DS	Other State	STNOOS	657458	657458
+17	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electrical & Electronics Engineering	Home State	OPDFHS	418347	486411
+18	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electrical & Electronics Engineering	Home State	OPNOHS	61011	238050
+19	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electrical & Electronics Engineering	Home State	SCNOHS	551679	1089124
+20	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electrical & Electronics Engineering	Other State	OPNOOS	80584	83873
+21	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electrical & Electronics Engineering	Other State	SCNOOS	317866	317866
+22	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electronics & Communication Engineering	Home State	OPDFHS	381383	402308
+23	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electronics & Communication Engineering	Home State	OPNOHS	149805	215304
+24	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electronics & Communication Engineering	Home State	SCNOHS	505444	955828
+25	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electronics & Communication Engineering	Other State	OPDFOS	101084	101084
+26	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electronics & Communication Engineering	Other State	OPNOOS	72044	77700
+27	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electronics & Communication Engineering	Other State	OPPHOS	1051172	1051172
+28	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electronics & Communication Engineering	Other State	SCNOOS	308681	323539
+29	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Electronics & Communication Engineering	Other State	STNOOS	791150	791150
+30	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Information Technology	Home State	OPDFHS	297086	343080
+31	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Information Technology	Home State	OPNOHS	126003	164525
+32	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Information Technology	Home State	SCNOHS	393703	718457
+33	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Information Technology	Other State	OPDFOS	75007	75007
+34	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Information Technology	Other State	OPNOOS	67258	71889
+35	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Information Technology	Other State	OPPHOS	1002333	1002333
+36	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Information Technology	Other State	SCNOOS	285483	301998
+37	Round 1	Bhagwan Parshuram Institute of Technology, P.S.P-4, Sector-17, Rohini, Delhi-110085	Information Technology	Other State	STNOOS	574485	702584
+38	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	All India	NOKMAI	154178	154178
+39	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Home State	OPDFHS	210711	252228
+40	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Home State	OPNOHS	36702	132350
+41	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Home State	OPPHHS	1070615	1070615
+42	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Home State	SCNOHS	294351	584887
+43	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Other State	OPDFOS	143567	143567
+44	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Other State	OPNOOS	56715	65760
+45	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Other State	OPPHOS	631693	631693
+46	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Other State	SCDFOS	435913	435913
+47	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Other State	SCNOOS	253430	276297
+48	Round 1	Bharati Vidyapeeths College of Engineering	Computer Science & Engineering	Other State	STNOOS	606042	611899
+49	Round 1	Bharati Vidyapeeths College of Engineering	CSE- AIML	Home State	OPDFHS	205901	257268
+50	Round 1	Bharati Vidyapeeths College of Engineering	CSE- AIML	Home State	OPNOHS	87253	138116
+51	Round 1	Bharati Vidyapeeths College of Engineering	CSE- AIML	Home State	SCNOHS	392970	612327
+52	Round 1	Bharati Vidyapeeths College of Engineering	CSE- AIML	Home State	STNOHS	666401	666401
+53	Round 1	Bharati Vidyapeeths College of Engineering	CSE- AIML	Other State	OPNOOS	58001	67452
+54	Round 1	Bharati Vidyapeeths College of Engineering	CSE- AIML	Other State	OPPHOS	786581	786581
+55	Round 1	Bharati Vidyapeeths College of Engineering	CSE- AIML	Other State	SCNOOS	276108	283207
+56	Round 1	Bharati Vidyapeeths College of Engineering	CSE- AIML	Other State	STNOOS	626592	626592
+57	Round 1	Bharati Vidyapeeths College of Engineering	Electrical & Electronics Engineering	Home State	OPDFHS	570183	578589
+58	Round 1	Bharati Vidyapeeths College of Engineering	Electrical & Electronics Engineering	Home State	OPNOHS	170209	227290
+59	Round 1	Bharati Vidyapeeths College of Engineering	Electrical & Electronics Engineering	Home State	SCNOHS	705368	1088009
+60	Round 1	Bharati Vidyapeeths College of Engineering	Electrical & Electronics Engineering	Home State	STNOHS	1239492	1239492
+61	Round 1	Bharati Vidyapeeths College of Engineering	Electrical & Electronics Engineering	Other State	OPNOOS	72152	81497
+62	Round 1	Bharati Vidyapeeths College of Engineering	Electrical & Electronics Engineering	Other State	SCNOOS	241058	241058
+63	Round 1	Bharati Vidyapeeths College of Engineering	Electrical & Electronics Engineering	Other State	STNOOS	771659	771659
+64	Round 1	Bharati Vidyapeeths College of Engineering	Electronics & Communication Engineering	Home State	OPDFHS	350168	370763
+65	Round 1	Bharati Vidyapeeths College of Engineering	Electronics & Communication Engineering	Home State	OPNOHS	109486	199005
+66	Round 1	Bharati Vidyapeeths College of Engineering	Electronics & Communication Engineering	Home State	SCNOHS	674905	1016564
+67	Round 1	Bharati Vidyapeeths College of Engineering	Electronics & Communication Engineering	Other State	OPDFOS	93342	93342
+68	Round 1	Bharati Vidyapeeths College of Engineering	Electronics & Communication Engineering	Other State	OPNOOS	70101	77127
+69	Round 1	Bharati Vidyapeeths College of Engineering	Electronics & Communication Engineering	Other State	SCNOOS	296251	327967
+70	Round 1	Bharati Vidyapeeths College of Engineering	Electronics & Communication Engineering	Other State	STNOOS	690728	832267
+71	Round 1	Bharati Vidyapeeths College of Engineering	Information Technology	Home State	OPDFHS	287701	314182
+72	Round 1	Bharati Vidyapeeths College of Engineering	Information Technology	Home State	OPNOHS	102406	151132
+73	Round 1	Bharati Vidyapeeths College of Engineering	Information Technology	Home State	SCNOHS	614986	676089
+74	Round 1	Bharati Vidyapeeths College of Engineering	Information Technology	Other State	OPDFOS	83894	83894
+75	Round 1	Bharati Vidyapeeths College of Engineering	Information Technology	Other State	OPNOOS	67100	69746
+76	Round 1	Bharati Vidyapeeths College of Engineering	Information Technology	Other State	OPPHOS	1218127	1218127
+77	Round 1	Bharati Vidyapeeths College of Engineering	Information Technology	Other State	SCNOOS	285157	285284
+78	Round 1	Bharati Vidyapeeths College of Engineering	Information Technology	Other State	STNOOS	656592	656592
+79	Round 1	Bharati Vidyapeeths College of Engineering	Instrumentation & Control Engineering (Shift I)	Home State	OPDFHS	594433	594433
+80	Round 1	Bharati Vidyapeeths College of Engineering	Instrumentation & Control Engineering (Shift I)	Home State	OPNOHS	188708	254983
+81	Round 1	Bharati Vidyapeeths College of Engineering	Instrumentation & Control Engineering (Shift I)	Home State	SCNOHS	646045	1340769
+82	Round 1	Bharati Vidyapeeths College of Engineering	Instrumentation & Control Engineering (Shift I)	Other State	OPNOOS	82632	90600
+83	Round 1	Bharati Vidyapeeths College of Engineering	Instrumentation & Control Engineering (Shift I)	Other State	SCNOOS	339473	339473
+84	Round 1	Delhi Institute of Sciences & Technology (formerly Delhi Institute of Rural Development), (Sister Branch of DIRD) Behind Le Gardens Victorian Palace, G.T. Karnal Road, Nangli Poona, Delhi - 110036	Computer Science & Engineering	Home State	OPDFHS	566699	886805
+85	Round 1	Delhi Institute of Sciences & Technology (formerly Delhi Institute of Rural Development), (Sister Branch of DIRD) Behind Le Gardens Victorian Palace, G.T. Karnal Road, Nangli Poona, Delhi - 110036	Computer Science & Engineering	Home State	OPNOHS	62165	377198
+86	Round 1	Delhi Institute of Sciences & Technology (formerly Delhi Institute of Rural Development), (Sister Branch of DIRD) Behind Le Gardens Victorian Palace, G.T. Karnal Road, Nangli Poona, Delhi - 110036	Computer Science & Engineering	Home State	SCNOHS	521922	1438192
+87	Round 1	Delhi Institute of Sciences & Technology (formerly Delhi Institute of Rural Development), (Sister Branch of DIRD) Behind Le Gardens Victorian Palace, G.T. Karnal Road, Nangli Poona, Delhi - 110036	Computer Science & Engineering	Other State	OPNOOS	57071	108944
+88	Round 1	Delhi Institute of Sciences & Technology (formerly Delhi Institute of Rural Development), (Sister Branch of DIRD) Behind Le Gardens Victorian Palace, G.T. Karnal Road, Nangli Poona, Delhi - 110036	Computer Science & Engineering	Other State	SCNOOS	291517	383815
+89	Round 1	Delhi Institute of Sciences & Technology (formerly Delhi Institute of Rural Development), (Sister Branch of DIRD) Behind Le Gardens Victorian Palace, G.T. Karnal Road, Nangli Poona, Delhi - 110036	Computer Science & Engineering	Other State	STNOOS	1092100	1092100
+90	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Data Science	Home State	OPDFHS	596751	590057
+91	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Data Science	Home State	OPNOHS	59335	508809
+92	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Data Science	Home State	SCNOHS	613874	1176069
+93	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Data Science	Other State	OPNOOS	77676	119479
+94	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Data Science	Other State	SCNOOS	288355	288355
+95	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Machine Learning	Home State	OPDFHS	664634	775782
+96	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Machine Learning	Home State	OPNOHS	159224	545850
+97	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Machine Learning	Home State	SCNOHS	1070588	1070588
+98	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Machine Learning	Other State	OPNOOS	84025	126456
+99	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Artificial Intelligence & Machine Learning	Other State	SCNOOS	407120	407120
+100	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	B. Tech. (Computer Science & Applied Mathematics)	Home State	OPDFHS	631905	1139587
+101	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	B. Tech. (Computer Science & Applied Mathematics)	Home State	OPNOHS	173255	568322
+102	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	B. Tech. (Computer Science & Applied Mathematics)	Home State	SCNOHS	1373630	1373630
+103	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	B. Tech. (Computer Science & Applied Mathematics)	Other State	OPNOOS	104797	140685
+104	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	B. Tech. (Computer Science & Applied Mathematics)	Other State	SCNOOS	433701	433701
+105	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Engineering	Home State	OPDFHS	559547	576104
+106	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Engineering	Home State	OPNOHS	150005	487783
+107	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Engineering	Home State	SCNOHS	737656	1415746
+108	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Engineering	Other State	OPDFOS	128651	149503
+109	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Engineering	Other State	OPNOOS	58591	126532
+110	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Engineering	Other State	OPPHOS	1166530	1166530
+111	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Engineering	Other State	SCNOOS	335053	479118
+112	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Engineering	Other State	STNOOS	497148	1176743
+113	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Technology	Home State	OPDFHS	885078	616888
+114	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Technology	Home State	OPNOHS	203887	545969
+115	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Technology	Home State	SCNOHS	1154567	1154567
+116	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Technology	Other State	OPDFOS	166002	166002
+117	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Technology	Other State	OPNOOS	95494	135035
+118	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	Computer Science & Technology	Other State	SCDFOS	949505	949505
+119	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE (Cyber Security)	Home State	OPDFHS	819576	819576
+120	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE (Cyber Security)	Home State	OPNOHS	201548	550458
+121	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE (Cyber Security)	Home State	SCNOHS	606452	1092531
+122	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE (Cyber Security)	Other State	OPNOOS	126905	138631
+123	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE (Cyber Security)	Other State	SCNOOS	300719	300719
+124	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- AIML	Home State	OPDFHS	1149737	887123
+125	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- AIML	Home State	OPNOHS	204702	525761
+126	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- AIML	Home State	SCNOHS	732808	732808
+127	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- AIML	Other State	OPNOOS	126219	139857
+128	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- AIML	Other State	SCNOOS	288229	421858
+129	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- AIML	Other State	STNOOS	984599	984599
+130	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- DS	Home State	OPDFHS	1117467	1124499
+131	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- DS	Home State	OPNOHS	146103	557168
+132	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- DS	Other State	OPNOOS	111921	141703
+133	Round 1	Delhi Technical Campus, 28/1, Knowledge Park, III, Greater NOIDA, UP	CSE- DS	Other State	SCNOOS	428095	428095
+134	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science	Home State	OPDFHS	764837	913799
+135	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science	Home State	OPNOHS	147823	282408
+136	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science	Home State	SCNOHS	399797	1424173
+137	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science	Other State	OPDFOS	135019	135019
+138	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science	Other State	OPNOOS	81665	104575
+139	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science	Other State	SCNOOS	311484	360166
+140	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science	Other State	STNOOS	1185812	1185812
+141	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science (Shift II)	Home State	OPDFHS	921301	945117
+142	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science (Shift II)	Home State	OPNOHS	218804	292973
+143	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science (Shift II)	Other State	OPNOOS	96166	106333
+144	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Data Science (Shift II)	Other State	SCNOOS	376085	376085
+145	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning	Home State	OPDFHS	326105	566535
+146	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning	Home State	OPNOHS	154364	284904
+147	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning	Home State	SCNOHS	681577	1277410
+148	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning	Other State	OPDFOS	140161	140161
+149	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning	Other State	OPNOOS	86056	105519
+150	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning	Other State	SCNOOS	327556	340906
+151	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning	Other State	STNOOS	836071	836071
+152	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning (Shift II)	Home State	OPDFHS	680725	739249
+153	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning (Shift II)	Home State	OPNOHS	203879	294793
+154	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning (Shift II)	Home State	SCNOHS	876156	1251571
+155	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning (Shift II)	Other State	OPNOOS	106087	108136
+156	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Artificial Intelligence & Machine Learning (Shift II)	Other State	SCNOOS	381979	381979
+157	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B. Tech. (Computer Science)	Home State	OPDFHS	435477	435477
+158	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B. Tech. (Computer Science)	Home State	OPNOHS	115239	245201
+159	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B. Tech. (Computer Science)	Home State	SCNOHS	272336	946081
+160	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B. Tech. (Computer Science)	Other State	OPDFOS	130672	130672
+161	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B. Tech. (Computer Science)	Other State	OPNOOS	87486	94529
+162	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B. Tech. (Computer Science)	Other State	OPPHOS	1323503	1323503
+163	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B. Tech. (Computer Science)	Other State	SCNOOS	283267	283267
+164	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B. Tech. (Computer Science)	Other State	STNOOS	1163252	1163252
+165	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B.Tech (CS) II- Shift	Home State	OPDFHS	615984	643348
+166	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B.Tech (CS) II- Shift	Home State	OPNOHS	224051	262563
+167	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B.Tech (CS) II- Shift	Home State	SCNOHS	1107810	1223854
+168	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B.Tech (CS) II- Shift	Other State	OPNOOS	94668	100528
+169	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	B.Tech (CS) II- Shift	Other State	SCNOOS	345663	345663
+170	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Civil Engineering	Home State	OPNOHS	221586	372874
+171	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Civil Engineering	Home State	SCNOHS	623008	775212
+172	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Civil Engineering	Other State	OPNOOS	83611	114112
+173	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Civil Engineering	Other State	SCNOOS	304961	304961
+174	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Home State	OPDFHS	345801	447196
+175	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Home State	OPNOHS	111661	221076
+176	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Home State	SCNOHS	562411	922518
+177	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Home State	STNOHS	1306652	1306652
+178	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Other State	OPDFOS	88043	88043
+179	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Other State	OPNOOS	56732	87785
+180	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Other State	OPPHOS	1141094	1141094
+181	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Other State	SCDFOS	758968	758968
+182	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Other State	SCNOOS	252463	286730
+183	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift I)	Other State	STNOOS	871615	871615
+184	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift II)	Home State	OPDFHS	495986	516018
+185	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift II)	Home State	OPNOHS	125071	231175
+186	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift II)	Home State	SCNOHS	923099	1032324
+187	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift II)	Other State	OPNOOS	85315	91363
+188	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift II)	Other State	SCNOOS	325464	325464
+189	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Engineering (Shift II)	Other State	STNOOS	895384	895384
+190	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Technology	Home State	OPDFHS	538692	576385
+191	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Technology	Home State	OPNOHS	172141	244871
+192	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Technology	Home State	SCNOHS	687813	1168860
+193	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Technology	Other State	OPNOOS	80016	95167
+194	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Technology	Other State	SCNOOS	326639	326639
+195	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science & Technology	Other State	STNOOS	1281985	1281985
+196	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science and Technology (II Shift)	Home State	OPDFHS	622186	735648
+197	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science and Technology (II Shift)	Home State	OPNOHS	239278	273999
+198	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science and Technology (II Shift)	Home State	SCNOHS	1059550	1355426
+199	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science and Technology (II Shift)	Other State	OPDFOS	133976	133976
+200	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science and Technology (II Shift)	Other State	OPNOOS	95514	98940
+201	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Computer Science and Technology (II Shift)	Other State	SCNOOS	359161	359161
+202	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift I)	Home State	OPDFHS	666211	900598
+203	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift I)	Home State	OPNOHS	222922	304071
+204	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift I)	Home State	SCNOHS	1265175	1265175
+205	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift I)	Other State	OPNOOS	79265	109158
+206	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift I)	Other State	SCNOOS	342634	342634
+207	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift II)	Home State	OPDFHS	1196044	1196044
+208	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift II)	Home State	OPNOHS	218810	317142
+209	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift II)	Other State	OPDFOS	152281	152281
+210	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift II)	Other State	OPNOOS	98938	112767
+211	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Electronics & Communication Engineering (Shift II)	Other State	SCNOOS	430350	430350
+212	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift I)	Home State	OPDFHS	495351	782032
+213	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift I)	Home State	OPNOHS	190046	290104
+214	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift I)	Home State	SCNOHS	470635	1372630
+215	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift I)	Other State	OPDFOS	125425	125425
+216	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift I)	Other State	OPNOOS	90807	105637
+217	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift I)	Other State	SCNOOS	360637	385643
+218	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift II)	Home State	OPDFHS	776711	924756
+219	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift II)	Home State	OPNOHS	242994	298102
+220	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift II)	Other State	OPNOOS	105780	108942
+221	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift II)	Other State	SCNOOS	390208	390208
+222	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Information Technology (Shift II)	Other State	STNOOS	1215890	1215890
+223	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Mechanical Engineering	Home State	OPDFHS	1338699	1338699
+224	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Mechanical Engineering	Home State	OPNOHS	223811	329209
+225	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Mechanical Engineering	Home State	SCNOHS	920698	1082281
+226	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Mechanical Engineering	Other State	OPNOOS	93808	115123
+227	Round 1	Dr. Akhilesh Das Gupta Institute of Professional Studies ( formerly Dr. Akhilesh Das Gupta Institute of Technology & Management), FC-26, Shastri Park, New Delhi - 110053	Mechanical Engineering	Other State	SCNOOS	398514	398514
+228	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (3D Modelling & Animation)	Home State	OPNOHS	669844	829217
+229	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (3D Modelling & Animation)	Other State	OPNOOS	179182	189608
+230	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (3D Modelling & Animation)	Other State	SCNOOS	575844	575844
+231	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (Architecture & interior Decoration)	Home State	OPNOHS	593146	847826
+232	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (Architecture & interior Decoration)	Other State	OPNOOS	174232	183747
+233	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (Nanoscience & Technology)	Home State	OPNOHS	302801	837171
+234	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (Nanoscience & Technology)	Other State	OPNOOS	180700	190692
+235	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (Robotics & Artificial Intelligence)	Home State	OPNOHS	356556	786237
+236	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (Robotics & Artificial Intelligence)	Other State	OPNOOS	160574	176564
+237	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. (Robotics & Artificial Intelligence)	Other State	SCNOOS	539510	539510
+238	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. CSE (IOT) & CS including Blockchain Technology	Home State	OPNOHS	203847	768987
+239	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. CSE (IOT) & CS including Blockchain Technology	Other State	OPNOOS	170461	177263
+240	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	B.Tech. CSE (IOT) & CS including Blockchain Technology	Other State	SCNOOS	520069	520069
+241	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Civil Engineering	Home State	OPNOHS	395909	632171
+242	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Civil Engineering	Home State	SCNOHS	1106927	1106927
+243	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Civil Engineering	Other State	OPNOOS	152022	170682
+244	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Computer Science & Engineering	All India	NOJNAI	232149	901294
+245	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Computer Science & Engineering	Home State	OPDFHS	1054091	1054091
+246	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Computer Science & Engineering	Home State	OPNOHS	235482	682109
+247	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Computer Science & Engineering	Other State	OPDFOS	202239	202239
+248	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Computer Science & Engineering	Other State	OPNOOS	107323	161069
+249	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Computer Science & Engineering	Other State	SCNOOS	498769	544423
+250	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE (Cyber Security)	Home State	OPNOHS	337718	727096
+251	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE (Cyber Security)	Other State	OPNOOS	162524	169537
+252	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE (Cyber Security)	Other State	SCNOOS	561979	561979
+253	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE- AIML	All India	NOJNAI	1040223	1040223
+254	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE- AIML	Home State	OPNOHS	201245	668193
+255	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE- AIML	Home State	SCNOHS	1260191	1330206
+256	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE- AIML	Other State	OPNOOS	143116	169526
+257	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE- AIML	Other State	SCNOOS	575260	575260
+258	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE- DS	Home State	OPNOHS	640521	741662
+259	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE- DS	Other State	OPNOOS	167153	173671
+260	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	CSE- DS	Other State	SCNOOS	552522	552522
+261	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Electronics & Communication Engineering	Home State	OPNOHS	340304	710987
+262	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Electronics & Communication Engineering	Home State	SCNOHS	852375	852375
+263	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Electronics & Communication Engineering	Other State	OPNOOS	171343	177190
+264	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Mechanical Engineering	Home State	OPDFHS	868615	868615
+265	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Mechanical Engineering	Home State	OPNOHS	467373	710542
+266	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Mechanical Engineering	Other State	OPNOOS	183128	189566
+267	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Mechatronics	Home State	OPNOHS	493212	738701
+268	Round 1	Echelon Institute of Technology, Village Kabulpur, Kheri-Manjhawali Road, Nahar Paar Faridabad, Haryana-121101. (Jain Minority)	Mechatronics	Other State	OPNOOS	158678	178716
+269	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Artificial Intelligence & Machine Learning	Home State	OPNOHS	291879	474117
+270	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Artificial Intelligence & Machine Learning	Home State	SCNOHS	1386120	1386120
+271	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Artificial Intelligence & Machine Learning	Other State	OPNOOS	124091	156421
+272	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Artificial Intelligence & Machine Learning	Other State	SCNOOS	519133	519133
+273	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Computer Science & Engineering	Home State	OPDFHS	458296	872394
+274	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Computer Science & Engineering	Home State	OPNOHS	155765	440322
+275	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Computer Science & Engineering	Home State	SCNOHS	581243	1389856
+276	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Computer Science & Engineering	Other State	OPNOOS	120028	151816
+277	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Computer Science & Engineering	Other State	SCNOOS	472229	472229
+278	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Computer Science & Engineering	Other State	STNOOS	992097	992097
+279	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Information Technology	Home State	OPDFHS	901188	637481
+280	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Information Technology	Home State	OPNOHS	313116	537446
+281	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Information Technology	Other State	OPDFOS	216661	216661
+282	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Information Technology	Other State	OPNOOS	101182	166965
+283	Round 1	Fairfield Institute of Management & Technology, Plot No. 1037/1, Kapashera, New Delhi - 110037	Information Technology	Other State	SCNOOS	539742	539742
+284	Round 1	Greater Noida Institute of Technology	Artificial Intelligence & Machine Learning	Home State	OPDFHS	602443	670299
+285	Round 1	Greater Noida Institute of Technology	Artificial Intelligence & Machine Learning	Home State	OPNOHS	187109	517266
+286	Round 1	Greater Noida Institute of Technology	Artificial Intelligence & Machine Learning	Other State	OPNOOS	103910	129898
+287	Round 1	Greater Noida Institute of Technology	Artificial Intelligence & Machine Learning	Other State	SCNOOS	414495	414495
+288	Round 1	Greater Noida Institute of Technology	Artificial Intelligence & Machine Learning	Other State	STNOOS	412134	412134
+289	Round 1	Greater Noida Institute of Technology	Computer Science & Engineering	Home State	OPDFHS	499970	518965
+290	Round 1	Greater Noida Institute of Technology	Computer Science & Engineering	Home State	OPNOHS	204741	470492
+291	Round 1	Greater Noida Institute of Technology	Computer Science & Engineering	Home State	SCNOHS	975610	1413845
+292	Round 1	Greater Noida Institute of Technology	Computer Science & Engineering	Other State	OPDFOS	178949	178949
+293	Round 1	Greater Noida Institute of Technology	Computer Science & Engineering	Other State	OPNOOS	70108	127300
+294	Round 1	Greater Noida Institute of Technology	Computer Science & Engineering	Other State	SCNOOS	303417	412281
+295	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift I)	All India	NOSMAI	142204	670471
+296	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift I)	Home State	OPDFHS	229034	344362
+297	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift I)	Home State	OPNOHS	113180	175885
+298	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift I)	Home State	SCNOHS	511837	758193
+299	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift I)	Home State	STNOHS	798384	798384
+300	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift I)	Other State	OPNOOS	20410	71953
+301	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift I)	Other State	SCNOOS	179829	179829
+302	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift I)	Other State	STNOOS	679283	679283
+303	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift II)	All India	NOSMAI	282937	956309
+304	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift II)	Home State	OPDFHS	354279	354279
+305	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift II)	Home State	OPNOHS	141880	183850
+306	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift II)	Home State	SCNOHS	770120	800402
+307	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Computer Science & Engineering (Shift II)	Other State	OPNOOS	73762	75999
+308	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	CSE- AIML	All India	NOSMAI	110659	598056
+309	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	CSE- AIML	Home State	OPNOHS	119754	168482
+310	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	CSE- AIML	Home State	SCNOHS	627927	667705
+311	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	CSE- AIML	Other State	OPNOOS	76131	76559
+312	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	CSE- DS	All India	NOSMAI	188556	1049530
+313	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	CSE- DS	Home State	OPNOHS	124279	186370
+314	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	CSE- DS	Home State	SCNOHS	659542	806606
+315	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	CSE- DS	Other State	OPNOOS	76776	78408
+316	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Electronics & Communication Engineering	All India	NOSMAI	373904	1386907
+317	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Electronics & Communication Engineering	Home State	OPDFHS	568549	568549
+318	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Electronics & Communication Engineering	Home State	OPNOHS	179103	258223
+319	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Electronics & Communication Engineering	Home State	SCNOHS	1277133	1277133
+320	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Electronics & Communication Engineering	Other State	OPNOOS	80286	88347
+321	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Electronics & Communication Engineering	Other State	SCNOOS	346917	346917
+322	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift I)	All India	NOKMAI	155441	155441
+323	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift I)	All India	NOSMAI	188283	1435031
+324	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift I)	Home State	OPDFHS	363157	374061
+325	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift I)	Home State	OPNOHS	180961	208789
+326	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift I)	Home State	SCNOHS	811651	974040
+327	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift I)	Other State	OPNOOS	78807	82009
+328	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift I)	Other State	SCNOOS	302012	302012
+329	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift I)	Other State	STNOOS	703132	703132
+330	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift II)	All India	NOSMAI	990666	1394955
+331	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift II)	Home State	OPDFHS	406879	406879
+332	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift II)	Home State	OPNOHS	209842	215348
+333	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift II)	Home State	SCNOHS	1075708	1240534
+334	Round 1	Guru Teg Bahadur Institute of Technology, (Sikh Minority Institute)	Information Technology (Shift II)	Other State	OPNOOS	83782	85708
+335	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Computer Science & Engineering	All India	NOKMAI	264392	264392
+336	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Computer Science & Engineering	Home State	OPDFHS	348168	505244
+337	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Computer Science & Engineering	Home State	OPNOHS	152860	237253
+338	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Computer Science & Engineering	Home State	SCNOHS	460429	1070171
+339	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Computer Science & Engineering	Other State	OPDFOS	91989	91989
+340	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Computer Science & Engineering	Other State	OPNOOS	24053	84367
+341	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Computer Science & Engineering	Other State	SCNOOS	344672	356683
+342	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Computer Science & Engineering	Other State	STNOOS	766272	766272
+343	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE (Data Science)	Home State	OPDFHS	523143	523143
+344	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE (Data Science)	Home State	OPNOHS	187691	266103
+345	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE (Data Science)	Home State	SCNOHS	650898	1327127
+346	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE (Data Science)	Other State	OPNOOS	90002	95771
+347	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE (Data Science)	Other State	SCNOOS	374133	374133
+348	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE- AIML	Home State	OPDFHS	320912	539514
+349	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE- AIML	Home State	OPNOHS	106951	254079
+350	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE- AIML	Home State	SCNOHS	571629	998058
+351	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE- AIML	Other State	OPNOOS	80097	91030
+352	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE- AIML	Other State	SCNOOS	338187	338187
+353	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	CSE- AIML	Other State	STNOOS	695580	695580
+354	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Electronics & Communication Engineering	Home State	OPDFHS	669278	758727
+355	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Electronics & Communication Engineering	Home State	OPNOHS	185366	311597
+356	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Electronics & Communication Engineering	Home State	SCNOHS	822706	1202383
+357	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Electronics & Communication Engineering	Other State	OPDFOS	154261	154261
+358	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Electronics & Communication Engineering	Other State	OPNOOS	95367	108018
+359	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Electronics & Communication Engineering	Other State	SCNOOS	381749	381749
+360	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Information Technology	Home State	OPDFHS	545600	560320
+361	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Information Technology	Home State	OPNOHS	160400	274399
+362	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Information Technology	Home State	SCNOHS	997427	1024055
+363	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Information Technology	Other State	OPNOOS	86098	96121
+364	Round 1	Guru Tegh Bahadur 4th Centenary Engineering College, G-8 Area, Rajouri Garden, New Delhi- 110064	Information Technology	Other State	SCNOOS	385057	385057
+365	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Data Science	Home State	OPDFHS	932051	932051
+366	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Data Science	Home State	OPNOHS	293347	403276
+367	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Data Science	Other State	OPNOOS	126397	130234
+368	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Data Science	Other State	SCNOOS	368162	368162
+369	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Machine Learning	Home State	OPDFHS	467504	657562
+370	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Machine Learning	Home State	OPNOHS	300494	440813
+371	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Machine Learning	Other State	OPDFOS	181179	181179
+372	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Machine Learning	Other State	OPNOOS	134133	139123
+373	Round 1	HMR Institute of Technology & Management	Artificial Intelligence & Machine Learning	Other State	SCNOOS	450728	450728
+374	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift I)	All India	NOKMAI	283289	283289
+375	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift I)	Home State	OPDFHS	942911	345798
+376	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift I)	Home State	OPNOHS	213865	336044
+377	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift I)	Home State	SCNOHS	721563	1239374
+378	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift I)	Other State	OPDFOS	145018	145018
+379	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift I)	Other State	OPNOOS	82130	116258
+380	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift I)	Other State	SCDFOS	483195	483195
+381	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift I)	Other State	SCNOOS	364753	364753
+382	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift II)	Home State	OPDFHS	366126	377069
+383	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift II)	Home State	OPNOHS	236455	362257
+384	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift II)	Home State	SCNOHS	952183	974383
+385	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift II)	Other State	OPNOOS	120031	123433
+386	Round 1	HMR Institute of Technology & Management	Computer Science & Engineering (Shift II)	Other State	SCNOOS	397239	397239
+387	Round 1	HMR Institute of Technology & Management	Computer Science & Technology	Home State	OPDFHS	595776	384856
+388	Round 1	HMR Institute of Technology & Management	Computer Science & Technology	Home State	OPNOHS	277114	380351
+389	Round 1	HMR Institute of Technology & Management	Computer Science & Technology	Other State	OPDFOS	161695	161695
+390	Round 1	HMR Institute of Technology & Management	Computer Science & Technology	Other State	OPNOOS	124647	126332
+391	Round 1	HMR Institute of Technology & Management	Computer Science & Technology	Other State	SCNOOS	403774	403774
+392	Round 1	HMR Institute of Technology & Management	CSE - AI	Home State	OPDFHS	439139	911787
+393	Round 1	HMR Institute of Technology & Management	CSE - AI	Home State	OPNOHS	202760	430440
+394	Round 1	HMR Institute of Technology & Management	CSE - AI	Other State	OPNOOS	114555	132292
+395	Round 1	HMR Institute of Technology & Management	CSE - AI	Other State	SCNOOS	444176	444176
+396	Round 1	HMR Institute of Technology & Management	CSE (Cyber Security)	Home State	OPNOHS	279132	380734
+397	Round 1	HMR Institute of Technology & Management	CSE (Cyber Security)	Home State	SCNOHS	706966	706966
+398	Round 1	HMR Institute of Technology & Management	CSE (Cyber Security)	Other State	OPNOOS	94600	105179
+399	Round 1	HMR Institute of Technology & Management	CSE- AIML	Home State	OPDFHS	421399	618515
+400	Round 1	HMR Institute of Technology & Management	CSE- AIML	Home State	OPNOHS	240006	417478
+401	Round 1	HMR Institute of Technology & Management	CSE- AIML	Other State	OPNOOS	113719	126847
+402	Round 1	HMR Institute of Technology & Management	CSE- AIML	Other State	SCNOOS	447935	447935
+403	Round 1	HMR Institute of Technology & Management	CSE- DS	Home State	OPDFHS	584101	649294
+404	Round 1	HMR Institute of Technology & Management	CSE- DS	Home State	OPNOHS	250479	435764
+405	Round 1	HMR Institute of Technology & Management	CSE- DS	Other State	OPNOOS	128341	133555
+406	Round 1	HMR Institute of Technology & Management	CSE- DS	Other State	SCNOOS	455158	455158
+407	Round 1	HMR Institute of Technology & Management	Information Technology	Home State	OPDFHS	778719	1008508
+408	Round 1	HMR Institute of Technology & Management	Information Technology	Home State	OPNOHS	303344	446345
+409	Round 1	HMR Institute of Technology & Management	Information Technology	Other State	OPNOOS	120526	136106
+410	Round 1	HMR Institute of Technology & Management	Information Technology	Other State	SCNOOS	492563	492563
+411	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Artificial Intelligence & Data Science	Home State	OPNOHS	168318	586189
+412	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Artificial Intelligence & Data Science	Other State	OPDFOS	196866	196866
+413	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Artificial Intelligence & Data Science	Other State	OPNOOS	137706	153288
+414	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Artificial Intelligence & Data Science	Other State	SCNOOS	519948	521456
+415	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Artificial Intelligence & Machine Learning	Home State	OPDFHS	1137009	1137009
+416	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Artificial Intelligence & Machine Learning	Home State	OPNOHS	193990	569693
+417	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Artificial Intelligence & Machine Learning	Other State	OPNOOS	149470	154703
+418	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Artificial Intelligence & Machine Learning	Other State	SCNOOS	518274	518274
+419	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Engineering	Home State	OPDFHS	903479	1142371
+420	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Engineering	Home State	OPNOHS	157481	542996
+421	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Engineering	Home State	SCNOHS	770451	1340931
+422	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Engineering	Other State	OPDFOS	184328	191061
+423	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Engineering	Other State	OPNOOS	96812	147855
+424	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Engineering	Other State	SCDFOS	735905	735905
+425	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Engineering	Other State	SCNOOS	285365	500677
+426	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Technology	Home State	OPDFHS	811303	811303
+427	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Technology	Home State	OPNOHS	321611	557282
+428	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Technology	Home State	SCNOHS	1381850	1381850
+429	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Technology	Other State	OPNOOS	138336	151329
+430	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	Computer Science & Technology	Other State	SCNOOS	428057	428057
+431	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	CSE- AIML	Home State	OPDFHS	961687	953800
+432	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	CSE- AIML	Home State	OPNOHS	196006	410241
+433	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	CSE- AIML	Home State	SCNOHS	904402	1113598
+434	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	CSE- AIML	Other State	OPDFOS	201557	201557
+435	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	CSE- AIML	Other State	OPNOOS	69617	120679
+436	Round 1	JIMS Engineering Management Technical Campus, 48/4, Knowledge Park - III Greater Noida	CSE- AIML	Other State	SCNOOS	487744	487744
+437	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	All India	NOKMAI	72155	72155
+438	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Home State	OPNOHS	9420	70889
+439	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Home State	OPPHHS	498631	1032423
+440	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Home State	SCDFHS	631389	944192
+441	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Home State	SCNOHS	160473	379696
+442	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Home State	STNOHS	224006	719960
+443	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Other State	OPDFOS	417357	647916
+444	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Other State	OPNOOS	9203	42413
+445	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Other State	OPPHOS	134260	263399
+446	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Other State	SCNOOS	160909	201700
+447	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Other State	STDFOS	544968	544968
+448	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift I)	Other State	STNOOS	362912	364353
+449	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift II)	Home State	OPDFHS	1284121	131374
+450	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift II)	Home State	OPNOHS	54792	74720
+451	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift II)	Home State	OPPHHS	1095009	1095009
+452	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift II)	Home State	SCNOHS	175926	403995
+453	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift II)	Other State	OPNOOS	42737	44427
+454	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift II)	Other State	SCNOOS	209327	209327
+455	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Engineering (Shift II)	Other State	STNOOS	405863	405863
+456	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Home State	OPDFHS	139832	174482
+457	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Home State	OPNOHS	20002	86922
+458	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Home State	OPPHHS	1011183	1011183
+459	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Home State	SCNOHS	159832	456321
+460	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Home State	STNOHS	747794	747794
+461	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Other State	OPDFOS	178969	178969
+462	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Other State	OPNOOS	11799	49000
+463	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Other State	OPPHOS	723212	723212
+464	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Other State	SCNOOS	118724	222006
+465	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Computer Science & Technology	Other State	STNOOS	390764	401579
+466	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE - AI	Home State	OPDFHS	254388	110653
+467	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE - AI	Home State	OPNOHS	31355	75797
+468	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE - AI	Home State	SCDFHS	1025346	1025346
+469	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE - AI	Home State	SCNOHS	281668	383442
+470	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE - AI	Other State	OPDFOS	88020	88020
+471	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE - AI	Other State	OPNOOS	43093	45333
+472	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE - AI	Other State	OPPHOS	578264	578264
+473	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE - AI	Other State	SCNOOS	193120	193120
+474	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- AIML	Home State	OPDFHS	108653	132807
+475	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- AIML	Home State	OPNOHS	18973	70312
+476	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- AIML	Home State	OPPHHS	405355	1456807
+477	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- AIML	Home State	SCNOHS	181992	359203
+478	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- AIML	Home State	STNOHS	760299	760299
+479	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- AIML	Other State	OPNOOS	21436	44176
+480	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- AIML	Other State	SCNOOS	197693	197693
+481	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- AIML	Other State	STNOOS	417624	417624
+482	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- DS	Home State	OPDFHS	143416	146882
+483	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- DS	Home State	OPNOHS	63592	78986
+484	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- DS	Home State	SCNOHS	326421	412038
+485	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- DS	Other State	OPNOOS	45508	47032
+486	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- DS	Other State	SCNOOS	212919	212919
+487	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	CSE- DS	Other State	STNOOS	427148	427148
+488	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electrical & Electronics Engineering	Home State	OPDFHS	342636	372286
+489	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electrical & Electronics Engineering	Home State	OPNOHS	42786	166235
+490	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electrical & Electronics Engineering	Home State	SCNOHS	401196	601193
+491	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electrical & Electronics Engineering	Other State	OPNOOS	55242	63746
+492	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electrical & Electronics Engineering	Other State	SCNOOS	282605	282605
+493	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Comm.- Advance Comm. Technology	Home State	OPDFHS	255584	345667
+494	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Comm.- Advance Comm. Technology	Home State	OPNOHS	70740	138808
+495	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Comm.- Advance Comm. Technology	Home State	SCNOHS	564432	703817
+496	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Comm.- Advance Comm. Technology	Other State	OPNOOS	59218	62917
+497	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Comm.- Advance Comm. Technology	Other State	SCNOOS	273101	273101
+498	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Comm.- Advance Comm. Technology	Other State	STNOOS	446085	446085
+499	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Communication Engineering	Home State	OPDFHS	164724	228643
+500	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Communication Engineering	Home State	OPNOHS	56282	113602
+501	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Communication Engineering	Home State	OPPHHS	1154095	1154095
+502	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Communication Engineering	Home State	SCNOHS	202534	525366
+503	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Communication Engineering	Other State	OPNOOS	38632	52199
+504	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Communication Engineering	Other State	SCNOOS	245120	245120
+505	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics & Communication Engineering	Other State	STNOOS	465822	465822
+506	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics Engg.- VLSI Design & Technology	Home State	OPDFHS	279749	326883
+507	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics Engg.- VLSI Design & Technology	Home State	OPNOHS	55276	152818
+508	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics Engg.- VLSI Design & Technology	Home State	SCNOHS	584688	683130
+509	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics Engg.- VLSI Design & Technology	Home State	STNOHS	1248079	1248079
+510	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics Engg.- VLSI Design & Technology	Other State	OPNOOS	53709	62004
+511	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics Engg.- VLSI Design & Technology	Other State	SCNOOS	247414	247414
+512	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Electronics Engg.- VLSI Design & Technology	Other State	STNOOS	609456	609456
+513	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Home State	OPDFHS	177633	228318
+514	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Home State	OPNOHS	56621	107346
+515	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Home State	SCNOHS	421243	522288
+516	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Other State	OPDFOS	280603	314060
+517	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Other State	OPNOOS	47244	53494
+518	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Other State	OPPHOS	733204	776719
+519	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Other State	SCNOOS	231473	242413
+520	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Other State	STDFOS	842864	842864
+521	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Information Technology	Other State	STNOOS	420871	420871
+522	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Mechanical Engineering	Home State	OPDFHS	336937	448588
+523	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Mechanical Engineering	Home State	OPNOHS	6419	193717
+524	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Mechanical Engineering	Home State	SCNOHS	533857	758159
+525	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Mechanical Engineering	Other State	OPDFOS	140177	140177
+526	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Mechanical Engineering	Other State	OPNOOS	63914	80268
+527	Round 1	Maharaja Agrasen Institute of Technology, Sector-22, Rohini, Delhi ā€“ 110085	Mechanical Engineering	Other State	SCNOOS	277679	277679
+528	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	All India	NOKMAI	95372	95372
+529	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Home State	OPDFHS	285718	181299
+530	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Home State	OPNOHS	6832	96135
+531	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Home State	OPPHHS	542425	1301768
+532	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Home State	SCNOHS	305649	444418
+533	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Home State	STNOHS	830181	830181
+534	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Other State	OPDFOS	104755	104755
+535	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Other State	OPNOOS	18685	54501
+536	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Other State	OPPHOS	497035	497035
+537	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Other State	SCNOOS	198950	229362
+538	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift I)	Other State	STNOOS	476070	476070
+539	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift II)	Home State	OPDFHS	184615	189218
+540	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift II)	Home State	OPNOHS	96175	103385
+541	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift II)	Home State	OPPHHS	842800	842800
+542	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift II)	Home State	SCNOHS	106992	481474
+543	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift II)	Other State	OPNOOS	38142	55151
+544	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift II)	Other State	SCNOOS	229918	229918
+545	Round 1	Maharaja Surajmal Institute Technology	Computer Science & Engineering (Shift II)	Other State	STNOOS	508918	508918
+546	Round 1	Maharaja Surajmal Institute Technology	Electrical & Electronics Engineering	Home State	OPDFHS	321617	362727
+547	Round 1	Maharaja Surajmal Institute Technology	Electrical & Electronics Engineering	Home State	OPNOHS	40772	180485
+548	Round 1	Maharaja Surajmal Institute Technology	Electrical & Electronics Engineering	Home State	OPPHHS	814722	814722
+549	Round 1	Maharaja Surajmal Institute Technology	Electrical & Electronics Engineering	Home State	SCNOHS	607678	777763
+550	Round 1	Maharaja Surajmal Institute Technology	Electrical & Electronics Engineering	Other State	OPDFOS	94583	94583
+551	Round 1	Maharaja Surajmal Institute Technology	Electrical & Electronics Engineering	Other State	OPNOOS	68809	72549
+552	Round 1	Maharaja Surajmal Institute Technology	Electrical & Electronics Engineering	Other State	SCNOOS	288449	288449
+553	Round 1	Maharaja Surajmal Institute Technology	Electrical & Electronics Engineering	Other State	STNOOS	330705	330705
+554	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift I)	Home State	OPDFHS	199505	286157
+555	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift I)	Home State	OPNOHS	100021	159917
+556	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift I)	Home State	SCNOHS	509752	732577
+557	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift I)	Home State	STNOHS	546824	546824
+558	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift I)	Other State	OPNOOS	55218	64883
+559	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift I)	Other State	SCDFOS	325646	325646
+560	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift I)	Other State	SCNOOS	268997	281675
+561	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift I)	Other State	STNOOS	513734	513734
+562	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift II)	Home State	OPDFHS	318198	332856
+563	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift II)	Home State	OPNOHS	67043	166670
+564	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift II)	Home State	SCNOHS	678895	768072
+565	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift II)	Other State	OPNOOS	65188	67464
+566	Round 1	Maharaja Surajmal Institute Technology	Electronics & Communication Engineering (Shift II)	Other State	SCNOOS	286851	286851
+567	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift I)	Home State	OPDFHS	193703	228360
+568	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift I)	Home State	OPNOHS	103745	118049
+569	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift I)	Home State	SCNOHS	460550	552224
+570	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift I)	Other State	OPDFOS	168888	168888
+571	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift I)	Other State	OPNOOS	54566	58187
+572	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift I)	Other State	OPPHOS	953220	953220
+573	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift I)	Other State	SCNOOS	234938	251930
+574	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift I)	Other State	STNOOS	545578	560609
+575	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift II)	Home State	OPDFHS	228456	235484
+576	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift II)	Home State	OPNOHS	106834	122124
+577	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift II)	Home State	SCNOHS	553396	581183
+578	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift II)	Other State	OPNOOS	58234	59115
+579	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift II)	Other State	SCNOOS	253057	253057
+580	Round 1	Maharaja Surajmal Institute Technology	Information Technology (Shift II)	Other State	STNOOS	590752	590752
+581	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Computer Science & Engineering	All India	NOJNAI	146073	840078
+582	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Computer Science & Engineering	Home State	OPDFHS	1108060	1108060
+583	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Computer Science & Engineering	Home State	OPNOHS	178068	509044
+584	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Computer Science & Engineering	Other State	OPNOOS	91367	129906
+585	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Computer Science & Engineering	Other State	SCNOOS	317428	317428
+586	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Electrical & Electronics Engineering	Home State	OPNOHS	254089	405046
+587	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Electrical & Electronics Engineering	Other State	OPNOOS	147862	147862
+588	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Electronics & Communication Engineering	Home State	OPNOHS	379519	491507
+589	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Electronics & Communication Engineering	Other State	OPNOOS	128979	128979
+590	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Electronics & Communication Engineering	Other State	SCNOOS	436402	436402
+591	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Information Technology	All India	NOJNAI	1107607	1107607
+592	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Information Technology	Home State	OPNOHS	307507	453661
+593	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Information Technology	Home State	SCNOHS	809371	809371
+594	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Information Technology	Other State	OPNOOS	141723	144300
+595	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Mechanical Engineering	Home State	OPNOHS	479537	605889
+596	Round 1	Shri Balwant Institute of Technology, Merrut Road (Pallri), Sonipat, NCR Delhi), Haryana (Jain Minority Institute)	Mechanical Engineering	Other State	OPNOOS	153990	156358
+597	Round 1	Tribhuvan College, Plot No. 203 & 204, RIICO, New Industrial complex Majrakath, Neemran, Rajasthan - 301705 (Provisional Basis)	B.Tech (AI&ML)	Home State	OPNOHS	202988	603476
+598	Round 1	Tribhuvan College, Plot No. 203 & 204, RIICO, New Industrial complex Majrakath, Neemran, Rajasthan - 301705 (Provisional Basis)	B.Tech (AI&ML)	Other State	OPNOOS	86394	160800
+599	Round 1	Tribhuvan College, Plot No. 203 & 204, RIICO, New Industrial complex Majrakath, Neemran, Rajasthan - 301705 (Provisional Basis)	B.Tech (AI&ML)	Other State	SCNOOS	483834	483834
+600	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Computer Science & Engineering	Home State	OPDFHS	917604	939936
+601	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Computer Science & Engineering	Home State	OPNOHS	39520	496320
+602	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Computer Science & Engineering	Home State	SCNOHS	992589	1187424
+603	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Computer Science & Engineering	Other State	OPNOOS	110835	145804
+604	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Computer Science & Engineering	Other State	SCNOOS	490431	490431
+605	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Computer Science & Technology	Home State	OPNOHS	177202	571806
+606	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Computer Science & Technology	Other State	OPNOOS	135754	156524
+607	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Computer Science & Technology	Other State	SCNOOS	364680	364680
+608	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Information Technology	Home State	OPNOHS	117860	464282
+609	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Information Technology	Other State	OPDFOS	196633	196633
+610	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Information Technology	Other State	OPNOOS	100476	100476
+611	Round 1	Trinity Institute of Innovations in Professional Studies, Plot no 2B/1, Knowledge Park - III, Greater Noida, Uttar Pradesh - 2011308	Information Technology	Other State	SCNOOS	343975	343975
+612	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Home State	BCDFHS	314675	469550
+613	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Home State	BCNOHS	141953	198119
+614	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Home State	EWNOHS	117215	138259
+615	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Home State	OPDFHS	120770	187677
+616	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Home State	OPNOHS	45547	99067
+617	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Home State	OPPHHS	974816	974816
+618	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Home State	SCNOHS	284846	488719
+619	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Other State	EWNOOS	58143	65475
+620	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Other State	OPDFOS	584687	584687
+621	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Other State	OPNOOS	39259	57284
+622	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Other State	OPPHOS	468159	468159
+623	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Other State	SCNOOS	85420	190718
+624	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-DS)	Other State	STNOOS	531662	589299
+625	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	All India	NOKMAI	98261	98261
+626	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Home State	BCDFHS	491287	561354
+627	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Home State	BCNOHS	136953	216282
+628	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Home State	EWNOHS	107264	139423
+629	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Home State	OPDFHS	140510	205617
+630	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Home State	OPNOHS	54882	99476
+631	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Home State	OPPHHS	1121086	1121086
+632	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Home State	SCNOHS	212198	498567
+633	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Home State	STNOHS	514821	514821
+634	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Other State	EWNOOS	60404	66130
+635	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Other State	OPDFOS	76352	76352
+636	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Other State	OPNOOS	44316	56280
+637	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Other State	OPPHOS	841568	841568
+638	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Other State	SCNOOS	134123	191777
+639	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AI-ML)	Other State	STNOOS	379878	395125
+640	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Home State	BCDFHS	809479	952139
+641	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Home State	BCNOHS	216827	266730
+642	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Home State	EWNOHS	143029	186648
+643	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Home State	OPDFHS	211235	296437
+644	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Home State	OPNOHS	86822	134028
+645	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Home State	SCNOHS	377580	732705
+646	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Other State	EWNOOS	72659	74271
+647	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Other State	OPNOOS	58852	70630
+648	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Other State	SCNOOS	232204	264842
+649	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (AR)	Other State	STNOOS	580914	642532
+650	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Home State	BCDFHS	857315	947354
+651	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Home State	BCNOHS	217101	280264
+652	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Home State	EWNOHS	162151	188818
+653	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Home State	OPDFHS	281876	326295
+654	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Home State	OPNOHS	101426	152135
+655	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Home State	SCNOHS	502720	726963
+656	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Other State	EWNOOS	76881	78244
+657	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Other State	OPDFOS	304050	304050
+658	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Other State	OPNOOS	58762	75443
+659	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Other State	OPPHOS	1035172	1035172
+660	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Other State	SCNOOS	225041	263704
+661	Round 1	University School of Automation & Robotics	B.Tech./M. Tech. (DD) (IIOT)	Other State	STNOOS	449820	633615
+662	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	All India	NOKMAI	433720	433720
+663	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Home State	BCNOHS	325956	457272
+664	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Home State	EWNOHS	268489	319166
+665	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Home State	OPDFHS	255603	255603
+666	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Home State	OPNOHS	76756	245925
+667	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Home State	SCNOHS	604138	1313671
+668	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Home State	STNOHS	596930	596930
+669	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Other State	EWNOOS	114913	114913
+670	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Other State	OPNOOS	77926	97688
+671	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Other State	SCNOOS	301176	301176
+672	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech. (Energy)	Other State	STNOOS	409016	409016
+673	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Home State	BCDFHS	667202	667202
+674	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Home State	BCNOHS	271460	437252
+675	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Home State	EWNOHS	241508	368138
+676	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Home State	OPDFHS	499977	507252
+677	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Home State	OPNOHS	63956	238689
+678	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Home State	SCNOHS	456714	1276932
+679	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Other State	EWNOOS	99195	131902
+680	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Other State	OPDFOS	109032	109032
+681	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Other State	OPNOOS	65467	95931
+682	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Other State	SCNOOS	217607	296822
+683	Round 1	University School of Chemical Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech. (Dual Degree in Chemical Engineering	Other State	STNOOS	429867	429867
+684	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	BCDFHS	216382	252622
+685	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	BCNOHS	38815	122286
+686	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	BCPHHS	389615	389615
+687	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	EWNOHS	52149	68104
+688	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	OPDFHS	193104	577556
+689	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	OPNOHS	3782	38638
+690	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	OPPHHS	115948	270705
+691	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	SCDFHS	394754	394754
+692	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	SCNOHS	66026	256889
+693	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Home State	STNOHS	473722	984860
+694	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Other State	EWNOOS	31487	38343
+695	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Other State	OPDFOS	209305	209305
+696	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Other State	OPNOOS	4145	27680
+697	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Other State	OPPHOS	134244	134244
+698	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Other State	SCNOOS	95251	147249
+699	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (CSE)	Other State	STNOOS	244454	276638
+700	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Home State	BCDFHS	417587	417587
+701	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Home State	BCNOHS	83955	180733
+702	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Home State	EWNOHS	89192	118255
+703	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Home State	OPDFHS	119439	119871
+704	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Home State	OPNOHS	44500	62058
+705	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Home State	OPPHHS	763964	850842
+706	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Home State	SCNOHS	310631	393256
+707	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Other State	EWNOOS	52065	53047
+708	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Other State	OPDFOS	350684	350684
+709	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Other State	OPNOOS	9692	45204
+710	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Other State	OPPHOS	406907	406907
+711	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Other State	SCNOOS	186662	209270
+712	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (ECE)	Other State	STNOOS	362325	362325
+713	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Home State	BCDFHS	314438	314438
+714	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Home State	BCNOHS	117264	154399
+715	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Home State	EWNOHS	75715	82996
+716	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Home State	OPNOHS	42403	48858
+717	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Home State	OPPHHS	438569	471856
+718	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Home State	SCDFHS	700142	700142
+719	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Home State	SCNOHS	271659	300316
+720	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Home State	STNOHS	541552	541552
+721	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Other State	EWNOOS	40861	41677
+722	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Other State	OPDFOS	371343	371343
+723	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Other State	OPNOOS	33471	37840
+724	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Other State	OPPHOS	370324	370324
+725	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Other State	SCNOOS	151222	167353
+726	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech./M. Tech.(DD) (IT)	Other State	STNOOS	361005	361005
+727	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	All India	NOKMAI	50235	50235
+728	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Home State	BCDFHS	168517	168517
+729	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Home State	BCNOHS	49930	117618
+730	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Home State	EWNOHS	35824	57242
+731	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Home State	OPNOHS	17966	34780
+732	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Home State	OPPHHS	164943	164943
+733	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Home State	SCNOHS	84074	198991
+734	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Home State	STNOHS	312582	746203
+735	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Other State	EWNOOS	41182	41182
+736	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Other State	OPNOOS	17266	30204
+737	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Other State	SCNOOS	120470	120470
+738	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-AI)	Other State	STNOOS	211092	211092
+739	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Home State	BCDFHS	284523	284523
+740	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Home State	BCNOHS	123151	135082
+741	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Home State	BCPHHS	1348493	1348493
+742	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Home State	EWNOHS	42523	73210
+743	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Home State	OPNOHS	23186	42356
+744	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Home State	OPPHHS	301136	301136
+745	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Home State	SCNOHS	203284	273031
+746	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Home State	STNOHS	991132	1183864
+747	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Other State	EWNOOS	41224	41224
+748	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Other State	OPNOOS	9691	33555
+749	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Other State	SCNOOS	142092	142092
+750	Round 1	University School of Information & Communication Technology, Sector 16 C, Dwarka, New Delhi - 110078	B. Tech/M. Tech.(DD) (CSE-DS)	Other State	STNOOS	317740	317740
+751	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Data Science	Home State	OPDFHS	483932	653799
+752	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Data Science	Home State	OPNOHS	86912	230547
+753	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Data Science	Home State	SCNOHS	770092	1090729
+754	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Data Science	Other State	OPDFOS	138845	138845
+755	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Data Science	Other State	OPNOOS	72657	99003
+756	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Data Science	Other State	SCNOOS	350425	351963
+757	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Machine Learning	Home State	OPDFHS	355694	669525
+758	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Machine Learning	Home State	OPNOHS	148838	248432
+759	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Machine Learning	Home State	SCNOHS	385620	1140334
+760	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Machine Learning	Other State	OPDFOS	134490	134490
+761	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Machine Learning	Other State	OPNOOS	89796	105777
+762	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Artificial Intelligence & Machine Learning	Other State	SCNOOS	281574	344195
+763	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	B. Tech. (Computer Science & Applied Mathematics)	Home State	OPDFHS	471012	808129
+764	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	B. Tech. (Computer Science & Applied Mathematics)	Home State	OPNOHS	87888	256802
+765	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	B. Tech. (Computer Science & Applied Mathematics)	Home State	SCNOHS	922284	1242135
+766	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	B. Tech. (Computer Science & Applied Mathematics)	Other State	OPDFOS	130817	130817
+767	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	B. Tech. (Computer Science & Applied Mathematics)	Other State	OPNOOS	83767	108951
+768	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	B. Tech. (Computer Science & Applied Mathematics)	Other State	SCNOOS	384266	395586
+769	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Computer Science & Engineering	Home State	OPNOHS	79209	194876
+770	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Computer Science & Engineering	Home State	SCNOHS	384775	831551
+771	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Computer Science & Engineering	Other State	OPDFOS	102380	102380
+772	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Computer Science & Engineering	Other State	OPNOOS	59358	81247
+773	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Computer Science & Engineering	Other State	SCDFOS	1337360	1337360
+774	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Computer Science & Engineering	Other State	SCNOOS	230290	308701
+775	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Computer Science & Engineering	Other State	STNOOS	765208	928899
+776	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	CSE (Cyber Security)	Home State	OPDFHS	505880	557225
+777	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	CSE (Cyber Security)	Home State	OPNOHS	127345	228899
+778	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	CSE (Cyber Security)	Home State	SCNOHS	682777	1082658
+779	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	CSE (Cyber Security)	Other State	OPNOOS	71243	92205
+780	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	CSE (Cyber Security)	Other State	SCNOOS	339078	339078
+781	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Electronics Engg.- VLSI Design & Technology	Home State	OPDFHS	641314	1198988
+782	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Electronics Engg.- VLSI Design & Technology	Home State	OPNOHS	201392	314488
+783	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Electronics Engg.- VLSI Design & Technology	Home State	SCNOHS	1181218	1444230
+784	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Electronics Engg.- VLSI Design & Technology	Home State	STNOHS	899110	899110
+785	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Electronics Engg.- VLSI Design & Technology	Other State	OPNOOS	98880	118800
+786	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Electronics Engg.- VLSI Design & Technology	Other State	SCNOOS	395783	438271
+787	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Industrial Internet of Things	Home State	OPDFHS	883644	951023
+788	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Industrial Internet of Things	Home State	OPNOHS	248909	297225
+789	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Industrial Internet of Things	Home State	SCNOHS	1139803	1250219
+790	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Industrial Internet of Things	Other State	OPNOOS	108336	118517
+791	Round 1	Vivekananda Institute of Professional Studies- Technical Campus, AU Block (Outer Ring Road), Pitampura, New Delhi-110034	Industrial Internet of Things	Other State	SCNOOS	403450	403450
