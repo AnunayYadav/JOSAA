@@ -752,7 +752,7 @@ let predictorResults = {
     match: [],
     safe: []
 };
-let currentPredictorTab = 'match';
+let activePredictorTabs = new Set(['match', 'safe']);
 let predictorVisibleLimit = 40;
 let isPredictorInitialized = false;
 
@@ -790,13 +790,13 @@ function initPredictorModule() {
     const tabSafe = document.getElementById('tab-safe-btn');
     
     if (tabReach) {
-        tabReach.addEventListener('click', () => switchPredictorTab('reach'));
+        tabReach.addEventListener('click', () => togglePredictorTab('reach'));
     }
     if (tabMatch) {
-        tabMatch.addEventListener('click', () => switchPredictorTab('match'));
+        tabMatch.addEventListener('click', () => togglePredictorTab('match'));
     }
     if (tabSafe) {
-        tabSafe.addEventListener('click', () => switchPredictorTab('safe'));
+        tabSafe.addEventListener('click', () => togglePredictorTab('safe'));
     }
     
     const searchInput = document.getElementById('pred-card-search');
@@ -911,39 +911,49 @@ function runPredictor() {
     if (placeholder) placeholder.style.display = 'none';
     if (content) content.style.display = 'block';
     
-    // Switch to match tab by default
-    switchPredictorTab('match');
+    // By default, select Best Match and Safe options
+    activePredictorTabs = new Set(['match', 'safe']);
+    updatePredictorTabUI();
+    renderPredictorCards();
 }
 
-function switchPredictorTab(tabName) {
-    currentPredictorTab = tabName;
+function togglePredictorTab(tabName) {
     predictorVisibleLimit = 40;
     
+    if (activePredictorTabs.has(tabName)) {
+        // Only allow unselecting if there is at least one active category remaining
+        if (activePredictorTabs.size > 1) {
+            activePredictorTabs.delete(tabName);
+        }
+    } else {
+        activePredictorTabs.add(tabName);
+    }
+    
+    updatePredictorTabUI();
+    renderPredictorCards();
+}
+
+function updatePredictorTabUI() {
     const tabReach = document.getElementById('tab-reach-btn');
     const tabMatch = document.getElementById('tab-match-btn');
     const tabSafe = document.getElementById('tab-safe-btn');
     
-    if (tabReach) tabReach.classList.toggle('active', tabName === 'reach');
-    if (tabMatch) tabMatch.classList.toggle('active', tabName === 'match');
-    if (tabSafe) tabSafe.classList.toggle('active', tabName === 'safe');
+    if (tabReach) tabReach.classList.toggle('active', activePredictorTabs.has('reach'));
+    if (tabMatch) tabMatch.classList.toggle('active', activePredictorTabs.has('match'));
+    if (tabSafe) tabSafe.classList.toggle('active', activePredictorTabs.has('safe'));
     
     const titleEl = document.getElementById('current-tab-title');
     const descEl = document.getElementById('current-tab-desc');
     
     if (titleEl && descEl) {
-        if (tabName === 'reach') {
-            titleEl.textContent = "Ambitious (Reach) Options";
-            descEl.textContent = "Colleges where the previous cutoff was slightly higher than your rank (up to 15% lower).";
-        } else if (tabName === 'match') {
-            titleEl.textContent = "Best Match Options";
-            descEl.textContent = "Perfect fits. Cutoffs are close to or slightly lower than your rank (user rank is 0-20% better than cutoff).";
-        } else if (tabName === 'safe') {
-            titleEl.textContent = "Safe Backup Options";
-            descEl.textContent = "Secure choices. Your rank is significantly better than the previous cutoff (by more than 20%).";
-        }
+        const activeLabels = [];
+        if (activePredictorTabs.has('reach')) activeLabels.push("Ambitious (Reach)");
+        if (activePredictorTabs.has('match')) activeLabels.push("Best Match");
+        if (activePredictorTabs.has('safe')) activeLabels.push("Safe Options");
+        
+        titleEl.textContent = `Showing: ${activeLabels.join(' & ')}`;
+        descEl.textContent = "Explore the combined options predicted based on your active reservation levels.";
     }
-    
-    renderPredictorCards();
 }
 
 function renderPredictorCards() {
@@ -951,7 +961,19 @@ function renderPredictorCards() {
     if (!listContainer) return;
     
     listContainer.innerHTML = '';
-    let list = predictorResults[currentPredictorTab] || [];
+    let list = [];
+    if (activePredictorTabs.has('reach')) {
+        list = list.concat(predictorResults.reach);
+    }
+    if (activePredictorTabs.has('match')) {
+        list = list.concat(predictorResults.match);
+    }
+    if (activePredictorTabs.has('safe')) {
+        list = list.concat(predictorResults.safe);
+    }
+    
+    // Sort combined list by closing rank ascending (best options first)
+    list.sort((a, b) => a.closingRank - b.closingRank);
     
     // Apply search filter
     const searchInput = document.getElementById('pred-card-search');
@@ -1008,17 +1030,21 @@ function renderPredictorCards() {
     
     visibleItems.forEach(({ item, userRankToUse, closingRank }) => {
         const card = document.createElement('div');
-        card.className = `pred-card ${currentPredictorTab}-border`;
-        
+        let tabClass = 'match';
         let probClass = 'match-prob';
         let probLabel = 'Best Match';
-        if (currentPredictorTab === 'reach') {
+        
+        if (closingRank >= 0.85 * userRankToUse && closingRank < userRankToUse) {
+            tabClass = 'reach';
             probClass = 'reach-prob';
             probLabel = 'Ambitious';
-        } else if (currentPredictorTab === 'safe') {
+        } else if (closingRank > 1.20 * userRankToUse) {
+            tabClass = 'safe';
             probClass = 'safe-prob';
             probLabel = 'Very Safe';
         }
+        
+        card.className = `pred-card ${tabClass}-border`;
         
         const diff = closingRank - userRankToUse;
         const marginPct = (diff / userRankToUse) * 100;
