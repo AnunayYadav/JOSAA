@@ -537,9 +537,46 @@ function applyFilters() {
         // Filter by Mode (Source)
         if (item.source !== currentMode) return false;
 
-        const matchesSearch = !searchTerm || 
-            item.institute.toLowerCase().includes(searchTerm) || 
-            item.program.toLowerCase().includes(searchTerm);
+        let matchesSearch = true;
+        if (searchTerm.trim()) {
+            let terms = [];
+            const rawSearch = searchTerm.trim();
+            if (rawSearch.includes(',')) {
+                terms = rawSearch.split(',').map(t => t.trim()).filter(t => t.length > 0);
+            } else {
+                terms = rawSearch.split(/\s+/).map(t => t.trim()).filter(t => t.length > 0);
+            }
+            
+            matchesSearch = terms.every(term => {
+                const inst = (item.institute || '').toLowerCase();
+                const prog = (item.program || '').toLowerCase();
+                const src = (item.source || '').toLowerCase();
+                const type = (item.type || '').toLowerCase();
+                const state = getInstituteState(item.institute).toLowerCase();
+                const quota = (item.quota || '').toLowerCase();
+                const seatType = (item.seat_type || '').toLowerCase();
+                
+                const srcDisplay = getDisplayName(item.source).toLowerCase();
+                const typeDisplay = getDisplayName(item.type).toLowerCase();
+                const seatTypeDisplay = getDisplayName(item.seat_type).toLowerCase();
+                
+                const badgeText = (item.type === 'JAC' ? 'JAC-C' : (item.type === 'JACD' ? 'JAC-D' : item.type)).toLowerCase();
+                const badgeTextSpace = badgeText.replace('-', ' ');
+                
+                return inst.includes(term) || 
+                       prog.includes(term) || 
+                       src.includes(term) || 
+                       srcDisplay.includes(term) || 
+                       type.includes(term) || 
+                       typeDisplay.includes(term) || 
+                       state.includes(term) ||
+                       quota.includes(term) ||
+                       seatType.includes(term) ||
+                       seatTypeDisplay.includes(term) ||
+                       badgeText.includes(term) ||
+                       badgeTextSpace.includes(term);
+            });
+        }
         
         const matchesRound = selectedRounds.includes(item.round);
         const matchesType = selectedTypes.includes(item.type);
@@ -918,30 +955,45 @@ function renderPredictorCards() {
     
     // Apply search filter
     const searchInput = document.getElementById('pred-card-search');
-    const term = searchInput ? searchInput.value.toLowerCase().trim() : '';
-    if (term) {
+    const rawInput = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    if (rawInput) {
+        let terms = [];
+        if (rawInput.includes(',')) {
+            terms = rawInput.split(',').map(t => t.trim()).filter(t => t.length > 0);
+        } else {
+            terms = rawInput.split(/\s+/).map(t => t.trim()).filter(t => t.length > 0);
+        }
+        
         list = list.filter(({ item }) => {
             const inst = (item.institute || '').toLowerCase();
             const prog = (item.program || '').toLowerCase();
             const src = (item.source || '').toLowerCase();
             const type = (item.type || '').toLowerCase();
             const state = getInstituteState(item.institute).toLowerCase();
+            const quota = (item.quota || '').toLowerCase();
+            const seatType = (item.seat_type || '').toLowerCase();
             
             const srcDisplay = getDisplayName(item.source).toLowerCase();
             const typeDisplay = getDisplayName(item.type).toLowerCase();
+            const seatTypeDisplay = getDisplayName(item.seat_type).toLowerCase();
             
             const badgeText = (item.type === 'JAC' ? 'JAC-C' : (item.type === 'JACD' ? 'JAC-D' : item.type)).toLowerCase();
             const badgeTextSpace = badgeText.replace('-', ' ');
             
-            return inst.includes(term) || 
-                   prog.includes(term) || 
-                   src.includes(term) || 
-                   srcDisplay.includes(term) || 
-                   type.includes(term) || 
-                   typeDisplay.includes(term) || 
-                   state.includes(term) ||
-                   badgeText.includes(term) ||
-                   badgeTextSpace.includes(term);
+            return terms.every(term => {
+                return inst.includes(term) || 
+                       prog.includes(term) || 
+                       src.includes(term) || 
+                       srcDisplay.includes(term) || 
+                       type.includes(term) || 
+                       typeDisplay.includes(term) || 
+                       state.includes(term) ||
+                       quota.includes(term) ||
+                       seatType.includes(term) ||
+                       seatTypeDisplay.includes(term) ||
+                       badgeText.includes(term) ||
+                       badgeTextSpace.includes(term);
+            });
         });
     }
     
