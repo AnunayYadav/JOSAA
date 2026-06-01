@@ -2,6 +2,7 @@ import json
 import re
 import os
 import glob
+import math
 
 def clean_rank(rank_str):
     rank_str = rank_str.strip()
@@ -411,6 +412,486 @@ def parse_ggsipu_txt_data(file_path):
         
     return data
 
+# Helper to tokenize rows grouping priority markers e.g. 73137 (VI) -> "73137 (VI)"
+def tokenize_row(line):
+    tokens = line.split()
+    merged = []
+    for tok in tokens:
+        if tok.startswith('(') and tok.endswith(')') and merged:
+            merged[-1] += " " + tok
+        elif tok == '-' or (tok.startswith('(') and merged):
+            if tok.startswith('('):
+                merged[-1] += " " + tok
+            else:
+                merged.append(tok)
+        else:
+            merged.append(tok)
+    return merged
+
+# ----------------- DTU / NSUT PARSER -----------------
+categories_delhi = ["GNGND", "GNGLD", "EWGND", "EWGLD", "OBGND", "OBGLD", "SCGND", "SCGLD", "STGND", "STGLD", "GNSGD", "GNPDD", "EWPDD", "OBPDD", "SCPDD", "STPDD"]
+categories_outside = ["GNGNO", "GNGLO", "EWGNO", "EWGLO", "OBGNO", "OBGLO", "SCGNO", "SCGLO", "STGNO", "STGLO", "GNPDO", "EWPDO", "OBPDO", "SCPDO"]
+
+categories_cw_delhi = ["GNCWD", "EWCWD", "OBCWD", "SCCWD", "STCWD"]
+categories_cw_outside = ["GNCWO", "EWCWO", "OBCWO", "SCCWO", "STCWO"]
+
+def align_dtu_nsut_row(row_ranks, is_delhi, is_defence, medians):
+    if is_defence:
+        cats = categories_cw_delhi if is_delhi else categories_cw_outside
+    else:
+        cats = categories_delhi if is_delhi else categories_outside
+        
+    vals = row_ranks
+    
+    def get_valid_indices(val_idx, cat_idx, current):
+        if val_idx == len(vals):
+            mapping = {cats[current[i]]: vals[i] for i in range(len(vals)) if vals[i] is not None}
+            if not is_defence:
+                if "GNGND" not in mapping and "GNGNO" not in mapping:
+                    return []
+                neutral = [c for c in ["GNGND", "EWGND", "OBGND", "SCGND", "STGND", "GNGNO", "EWGNO", "OBGNO", "SCGNO", "STGNO"] if c in mapping]
+                if any(mapping[neutral[i]] > mapping[neutral[i+1]] for i in range(len(neutral)-1)):
+                    return []
+                female = [c for c in ["GNGLD", "EWGLD", "OBGLD", "SCGLD", "STGLD", "GNGLO", "EWGLO", "OBGLO", "SCGLO", "STGLO"] if c in mapping]
+                if any(mapping[female[i]] > mapping[female[i+1]] for i in range(len(female)-1)):
+                    return []
+                pairs = [("GNGND", "GNGLD"), ("EWGND", "EWGLD"), ("OBGND", "OBGLD"), ("SCGND", "SCGLD"), ("STGND", "STGLD"),
+                         ("GNGNO", "GNGLO"), ("EWGNO", "EWGLO"), ("OBGNO", "OBGLO"), ("SCGNO", "SCGLO"), ("STGNO", "STGLO")]
+                for n, f in pairs:
+                    if n in mapping and f in mapping and mapping[n] > mapping[f] * 1.15:
+                        return []
+                    if f in mapping and n not in mapping:
+                        return []
+            else:
+                def_cats = [c for c in ["GNCWD", "EWCWD", "OBCWD", "SCCWD", "STCWD", "GNCWO", "EWCWO", "OBCWO", "SCCWO", "STCWO"] if c in mapping]
+                if any(mapping[def_cats[i]] > mapping[def_cats[i+1]] for i in range(len(def_cats)-1)):
+                    return []
+            return [current[:]]
+            
+        res = []
+        for c in range(cat_idx, len(cats)):
+            current.append(c)
+            res.extend(get_valid_indices(val_idx + 1, c + 1, current))
+            current.pop()
+        return res
+
+    candidates = get_valid_indices(0, 0, [])
+    if not candidates:
+        return {cats[i]: vals[i] for i in range(min(len(vals), len(cats)))}
+        
+    best_candidate = None
+    best_score = float('inf')
+    for cand in candidates:
+        score = 0
+        for i, cat_idx in enumerate(cand):
+            val = vals[i]
+            if val is not None:
+                cat_name = cats[cat_idx]
+                ref_val = medians.get(cat_name, 50000)
+                score += (math.log(val) - math.log(ref_val)) ** 2
+        if score < best_score:
+            best_score = score
+            best_candidate = cand
+            
+    return {cats[best_candidate[i]]: vals[i] for i in range(len(vals))}
+
+nsut_branch_mappings = {
+    "CSAI": "Computer Science and Engineering (Artificial Intelligence)",
+    "CSE": "Computer Science and Engineering",
+    "CSDS": "Computer Science and Engineering (Data Science)",
+    "IT": "Information Technology",
+    "ITNS": "Information Technology (Network and Information Security)",
+    "MAC": "Mathematics and Computing",
+    "ECE": "Electronics and Communication Engineering",
+    "EVDT": "Electronics Engineering (VLSI Design and Technology)",
+    "EE": "Electrical Engineering",
+    "ICE": "Instrumentation and Control Engineering",
+    "ME": "Mechanical Engineering",
+    "BT": "Bio-Technology",
+    "CSDA*": "Computer Science and Engineering (Big Data Analytics) [East Campus]",
+    "CIOT*": "Computer Science and Engineering (Internet of Things) [East Campus]",
+    "ECAM*": "Electronics and Communication Engineering (Artificial Intelligence and Machine Learning) [East Campus]",
+    "MEEV**": "Mechanical Engineering (Electric Vehicles) [West Campus]",
+    "CE**": "Civil Engineering [West Campus]",
+    "GI**": "Geoinformatics [West Campus]",
+    "B.Arch.**": "Bachelor of Architecture [West Campus]"
+}
+
+def parse_dtu_nsut(sec_name, sec_lines, inst_name):
+    is_nsut = "NSUT" in inst_name
+    round_match = re.search(r'Round\s*(\d+)', sec_name, re.I)
+    round_num = round_match.group(1) if round_match else "5"
+    
+    parsed_entries = []
+    region = "DELHI"
+    quota = "HS"
+    is_defence = False
+    is_km = False
+    
+    branch_rows = []
+    curr_s_no = None
+    curr_branch_text = ""
+    
+    for line in sec_lines:
+        line_str = line.strip()
+        if not line_str:
+            continue
+            
+        if "DELHI REGION" in line_str:
+            region = "DELHI"
+            quota = "HS"
+            is_defence = False
+            is_km = False
+            continue
+        elif "OUTSIDE DELHI REGION" in line_str:
+            region = "OUTSIDE"
+            quota = "OS"
+            is_defence = False
+            is_km = False
+            continue
+        elif "Defense (CW)" in line_str or "Defense" in line_str or "Delhi CW" in line_str or "Outside Delhi-CW" in line_str:
+            is_defence = True
+            is_km = False
+            continue
+        elif "Kashmiri Migrants" in line_str or "Kashmiri Migrant" in line_str:
+            is_km = True
+            is_defence = False
+            continue
+            
+        if is_nsut:
+            match_sno = re.match(r'^([A-Z\*a-z\-\.\/2]+)(?:\s+(.*))?$', line_str)
+            if match_sno:
+                code = match_sno.group(1)
+                is_valid_code = code in nsut_branch_mappings or any(code.startswith(x) for x in ["CS", "IT", "MA", "EC", "EV", "EE", "IC", "ME", "BT", "CE", "GI", "B.Arch"])
+                if is_valid_code and code not in ["Category", "Branch", "NETAJI", "Sector-3", "B.TECH.", "Modified"]:
+                    curr_s_no = code
+                    curr_branch_text = match_sno.group(2) or ""
+                else:
+                    match_sno = None
+        else:
+            match_sno = re.match(r'^(\d+)(?:\s+(.*))?$', line_str)
+            if match_sno:
+                curr_s_no = match_sno.group(1)
+                curr_branch_text = match_sno.group(2) or ""
+                
+        if not match_sno and curr_s_no is not None:
+            curr_branch_text += " " + line_str
+                
+        if curr_s_no is not None:
+            tokens = curr_branch_text.split()
+            if tokens:
+                last_tok = tokens[-1]
+                is_rank = last_tok.isdigit() or last_tok == '-' or (last_tok.endswith(')') and len(tokens) >= 2 and tokens[-2].isdigit())
+                if is_rank:
+                    branch_rows.append({
+                        "s_no": curr_s_no,
+                        "branch_line": curr_branch_text,
+                        "region": region,
+                        "quota": quota,
+                        "is_defence": is_defence,
+                        "is_km": is_km
+                    })
+                    curr_s_no = None
+                    curr_branch_text = ""
+                    
+    delhi_medians = {
+        "GNGND": 30000, "GNGLD": 40000, "EWGND": 60000, "EWGLD": 80000,
+        "OBGND": 100000, "OBGLD": 150000, "SCGND": 250000, "SCGLD": 300000,
+        "STGND": 600000, "STGLD": 700000, "GNSGD": 50000, "GNPDD": 300000,
+        "EWPDD": 400000, "OBPDD": 500000, "SCPDD": 600000, "STPDD": 800000
+    }
+    outside_medians = {
+        "GNGNO": 10000, "GNGLO": 15000, "EWGNO": 20000, "EWGLO": 25000,
+        "OBGNO": 35000, "OBGLO": 45000, "SCGNO": 100000, "SCGLO": 120000,
+        "STGNO": 200000, "STGLO": 250000, "GNPDO": 150000, "EWPDO": 200000,
+        "OBPDO": 300000, "SCPDO": 400000
+    }
+    
+    for row in branch_rows:
+        tokens = row["branch_line"].split()
+        rank_start = len(tokens)
+        for i in range(len(tokens)-1, -1, -1):
+            tok = tokens[i]
+            is_rank = tok.isdigit() or tok == '-' or (tok.endswith(')') and i > 0 and tokens[i-1].isdigit())
+            if is_rank:
+                rank_start = i
+            else:
+                break
+                
+        if is_nsut:
+            branch_code = row["s_no"]
+            branch_name = nsut_branch_mappings.get(branch_code, branch_code)
+            raw_ranks = tokens
+        else:
+            branch_name = " ".join(tokens[:rank_start]).strip()
+            raw_ranks = tokens[rank_start:]
+        
+        cleaned_ranks = []
+        for r in raw_ranks:
+            if r.isdigit() or r == '-':
+                cleaned_ranks.append(r)
+            elif r.endswith(')') and len(cleaned_ranks) > 0:
+                pass
+                
+        ranks = [int(x) if x.isdigit() else None for x in cleaned_ranks]
+        
+        if row["is_km"]:
+            for val in ranks:
+                if val is not None:
+                    parsed_entries.append({
+                        "institute": inst_name,
+                        "type": "JACD",
+                        "program": branch_name,
+                        "quota": "AI",
+                        "seat_type": "KM",
+                        "gender": "Gender-Neutral",
+                        "opening_rank": str(val),
+                        "closing_rank": str(val),
+                        "source": "JAC_DELHI",
+                        "round": round_num
+                    })
+            continue
+            
+        is_delhi = (row["region"] == "DELHI")
+        medians = delhi_medians if is_delhi else outside_medians
+        aligned = align_dtu_nsut_row(ranks, is_delhi, row["is_defence"], medians)
+        
+        for cat, val in aligned.items():
+            if val is not None:
+                gender = "Female-only" if ("GLD" in cat or "GLO" in cat) else "Gender-Neutral"
+                parsed_entries.append({
+                    "institute": inst_name,
+                    "type": "JACD",
+                    "program": branch_name,
+                    "quota": row["quota"],
+                    "seat_type": cat,
+                    "gender": gender,
+                    "opening_rank": str(val),
+                    "closing_rank": str(val),
+                    "source": "JAC_DELHI",
+                    "round": round_num
+                })
+                
+    return parsed_entries
+
+# ----------------- IGDTUW PARSER -----------------
+def parse_igdtuw(sec_name, sec_lines):
+    round_match = re.search(r'Round\s*(\d+)', sec_name, re.I)
+    round_num = round_match.group(1) if round_match else "5"
+    
+    parsed_entries = []
+    quota = "HS"
+    branches = []
+    
+    for line in sec_lines:
+        line_str = line.strip()
+        if not line_str:
+            continue
+            
+        if "Delhi Region" in line_str:
+            quota = "HS"
+            continue
+        elif "Out Side Delhi Region" in line_str or "Outside Delhi Region" in line_str:
+            quota = "OS"
+            continue
+            
+        tokens = line_str.split()
+        if len(tokens) >= 5 and all(t in ["CSE-AI", "CSE", "ECE-AI", "ECE", "IT", "AIML", "MAE", "DMAM", "MAC", "B.Arch", "B.Arch(Paper 2)", "B.Arch(Paper-2)", "(Paper", "2)", "Paper", "2"] for t in tokens[:4]):
+            branches = []
+            skip_next = False
+            for i, t in enumerate(tokens):
+                if skip_next:
+                    skip_next = False
+                    continue
+                if t == "B.Arch" and i + 1 < len(tokens) and tokens[i+1].startswith("("):
+                    branches.append("B.Arch")
+                    skip_next = True
+                elif t == "(Paper" or t == "2)" or t == "Paper" or t == "2":
+                    pass
+                else:
+                    branches.append(t)
+            continue
+            
+        if branches and len(tokens) >= 2:
+            merged_tokens = tokenize_row(line_str)
+            cat = merged_tokens[0]
+            
+            if len(cat) >= 2 and any(cat.startswith(p) for p in ["GN", "OB", "SC", "ST", "EW", "SG", "KM"]):
+                ranks_vals = merged_tokens[1:]
+                for i, r_val in enumerate(ranks_vals):
+                    if i >= len(branches):
+                        break
+                    
+                    branch_name = branches[i]
+                    if r_val != "-" and r_val.strip() != "":
+                        num_match = re.match(r'^(\d+)', r_val)
+                        if num_match:
+                            val = int(num_match.group(1))
+                            parsed_entries.append({
+                                "institute": "Indira Gandhi Delhi Technical University for Women (IGDTUW)",
+                                "type": "JACD",
+                                "program": branch_name,
+                                "quota": "AI" if cat == "KM" else quota,
+                                "seat_type": cat,
+                                "gender": "Female-only",
+                                "opening_rank": str(val),
+                                "closing_rank": str(val),
+                                "source": "JAC_DELHI",
+                                "round": round_num
+                            })
+                            
+    return parsed_entries
+
+# ----------------- IIITD PARSER -----------------
+def align_iiitd_row(row_ranks, branches, medians):
+    vals = row_ranks
+    
+    def get_valid_indices(val_idx, branch_idx, current):
+        if val_idx == len(vals):
+            return [current[:]]
+        res = []
+        for b in range(branch_idx, len(branches)):
+            current.append(b)
+            res.extend(get_valid_indices(val_idx + 1, b + 1, current))
+            current.pop()
+        return res
+        
+    candidates = get_valid_indices(0, 0, [])
+    if not candidates:
+        return {branches[i]: vals[i] for i in range(min(len(vals), len(branches)))}
+        
+    best_candidate = None
+    best_score = float('inf')
+    for cand in candidates:
+        score = 0
+        for i, branch_idx in enumerate(cand):
+            val = vals[i]
+            if val is not None:
+                b_name = branches[branch_idx]
+                ref_val = medians.get(b_name, 15000)
+                score += (math.log(val) - math.log(ref_val)) ** 2
+        if score < best_score:
+            best_score = score
+            best_candidate = cand
+            
+    return {branches[best_candidate[i]]: vals[i] for i in range(len(vals))}
+
+def parse_iiitd(sec_name, sec_lines):
+    round_match = re.search(r'Round\s*(\d+)', sec_name, re.I)
+    round_num = round_match.group(1) if round_match else "5"
+    
+    parsed_entries = []
+    branches = []
+    has_jee = any("JEE" in l for l in sec_lines[:15])
+    is_jee_first = True
+    
+    for l in sec_lines[:15]:
+        if "JEE Rank" in l and "IIIT" in l:
+            if l.index("JEE") > l.index("IIIT"):
+                is_jee_first = False
+            break
+            
+    iiitd_branch_medians = {
+        "CSAI": 5000, "CSE": 8000, "CSAM": 12000, "CSEcon": 12000,
+        "CSD": 14000, "CSB": 18000, "CSSS": 20000, "ECE": 22000, "EVE": 25000
+    }
+    
+    for line in sec_lines:
+        line_str = line.strip()
+        if not line_str:
+            continue
+            
+        tokens = line_str.split()
+        if len(tokens) >= 4 and all(t in ["CSAM", "CSAI", "CSB", "CSD", "CSEcon", "CSE", "CSSS", "EVE", "ECE", "Category"] for t in tokens):
+            branches = [t for t in tokens if t != "Category"]
+            continue
+            
+        if branches and len(tokens) >= 2:
+            cat = tokens[0]
+            if len(cat) >= 2 and any(cat.startswith(p) for p in ["GN", "OB", "SC", "ST", "EW", "KM"]):
+                raw_nums = [int(t) for t in tokens[1:] if t.isdigit()]
+                
+                extracted_ranks = []
+                if has_jee:
+                    num_pairs = len(raw_nums) // 2
+                    for i in range(num_pairs):
+                        if is_jee_first:
+                            jee_val = raw_nums[2*i]
+                        else:
+                            jee_val = raw_nums[2*i + 1]
+                        extracted_ranks.append(jee_val)
+                else:
+                    extracted_ranks = raw_nums
+                    
+                aligned = align_iiitd_row(extracted_ranks, branches, iiitd_branch_medians)
+                quota = "AI" if "KM" in cat else ("OS" if "OD" in cat or cat.endswith("O") else "HS")
+                
+                for b_name, val in aligned.items():
+                    gender = "Female-only" if ("GLD" in cat or "GLO" in cat) else "Gender-Neutral"
+                    parsed_entries.append({
+                        "institute": "Indraprastha Institute of Information Technology Delhi (IIITD)",
+                        "type": "JACD",
+                        "program": b_name,
+                        "quota": quota,
+                        "seat_type": cat,
+                        "gender": gender,
+                        "opening_rank": str(val),
+                        "closing_rank": str(val),
+                        "source": "JAC_DELHI",
+                        "round": round_num
+                    })
+                    
+    return parsed_entries
+
+def parse_jac_delhi_data(file_path):
+    print(f"Parsing {os.path.basename(file_path)}...")
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except:
+        try:
+            with open(file_path, 'r', encoding='utf-16') as f:
+                content = f.read()
+        except:
+             with open(file_path, 'r', encoding='latin-1') as f:
+                content = f.read()
+
+    content = content.replace('\r\n', '\n')
+    lines = content.split('\n')
+
+    # Split into sections
+    sections = {}
+    current_sec = None
+    sec_lines = []
+
+    for line in lines:
+        line_str = line.strip()
+        if line_str.startswith('//'):
+            if current_sec:
+                sections[current_sec] = sec_lines
+            current_sec = line_str[2:].strip()
+            sec_lines = []
+        elif current_sec:
+            sec_lines.append(line)
+    if current_sec:
+        sections[current_sec] = sec_lines
+
+    parsed_entries = []
+    for sec_name, sec_lines in sections.items():
+        if "IIITD" in sec_name or "IIIT Delhi" in sec_name:
+            entries = parse_iiitd(sec_name, sec_lines)
+        elif "IGDTUW" in sec_name:
+            entries = parse_igdtuw(sec_name, sec_lines)
+        elif "DTU" in sec_name:
+            entries = parse_dtu_nsut(sec_name, sec_lines, "Delhi Technological University (DTU)")
+        elif "NSUT" in sec_name:
+            entries = parse_dtu_nsut(sec_name, sec_lines, "Netaji Subhas University of Technology (NSUT)")
+        else:
+            entries = []
+        parsed_entries.extend(entries)
+
+    return parsed_entries
+
 if __name__ == "__main__":
     # Determine base root directory dynamically relative to this script's location
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -425,6 +906,8 @@ if __name__ == "__main__":
         file_name_lower = os.path.basename(txt_file).lower()
         if "jac_chandigarh" in file_name_lower:
             all_results.extend(parse_jac_chandigarh_data(txt_file))
+        elif "jacdelhi" in file_name_lower:
+            all_results.extend(parse_jac_delhi_data(txt_file))
         elif "uptac" in file_name_lower:
             all_results.extend(parse_uptac_data(txt_file))
         elif "ggsipu" in file_name_lower:

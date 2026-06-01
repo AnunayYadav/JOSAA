@@ -12,6 +12,7 @@ const MAPPINGS = {
     'GFTI': 'Govt. Funded Technical Institute (GFTI)',
     'SPA': 'School of Planning and Architecture (SPA)',
     'JAC': 'JAC Chandigarh',
+    'JACD': 'JAC Delhi',
     'UPTAC': 'UPTAC Institutes',
     'GGSIPU': 'GGSIPU Affiliated',
     
@@ -57,7 +58,52 @@ const MAPPINGS = {
     'STDFOS': 'ST Defence (Outside Delhi - OS)',
     'NOJNAI': 'J&K Migrant (All India - AI)',
     'NOKMAI': 'Kashmiri Migrant (All India - AI)',
-    'NOSMAI': 'Sikh Minority (All India - AI)'
+    'NOSMAI': 'Sikh Minority (All India - AI)',
+
+    // JAC Delhi Categories
+    'GNGND': 'General (Delhi - HS)',
+    'GNGNO': 'General (Outside Delhi - OS)',
+    'GNGLD': 'General Female (Delhi - HS)',
+    'GNGLO': 'General Female (Outside Delhi - OS)',
+    'EWGND': 'EWS (Delhi - HS)',
+    'EWGNO': 'EWS (Outside Delhi - OS)',
+    'EWGLD': 'EWS Female (Delhi - HS)',
+    'EWGLO': 'EWS Female (Outside Delhi - OS)',
+    'OBGND': 'OBC (Delhi - HS)',
+    'OBGNO': 'OBC (Outside Delhi - OS)',
+    'OBGLD': 'OBC Female (Delhi - HS)',
+    'OBGLO': 'OBC Female (Outside Delhi - OS)',
+    'SCGND': 'SC (Delhi - HS)',
+    'SCGNO': 'SC (Outside Delhi - OS)',
+    'SCGLD': 'SC Female (Delhi - HS)',
+    'SCGLO': 'SC Female (Outside Delhi - OS)',
+    'STGND': 'ST (Delhi - HS)',
+    'STGNO': 'ST (Outside Delhi - OS)',
+    'STGLD': 'ST Female (Delhi - HS)',
+    'STGLO': 'ST Female (Outside Delhi - OS)',
+    'GNSGD': 'Single Girl Child (Delhi - HS)',
+    'SG': 'Single Girl Child',
+    'KM': 'Kashmiri Migrant',
+    'GNCWD': 'General Defence (Delhi - HS)',
+    'GNCWO': 'General Defence (Outside Delhi - OS)',
+    'EWCWD': 'EWS Defence (Delhi - HS)',
+    'EWCWO': 'EWS Defence (Outside Delhi - OS)',
+    'OBCWD': 'OBC Defence (Delhi - HS)',
+    'OBCWO': 'OBC Defence (Outside Delhi - OS)',
+    'SCCWD': 'SC Defence (Delhi - HS)',
+    'SCCWO': 'SC Defence (Outside Delhi - OS)',
+    'STCWD': 'ST Defence (Delhi - HS)',
+    'STCWO': 'ST Defence (Outside Delhi - OS)',
+    'GNPDD': 'General PwD (Delhi - HS)',
+    'GNPDO': 'General PwD (Outside Delhi - OS)',
+    'EWPDD': 'EWS PwD (Delhi - HS)',
+    'EWPDO': 'EWS PwD (Outside Delhi - OS)',
+    'OBPDD': 'OBC PwD (Delhi - HS)',
+    'OBPDO': 'OBC PwD (Outside Delhi - OS)',
+    'SCPDD': 'SC PwD (Delhi - HS)',
+    'SCPDO': 'SC PwD (Outside Delhi - OS)',
+    'STPDD': 'ST PwD (Delhi - HS)',
+    'STPDO': 'ST PwD (Outside Delhi - OS)'
 };
 
 
@@ -102,6 +148,7 @@ async function init() {
         setupModeSwitching();
         setupDropdowns();
         setupInternalSearch('program-option-search', 'program-options');
+        setupInternalSearch('institute-option-search', 'institute-options');
         populateAllFilters();
         applyFilters();
         
@@ -117,6 +164,8 @@ function setupModeSwitching() {
     const navJosaa = document.getElementById('nav-josaa');
     const navCsab = document.getElementById('nav-csab');
     const navJac = document.getElementById('nav-jac');
+    const navJacDelhi = document.getElementById('nav-jac-delhi');
+    const navCounsellingGroup = document.getElementById('nav-counselling-group');
     const navUptac = document.getElementById('nav-uptac');
     const navGgsipu = document.getElementById('nav-ggsipu');
     const modeText = document.getElementById('mode-text');
@@ -127,30 +176,78 @@ function setupModeSwitching() {
         navJosaa.classList.toggle('active', mode === 'JOSAA');
         navCsab.classList.toggle('active', mode === 'CSAB');
         if (navJac) navJac.classList.toggle('active', mode === 'JAC');
+        if (navJacDelhi) navJacDelhi.classList.toggle('active', mode === 'JAC_DELHI');
+        if (navCounsellingGroup) {
+            navCounsellingGroup.classList.add('active');
+            const span = navCounsellingGroup.querySelector('span');
+            if (span) {
+                let label = "Counselling";
+                if (mode === 'JOSAA') label = "JoSAA";
+                else if (mode === 'CSAB') label = "CSAB";
+                else if (mode === 'JAC') label = "JAC Chandigarh";
+                else if (mode === 'JAC_DELHI') label = "JAC Delhi";
+                else if (mode === 'UPTAC') label = "UPTAC";
+                else if (mode === 'GGSIPU') label = "GGSIPU";
+                span.textContent = label;
+            }
+        }
         if (navUptac) navUptac.classList.toggle('active', mode === 'UPTAC');
         if (navGgsipu) navGgsipu.classList.toggle('active', mode === 'GGSIPU');
 
+        // Close dropdown menu after choosing a mode on mobile
+        const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+        if (dropdownMenu) {
+            dropdownMenu.classList.remove('show');
+        }
+        const counsellingIcon = document.querySelector('#nav-counselling-group i');
+        if (counsellingIcon) {
+            counsellingIcon.style.transform = 'rotate(0deg)';
+        }
+
         const csabNote = document.getElementById('csab-info-note');
+        const infoNoteText = document.getElementById('info-note-text');
         if (mode === 'JOSAA') {
             modeText.textContent = "JoSAA Explorer";
             heroDesc.textContent = "Comprehensive JoSAA 2025 Data Explorer. Round opening and closing ranks at your fingertips.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (infoNoteText) {
+                infoNoteText.innerHTML = "<strong>Note:</strong> Ranks ending with <strong>'P'</strong> belong to the Preparatory Rank List. Ranks are JEE Main/JEE Advanced CRL ranks.";
+            }
         } else if (mode === 'CSAB') {
             modeText.textContent = "CSAB Explorer";
             heroDesc.textContent = "Comprehensive CSAB 2025 Special Round Data Explorer. Allocation details for NITs, IIITs and GFTIs.";
             if (csabNote) csabNote.classList.remove('hidden');
+            if (infoNoteText) {
+                infoNoteText.innerHTML = "<strong>Note:</strong> All ranks are JEE Main All India CRL Ranks. Cutoffs represent Special Round vacancy allocations.";
+            }
         } else if (mode === 'JAC') {
             modeText.textContent = "JAC Chandigarh Explorer";
             heroDesc.textContent = "Comprehensive JAC Chandigarh 2025 Data Explorer. Opening and closing ranks for UIET, UICET, CCET, and CCA.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (infoNoteText) {
+                infoNoteText.innerHTML = "<strong>Note:</strong> Ranks are JEE Main All India CRL Ranks. Allotments are under Joint Admission Committee (JAC) Chandigarh.";
+            }
+        } else if (mode === 'JAC_DELHI') {
+            modeText.textContent = "JAC Delhi Explorer";
+            heroDesc.textContent = "Comprehensive JAC Delhi 2025 Data Explorer. Opening and closing ranks for DTU, NSUT, IIITD, and IGDTUW.";
+            if (csabNote) csabNote.classList.add('hidden');
+            if (infoNoteText) {
+                infoNoteText.innerHTML = "<strong>Note:</strong> Ranks are JEE Main All India CRL Ranks for DTU, NSUT, and IGDTUW. For IIITD, Rounds 1, 2, and 5 list JEE CRL Ranks, while Rounds 3 and 4 list local IIITD Merit Ranks.";
+            }
         } else if (mode === 'UPTAC') {
             modeText.textContent = "UPTAC Explorer";
             heroDesc.textContent = "Comprehensive UPTAC 2025 Counselling Data Explorer. Opening and closing ranks for technical institutes in Uttar Pradesh.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (infoNoteText) {
+                infoNoteText.innerHTML = "<strong>Note:</strong> Ranks are JEE Main All India CRL Ranks for B.Tech admissions across technical institutions in Uttar Pradesh.";
+            }
         } else if (mode === 'GGSIPU') {
             modeText.textContent = "GGSIPU Explorer";
             heroDesc.textContent = "Comprehensive GGSIPU 2025 Counselling Data Explorer. Round 1 opening and closing ranks for affiliated engineering colleges.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (infoNoteText) {
+                infoNoteText.innerHTML = "<strong>Note:</strong> Ranks are JEE Main All India CRL Ranks for B.Tech admissions across IP University affiliated engineering colleges.";
+            }
         }
 
         // Reset search and rank filter inputs when switching modes to avoid stale criteria
@@ -161,6 +258,10 @@ function setupModeSwitching() {
         if (programSearch) {
             programSearch.value = '';
         }
+        const instituteSearch = document.getElementById('institute-option-search');
+        if (instituteSearch) {
+            instituteSearch.value = '';
+        }
 
         populateAllFilters();
         applyFilters();
@@ -169,8 +270,42 @@ function setupModeSwitching() {
     navJosaa.addEventListener('click', () => switchMode('JOSAA'));
     navCsab.addEventListener('click', () => switchMode('CSAB'));
     if (navJac) navJac.addEventListener('click', () => switchMode('JAC'));
+    if (navJacDelhi) navJacDelhi.addEventListener('click', () => switchMode('JAC_DELHI'));
     if (navUptac) navUptac.addEventListener('click', () => switchMode('UPTAC'));
     if (navGgsipu) navGgsipu.addEventListener('click', () => switchMode('GGSIPU'));
+
+    // Toggle dropdown on mobile click
+    if (navCounsellingGroup) {
+        navCounsellingGroup.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                e.stopPropagation();
+                const dropdownMenu = navCounsellingGroup.nextElementSibling;
+                if (dropdownMenu) {
+                    dropdownMenu.classList.toggle('show');
+                    const icon = navCounsellingGroup.querySelector('i');
+                    if (icon) {
+                        const isExpanded = dropdownMenu.classList.contains('show');
+                        icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
+                }
+            }
+        });
+    }
+
+    // Close dropdown menu when clicking outside
+    document.addEventListener('click', (e) => {
+        const dropdownMenu = document.querySelector('.nav-dropdown-menu');
+        if (dropdownMenu && dropdownMenu.classList.contains('show')) {
+            if (!navCounsellingGroup.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+                const counsellingIcon = document.querySelector('#nav-counselling-group i');
+                if (counsellingIcon) {
+                    counsellingIcon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+    });
 }
 
 
@@ -228,6 +363,7 @@ function populateAllFilters() {
     const seats = [...new Set(modeData.map(item => item.seat_type))].sort();
     const genders = [...new Set(modeData.map(item => item.gender))].sort();
     const programs = [...new Set(modeData.map(item => item.program))].sort();
+    const institutes = [...new Set(modeData.map(item => item.institute))].sort();
 
     renderCheckboxOptions('type-options', types, 'dropdown-type');
     toggleFilterVisibility('dropdown-type', types);
@@ -249,6 +385,9 @@ function populateAllFilters() {
 
     renderCheckboxOptions('program-options', programs, 'dropdown-program');
     toggleFilterVisibility('dropdown-program', programs);
+
+    renderCheckboxOptions('institute-options', institutes, 'dropdown-institute');
+    toggleFilterVisibility('dropdown-institute', institutes);
 }
 
 
@@ -328,7 +467,8 @@ const dropdownDisplayNames = {
     'dropdown-program': 'Programs',
     'dropdown-quota': 'Quotas',
     'dropdown-seat': 'Categories',
-    'dropdown-gender': 'Genders'
+    'dropdown-gender': 'Genders',
+    'dropdown-institute': 'Institutes'
 };
 
 function updateDropdownButtonText(dropdownId) {
@@ -364,6 +504,7 @@ function applyFilters() {
     const selectedSeats = getCheckedValues('dropdown-seat');
     const selectedGenders = getCheckedValues('dropdown-gender');
     const selectedPrograms = getCheckedValues('dropdown-program');
+    const selectedInstitutes = getCheckedValues('dropdown-institute');
     
     const minR = parseInt(rankMin.value) || 0;
     const maxR = parseInt(rankMax.value) || Infinity;
@@ -382,9 +523,10 @@ function applyFilters() {
         const matchesSeat = selectedSeats.includes(item.seat_type);
         const matchesGender = selectedGenders.includes(item.gender);
         const matchesProgram = selectedPrograms.includes(item.program);
+        const matchesInstitute = selectedInstitutes.includes(item.institute);
         const matchesRank = item.closing_rank_val >= minR && item.closing_rank_val <= maxR;
 
-        return matchesSearch && matchesRound && matchesType && matchesQuota && matchesSeat && matchesGender && matchesProgram && matchesRank;
+        return matchesSearch && matchesRound && matchesType && matchesQuota && matchesSeat && matchesGender && matchesProgram && matchesInstitute && matchesRank;
     });
 
 
@@ -502,7 +644,7 @@ resetBtn.addEventListener('click', () => {
     document.querySelectorAll('.custom-dropdown input').forEach(cb => cb.checked = true);
     document.querySelectorAll('.dropdown-search input').forEach(input => input.value = '');
     document.querySelectorAll('.options-list label').forEach(label => label.style.display = 'flex');
-    ['dropdown-round', 'dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender', 'dropdown-program'].forEach(id => updateDropdownButtonText(id));
+    ['dropdown-round', 'dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender', 'dropdown-program', 'dropdown-institute'].forEach(id => updateDropdownButtonText(id));
 
 
     applyFilters();

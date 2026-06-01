@@ -20,13 +20,21 @@
                 <span class="logo-icon"><i data-lucide="graduation-cap"></i></span>
                 <span class="logo-text">Admission<span>Explorer</span></span>
             </div>
-            <div class="nav-links">
-                <a href="javascript:void(0)" id="nav-josaa" class="active">JoSAA</a>
-                <a href="javascript:void(0)" id="nav-csab">CSAB</a>
-                <a href="javascript:void(0)" id="nav-jac">JAC Chandigarh</a>
-                <a href="javascript:void(0)" id="nav-uptac">UPTAC</a>
-                <a href="javascript:void(0)" id="nav-ggsipu">GGSIPU</a>
-                <a href="javascript:void(0)" id="nav-about">About</a>
+            <div class="nav-links" id="nav-links">
+                <div class="nav-dropdown">
+                    <a href="javascript:void(0)" id="nav-counselling-group" class="nav-dropdown-toggle active">
+                        <span>JoSAA</span> <i data-lucide="chevron-down"></i>
+                    </a>
+                    <div class="nav-dropdown-menu">
+                        <a href="javascript:void(0)" id="nav-josaa" class="active">JoSAA</a>
+                        <a href="javascript:void(0)" id="nav-csab">CSAB</a>
+                        <a href="javascript:void(0)" id="nav-jac">JAC Chandigarh</a>
+                        <a href="javascript:void(0)" id="nav-jac-delhi">JAC Delhi</a>
+                        <a href="javascript:void(0)" id="nav-uptac">UPTAC</a>
+                        <a href="javascript:void(0)" id="nav-ggsipu">GGSIPU</a>
+                    </div>
+                </div>
+                <a href="javascript:void(0)" id="nav-about" class="nav-about-btn"><i data-lucide="info"></i><span>About</span></a>
                 <button id="theme-toggle" class="theme-btn"><i data-lucide="moon"></i></button>
             </div>
         </div>
@@ -63,6 +71,21 @@
                         <button class="dropdown-btn"><span>All Types</span> <i data-lucide="chevron-down"></i></button>
                         <div class="dropdown-content" id="type-options">
                             <!-- Dynamic options -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label><i data-lucide="building-2"></i> Institute</label>
+                    <div class="custom-dropdown" id="dropdown-institute">
+                        <button class="dropdown-btn"><span>All Institutes</span> <i data-lucide="chevron-down"></i></button>
+                        <div class="dropdown-content">
+                            <div class="dropdown-search">
+                                <input type="text" placeholder="Search institutes..." id="institute-option-search">
+                            </div>
+                            <div id="institute-options" class="options-list">
+                                <!-- Dynamic options -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -136,9 +159,9 @@
                 </button>
             </aside>
 
-            <div class="info-note">
+            <div class="info-note" id="info-note-box">
                 <i data-lucide="info"></i>
-                <p><strong>Note:</strong> Ranks ending with <strong>'P'</strong> belong to the Preparatory Rank List.</p>
+                <p id="info-note-text"><strong>Note:</strong> Ranks ending with <strong>'P'</strong> belong to the Preparatory Rank List.</p>
             </div>
 
             <div class="results-container">
@@ -223,7 +246,7 @@
                 <h2>About Admission Explorer</h2>
             </div>
             <div class="modal-body">
-                <p class="about-lead">Simplifying college admissions exploration for JoSAA, CSAB, JAC Chandigarh, UPTAC, and GGSIPU.</p>
+                <p class="about-lead">Simplifying college admissions exploration for JoSAA, CSAB, JAC Chandigarh, JAC Delhi, UPTAC, and GGSIPU.</p>
                 
                 <div class="about-section">
                     <h3><i data-lucide="user" class="section-icon"></i> Created By</h3>
@@ -232,7 +255,7 @@
                 
                 <div class="about-section">
                     <h3><i data-lucide="target" class="section-icon"></i> The Purpose</h3>
-                    <p>Navigating through hundreds of pages of PDF cut-off lists during counselling is slow and exhausting. <strong>Admission Explorer</strong> aggregates opening and closing ranks from all rounds of JoSAA, CSAB, JAC Chandigarh, UPTAC, and GGSIPU into a single, high-performance web interface. Students can easily filter colleges matching their rank range, check quotas, and explore possibilities in seconds.</p>
+                    <p>Navigating through hundreds of pages of PDF cut-off lists during counselling is slow and exhausting. <strong>Admission Explorer</strong> aggregates opening and closing ranks from all rounds of JoSAA, CSAB, JAC Chandigarh, JAC Delhi, UPTAC, and GGSIPU into a single, high-performance web interface. Students can easily filter colleges matching their rank range, check quotas, and explore possibilities in seconds.</p>
                 </div>
 
                 <div class="about-section">
@@ -241,6 +264,7 @@
                         <li><strong>JoSAA Mode:</strong> Ranks for IITs, NITs, IIITs, and GFTIs.</li>
                         <li><strong>CSAB Mode:</strong> Special round vacancy details for NIT+ system.</li>
                         <li><strong>JAC Chandigarh Mode:</strong> Ranks for local institutes (UIET, CCET, CCA).</li>
+                        <li><strong>JAC Delhi Mode:</strong> Ranks for top technical institutes in Delhi (DTU, NSUT, IIITD, IGDTUW).</li>
                         <li><strong>UPTAC Mode:</strong> Ranks for technical colleges in Uttar Pradesh.</li>
                         <li><strong>GGSIPU Mode:</strong> Cut-offs for Guru Gobind Singh Indraprastha University affiliated engineering colleges.</li>
                         <li><strong>Google Search on Click:</strong> Fast lookup of institute details directly from the table.</li>
