@@ -805,6 +805,7 @@ function runPredictor() {
         km: document.getElementById('pred-special-km')?.checked || false,
         sg: document.getElementById('pred-special-sg')?.checked || false,
         tfw: document.getElementById('pred-special-tfw')?.checked || false,
+        dasa: document.getElementById('pred-special-dasa')?.checked || false,
         other: document.getElementById('pred-special-other')?.checked || false
     };
     
@@ -1200,19 +1201,20 @@ function isQuotaEligible(userState, item) {
     const seatType = (item.seat_type || '');
     
     if (src === 'JOSAA' || src === 'CSAB') {
-        if (item.quota === 'AI') return true;
+        const q = item.quota;
+        if (q === 'AI' || q === 'All India') return true;
         const instituteState = getInstituteState(item.institute);
         if (!instituteState) return true;
         
-        if (item.quota === 'HS') {
+        if (q === 'HS' || q === 'Home State') {
             return userState === instituteState;
-        } else if (item.quota === 'OS') {
+        } else if (q === 'OS' || q === 'Other State') {
             return userState !== instituteState;
-        } else if (item.quota === 'JK') {
+        } else if (q === 'JK' || q === 'Jammu & Kashmir (UT)') {
             return userState === 'Jammu & Kashmir';
-        } else if (item.quota === 'LA') {
+        } else if (q === 'LA' || q === 'Ladakh (UT)') {
             return userState === 'Ladakh';
-        } else if (item.quota === 'GO') {
+        } else if (q === 'GO' || q === 'Home State for Goa') {
             return userState === 'Goa';
         }
         return true;
@@ -1353,6 +1355,12 @@ function getSpecialCategoryType(item) {
     const seatType = item.seat_type || "";
     const seatTypeLower = seatType.toLowerCase();
     const src = item.source;
+    
+    // Check DASA quota in CSAB
+    const quota = item.quota || "";
+    if (quota === 'DASA-CIWG' || quota === 'DASA-Non CIWG') {
+        return 'dasa';
+    }
     
     // 1. PwD
     if (src === 'JOSAA' || src === 'CSAB') {
