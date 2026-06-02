@@ -1245,6 +1245,7 @@ function togglePredictorTab(tabName) {
     }
     
     updatePredictorTabUI();
+    renderCollegeBreakdown();
     
     // Recalculate combined list and re-populate the filters!
     let combinedList = [];
@@ -1477,11 +1478,10 @@ function renderCollegeBreakdown() {
     const container = document.getElementById('pred-college-breakdown');
     if (!container) return;
     
-    const allEligibleSeats = [
-        ...predictorResults.reach,
-        ...predictorResults.match,
-        ...predictorResults.safe
-    ];
+    let allEligibleSeats = [];
+    if (activePredictorTabs.has('reach')) allEligibleSeats = allEligibleSeats.concat(predictorResults.reach);
+    if (activePredictorTabs.has('match')) allEligibleSeats = allEligibleSeats.concat(predictorResults.match);
+    if (activePredictorTabs.has('safe')) allEligibleSeats = allEligibleSeats.concat(predictorResults.safe);
     
     const iitColleges = new Set();
     const nitColleges = new Set();
