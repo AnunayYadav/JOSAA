@@ -893,8 +893,17 @@ function populatePredictorFilters(combinedList) {
     const branchListContainer = document.getElementById('pred-branch-filter-list');
     const collegeCountEl = document.getElementById('pred-colleges-count');
     const branchCountEl = document.getElementById('pred-branches-count');
+    const clearCollegesBtn = document.getElementById('clear-pred-colleges-btn');
+    const clearBranchesBtn = document.getElementById('clear-pred-branches-btn');
     
     if (!collegeListContainer || !branchListContainer) return;
+    
+    if (clearCollegesBtn) {
+        clearCollegesBtn.style.display = selectedPredictorColleges.size > 0 ? 'flex' : 'none';
+    }
+    if (clearBranchesBtn) {
+        clearBranchesBtn.style.display = selectedPredictorBranches.size > 0 ? 'flex' : 'none';
+    }
     
     // Capture current scroll positions to prevent jumping
     const collegeScroll = collegeListContainer.scrollTop;
@@ -1133,6 +1142,39 @@ function initPredictorModule() {
         });
     });
     
+    // Clear buttons for College and Branch filters
+    const clearCollegesBtnEl = document.getElementById('clear-pred-colleges-btn');
+    if (clearCollegesBtnEl) {
+        clearCollegesBtnEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedPredictorColleges.clear();
+            const collegeSearchInput = document.getElementById('pred-college-filter-search');
+            if (collegeSearchInput) {
+                collegeSearchInput.value = '';
+            }
+            let list = getActivePredictorList();
+            populatePredictorFilters(list);
+            predictorVisibleLimit = 40;
+            renderPredictorCards();
+        });
+    }
+
+    const clearBranchesBtnEl = document.getElementById('clear-pred-branches-btn');
+    if (clearBranchesBtnEl) {
+        clearBranchesBtnEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedPredictorBranches.clear();
+            const branchSearchInput = document.getElementById('pred-branch-filter-search');
+            if (branchSearchInput) {
+                branchSearchInput.value = '';
+            }
+            let list = getActivePredictorList();
+            populatePredictorFilters(list);
+            predictorVisibleLimit = 40;
+            renderPredictorCards();
+        });
+    }
+
     isPredictorInitialized = true;
 }
 

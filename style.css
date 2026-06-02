@@ -1925,6 +1925,34 @@ tr:hover td {
     margin: 0;
 }
 
+.pred-clear-btn {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    display: none; /* Controlled by JS */
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: auto;
+}
+
+.pred-clear-btn:hover {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.pred-clear-btn i {
+    width: 12px;
+    height: 12px;
+}
+
 .pred-filter-box h3 i {
     color: var(--primary-color);
     width: 18px;
