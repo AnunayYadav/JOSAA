@@ -794,9 +794,9 @@ let activePredictorTabs = new Set(['match', 'safe']);
 let predictorVisibleLimit = 40;
 let isPredictorInitialized = false;
 
-let selectedPredictorCollege = null;
-let selectedPredictorBranch = null;
-let selectedPredictorCategory = null;
+let selectedPredictorColleges = new Set();
+let selectedPredictorBranches = new Set();
+let selectedPredictorCategories = new Set();
 
 const PREDICTOR_CATEGORIES = {
     'iit': (item) => item.source === 'JOSAA' && item.type === 'IIT',
@@ -809,27 +809,37 @@ const PREDICTOR_CATEGORIES = {
     'ipu': (item) => item.source === 'GGSIPU'
 };
 
-function selectPredictorCategory(category) {
-    if (selectedPredictorCategory === category) {
-        selectedPredictorCategory = null;
-    } else {
-        selectedPredictorCategory = category;
-    }
-    
-    updateBreakdownActiveStates();
-    
+function getActivePredictorList() {
     let list = [];
     if (activePredictorTabs.has('reach')) list = list.concat(predictorResults.reach);
     if (activePredictorTabs.has('match')) list = list.concat(predictorResults.match);
     if (activePredictorTabs.has('safe')) list = list.concat(predictorResults.safe);
     
-    if (selectedPredictorCategory) {
-        const filterFn = PREDICTOR_CATEGORIES[selectedPredictorCategory];
-        if (filterFn) {
-            list = list.filter(({ item }) => filterFn(item));
+    if (selectedPredictorCategories.size > 0) {
+        list = list.filter(({ item }) => {
+            return Array.from(selectedPredictorCategories).some(cat => {
+                const filterFn = PREDICTOR_CATEGORIES[cat];
+                return filterFn ? filterFn(item) : false;
+            });
+        });
+    }
+    return list;
+}
+
+function togglePredictorCategory(category) {
+    if (category === null || category === 'all') {
+        selectedPredictorCategories.clear();
+    } else {
+        if (selectedPredictorCategories.has(category)) {
+            selectedPredictorCategories.delete(category);
+        } else {
+            selectedPredictorCategories.add(category);
         }
     }
     
+    updateBreakdownActiveStates();
+    
+    let list = getActivePredictorList();
     populatePredictorFilters(list);
     
     predictorVisibleLimit = 40;
@@ -839,7 +849,8 @@ function selectPredictorCategory(category) {
 function updateBreakdownActiveStates() {
     document.querySelectorAll('.pred-breakdown-item').forEach(item => {
         const cat = item.getAttribute('data-category');
-        const isActive = (selectedPredictorCategory === cat) || (!selectedPredictorCategory && cat === 'all');
+        const isActive = (cat === 'all' && selectedPredictorCategories.size === 0) || 
+                         (cat !== 'all' && selectedPredictorCategories.has(cat));
         item.classList.toggle('active', isActive);
     });
 }
@@ -879,39 +890,57 @@ function populatePredictorFilters(combinedList) {
     
     if (!collegeListContainer || !branchListContainer) return;
     
-    // Count options per college and branch
-    const collegeMap = new Map();
-    const branchMap = new Map();
+    // Capture current scroll positions to prevent jumping
+    const collegeScroll = collegeListContainer.scrollTop;
+    const branchScroll = branchListContainer.scrollTop;
     
+    // Count options per college
+    const collegeMap = new Map();
     combinedList.forEach(({ item }) => {
         const college = item.institute;
-        const branch = item.program;
-        
         collegeMap.set(college, (collegeMap.get(college) || 0) + 1);
+    });
+    
+    // 2. Generate branches list (filtered by selected colleges if any)
+    const branchFilteredList = selectedPredictorColleges.size > 0 
+        ? combinedList.filter(({ item }) => selectedPredictorColleges.has(item.institute)) 
+        : combinedList;
+        
+    const branchMap = new Map();
+    branchFilteredList.forEach(({ item }) => {
+        const branch = item.program;
         branchMap.set(branch, (branchMap.get(branch) || 0) + 1);
     });
+
+    // Clean up selected branches that are no longer available in the newly updated branch list
+    if (selectedPredictorColleges.size > 0) {
+        for (const branch of selectedPredictorBranches) {
+            if (!branchMap.has(branch)) {
+                selectedPredictorBranches.delete(branch);
+            }
+        }
+    }
     
     // Sort colleges and branches alphabetically
     const sortedColleges = Array.from(collegeMap.keys()).sort();
     const sortedBranches = Array.from(branchMap.keys()).sort();
     
-    // Reset selected filters if they are no longer eligible
-    if (selectedPredictorCollege && !collegeMap.has(selectedPredictorCollege)) {
-        selectedPredictorCollege = null;
-    }
-    if (selectedPredictorBranch && !branchMap.has(selectedPredictorBranch)) {
-        selectedPredictorBranch = null;
-    }
-    
     if (collegeCountEl) collegeCountEl.textContent = sortedColleges.length;
     if (branchCountEl) branchCountEl.textContent = sortedBranches.length;
+    
+    // Get search values to preserve filtered state
+    const collegeSearchInput = document.getElementById('pred-college-filter-search');
+    const branchSearchInput = document.getElementById('pred-branch-filter-search');
+    const collegeSearchVal = collegeSearchInput ? collegeSearchInput.value.toLowerCase().trim() : '';
+    const branchSearchVal = branchSearchInput ? branchSearchInput.value.toLowerCase().trim() : '';
     
     // Render colleges list
     collegeListContainer.innerHTML = sortedColleges.map(college => {
         const count = collegeMap.get(college);
-        const isActive = selectedPredictorCollege === college;
+        const isActive = selectedPredictorColleges.has(college);
+        const isVisible = !collegeSearchVal || college.toLowerCase().includes(collegeSearchVal);
         return `
-            <div class="pred-filter-item ${isActive ? 'active' : ''}">
+            <div class="pred-filter-item ${isActive ? 'active' : ''}" style="display: ${isVisible ? 'flex' : 'none'}">
                 <span class="name">${college}</span>
                 <span class="count">${count}</span>
             </div>
@@ -921,14 +950,19 @@ function populatePredictorFilters(combinedList) {
     // Render branches list
     branchListContainer.innerHTML = sortedBranches.map(branch => {
         const count = branchMap.get(branch);
-        const isActive = selectedPredictorBranch === branch;
+        const isActive = selectedPredictorBranches.has(branch);
+        const isVisible = !branchSearchVal || branch.toLowerCase().includes(branchSearchVal);
         return `
-            <div class="pred-filter-item ${isActive ? 'active' : ''}">
+            <div class="pred-filter-item ${isActive ? 'active' : ''}" style="display: ${isVisible ? 'flex' : 'none'}">
                 <span class="name">${branch}</span>
                 <span class="count">${count}</span>
             </div>
         `;
     }).join('');
+    
+    // Restore scroll positions
+    collegeListContainer.scrollTop = collegeScroll;
+    branchListContainer.scrollTop = branchScroll;
     
     // Setup event listeners for the new items
     setupPredictorFilterItemEvents(collegeListContainer, 'college');
@@ -941,20 +975,22 @@ function setupPredictorFilterItemEvents(container, type) {
             const value = item.querySelector('.name').textContent;
             
             if (type === 'college') {
-                if (selectedPredictorCollege === value) {
-                    selectedPredictorCollege = null;
+                if (selectedPredictorColleges.has(value)) {
+                    selectedPredictorColleges.delete(value);
                 } else {
-                    selectedPredictorCollege = value;
+                    selectedPredictorColleges.add(value);
                 }
             } else if (type === 'branch') {
-                if (selectedPredictorBranch === value) {
-                    selectedPredictorBranch = null;
+                if (selectedPredictorBranches.has(value)) {
+                    selectedPredictorBranches.delete(value);
                 } else {
-                    selectedPredictorBranch = value;
+                    selectedPredictorBranches.add(value);
                 }
             }
             
-            updateFilterListsActiveStates();
+            // Re-populate filters to update options under cross-filtering
+            let list = getActivePredictorList();
+            populatePredictorFilters(list);
             
             predictorVisibleLimit = 40;
             renderPredictorCards();
@@ -965,12 +1001,12 @@ function setupPredictorFilterItemEvents(container, type) {
 function updateFilterListsActiveStates() {
     document.querySelectorAll('#pred-college-filter-list .pred-filter-item').forEach(item => {
         const value = item.querySelector('.name').textContent;
-        item.classList.toggle('active', selectedPredictorCollege === value);
+        item.classList.toggle('active', selectedPredictorColleges.has(value));
     });
     
     document.querySelectorAll('#pred-branch-filter-list .pred-filter-item').forEach(item => {
         const value = item.querySelector('.name').textContent;
-        item.classList.toggle('active', selectedPredictorBranch === value);
+        item.classList.toggle('active', selectedPredictorBranches.has(value));
     });
 }
 
@@ -1065,13 +1101,21 @@ function runPredictor() {
         other: document.getElementById('pred-special-other')?.checked || false
     };
     
-    // Reset lists
+    // Reset lists and filters
     predictorResults = {
         reach: [],
         match: [],
         safe: []
     };
     predictorVisibleLimit = 40;
+    selectedPredictorColleges.clear();
+    selectedPredictorBranches.clear();
+    selectedPredictorCategories.clear();
+    
+    const collegeSearchInput = document.getElementById('pred-college-filter-search');
+    if (collegeSearchInput) collegeSearchInput.value = '';
+    const branchSearchInput = document.getElementById('pred-branch-filter-search');
+    if (branchSearchInput) branchSearchInput.value = '';
     
     const searchInput = document.getElementById('pred-card-search');
     if (searchInput) searchInput.value = '';
@@ -1133,15 +1177,6 @@ function runPredictor() {
     // By default, select Best Match and Safe options
     activePredictorTabs = new Set(['match', 'safe']);
     updatePredictorTabUI();
-    
-    // Reset college/branch filters & their search inputs
-    selectedPredictorCollege = null;
-    selectedPredictorBranch = null;
-    selectedPredictorCategory = null;
-    const collegeSearchInput = document.getElementById('pred-college-filter-search');
-    if (collegeSearchInput) collegeSearchInput.value = '';
-    const branchSearchInput = document.getElementById('pred-branch-filter-search');
-    if (branchSearchInput) branchSearchInput.value = '';
     
     let combinedList = [];
     if (activePredictorTabs.has('reach')) combinedList = combinedList.concat(predictorResults.reach);
@@ -1227,19 +1262,21 @@ function renderPredictorCards() {
     list.sort((a, b) => a.closingRank - b.closingRank);
     
     // Apply category filter if active
-    if (selectedPredictorCategory) {
-        const filterFn = PREDICTOR_CATEGORIES[selectedPredictorCategory];
-        if (filterFn) {
-            list = list.filter(({ item }) => filterFn(item));
-        }
+    if (selectedPredictorCategories.size > 0) {
+        list = list.filter(({ item }) => {
+            return Array.from(selectedPredictorCategories).some(cat => {
+                const filterFn = PREDICTOR_CATEGORIES[cat];
+                return filterFn ? filterFn(item) : false;
+            });
+        });
     }
     
     // Apply selected college and/or branch filters
-    if (selectedPredictorCollege) {
-        list = list.filter(({ item }) => item.institute === selectedPredictorCollege);
+    if (selectedPredictorColleges.size > 0) {
+        list = list.filter(({ item }) => selectedPredictorColleges.has(item.institute));
     }
-    if (selectedPredictorBranch) {
-        list = list.filter(({ item }) => item.program === selectedPredictorBranch);
+    if (selectedPredictorBranches.size > 0) {
+        list = list.filter(({ item }) => selectedPredictorBranches.has(item.program));
     }
     
     // Apply search filter
@@ -1456,7 +1493,7 @@ function renderCollegeBreakdown() {
     container.style.display = 'grid';
     
     let html = `
-        <div class="pred-breakdown-item ${!selectedPredictorCategory ? 'active' : ''}" data-category="all">
+        <div class="pred-breakdown-item ${selectedPredictorCategories.size === 0 ? 'active' : ''}" data-category="all">
             <span class="count">${totalColleges.size}</span>
             <span class="label">Total Colleges</span>
         </div>
@@ -1464,7 +1501,7 @@ function renderCollegeBreakdown() {
     
     if (iitColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item ${selectedPredictorCategory === 'iit' ? 'active' : ''}" data-category="iit">
+            <div class="pred-breakdown-item ${selectedPredictorCategories.has('iit') ? 'active' : ''}" data-category="iit">
                 <span class="count">${iitColleges.size}</span>
                 <span class="label">IITs</span>
             </div>
@@ -1472,7 +1509,7 @@ function renderCollegeBreakdown() {
     }
     if (nitColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item ${selectedPredictorCategory === 'nit' ? 'active' : ''}" data-category="nit">
+            <div class="pred-breakdown-item ${selectedPredictorCategories.has('nit') ? 'active' : ''}" data-category="nit">
                 <span class="count">${nitColleges.size}</span>
                 <span class="label">NITs</span>
             </div>
@@ -1480,7 +1517,7 @@ function renderCollegeBreakdown() {
     }
     if (iiitColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item ${selectedPredictorCategory === 'iiit' ? 'active' : ''}" data-category="iiit">
+            <div class="pred-breakdown-item ${selectedPredictorCategories.has('iiit') ? 'active' : ''}" data-category="iiit">
                 <span class="count">${iiitColleges.size}</span>
                 <span class="label">IIITs</span>
             </div>
@@ -1488,7 +1525,7 @@ function renderCollegeBreakdown() {
     }
     if (gftiColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item ${selectedPredictorCategory === 'gfti' ? 'active' : ''}" data-category="gfti">
+            <div class="pred-breakdown-item ${selectedPredictorCategories.has('gfti') ? 'active' : ''}" data-category="gfti">
                 <span class="count">${gftiColleges.size}</span>
                 <span class="label">GFTIs</span>
             </div>
@@ -1496,7 +1533,7 @@ function renderCollegeBreakdown() {
     }
     if (jacDelhiColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item ${selectedPredictorCategory === 'jac-delhi' ? 'active' : ''}" data-category="jac-delhi">
+            <div class="pred-breakdown-item ${selectedPredictorCategories.has('jac-delhi') ? 'active' : ''}" data-category="jac-delhi">
                 <span class="count">${jacDelhiColleges.size}</span>
                 <span class="label">JAC Delhi</span>
             </div>
@@ -1504,7 +1541,7 @@ function renderCollegeBreakdown() {
     }
     if (jacChandigarhColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item ${selectedPredictorCategory === 'jac-chd' ? 'active' : ''}" data-category="jac-chd">
+            <div class="pred-breakdown-item ${selectedPredictorCategories.has('jac-chd') ? 'active' : ''}" data-category="jac-chd">
                 <span class="count">${jacChandigarhColleges.size}</span>
                 <span class="label">JAC Chd.</span>
             </div>
@@ -1512,7 +1549,7 @@ function renderCollegeBreakdown() {
     }
     if (uptacColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item ${selectedPredictorCategory === 'uptac' ? 'active' : ''}" data-category="uptac">
+            <div class="pred-breakdown-item ${selectedPredictorCategories.has('uptac') ? 'active' : ''}" data-category="uptac">
                 <span class="count">${uptacColleges.size}</span>
                 <span class="label">UPTAC</span>
             </div>
@@ -1520,7 +1557,7 @@ function renderCollegeBreakdown() {
     }
     if (ipuColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item ${selectedPredictorCategory === 'ipu' ? 'active' : ''}" data-category="ipu">
+            <div class="pred-breakdown-item ${selectedPredictorCategories.has('ipu') ? 'active' : ''}" data-category="ipu">
                 <span class="count">${ipuColleges.size}</span>
                 <span class="label">IPU (GGSIPU)</span>
             </div>
@@ -1528,15 +1565,11 @@ function renderCollegeBreakdown() {
     }
     
     container.innerHTML = html;
-
+ 
     container.querySelectorAll('.pred-breakdown-item').forEach(item => {
         item.addEventListener('click', () => {
             const cat = item.getAttribute('data-category');
-            if (cat === 'all') {
-                selectPredictorCategory(null);
-            } else {
-                selectPredictorCategory(cat);
-            }
+            togglePredictorCategory(cat);
         });
     });
 }
