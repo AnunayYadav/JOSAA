@@ -405,6 +405,15 @@ input:checked + .slider:before {
     background: rgba(99, 102, 241, 0.05);
 }
 
+.google-search-active .pred-card-inst {
+    cursor: pointer !important;
+    text-decoration: underline dotted var(--primary-color);
+}
+
+.google-search-active .pred-card-inst:hover {
+    color: var(--primary-color);
+}
+
 .custom-dropdown {
     position: relative;
     width: 100%;

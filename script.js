@@ -674,6 +674,21 @@ function setupGoogleSearch() {
             window.open(`https://www.google.com/search?q=${encodeURIComponent(instituteName)}`, '_blank');
         }
     });
+
+    const predCardsList = document.getElementById('pred-cards-list');
+    if (predCardsList) {
+        predCardsList.addEventListener('click', (e) => {
+            if (!isGoogleSearchEnabled) return;
+            
+            const instEl = e.target.closest('.pred-card-inst');
+            if (instEl) {
+                const instituteName = instEl.getAttribute('data-institute');
+                if (instituteName) {
+                    window.open(`https://www.google.com/search?q=${encodeURIComponent(instituteName)}`, '_blank');
+                }
+            }
+        });
+    }
 }
 
 function updatePagination(totalPages) {
@@ -1082,7 +1097,7 @@ function renderPredictorCards() {
                 <span class="pred-card-prob ${probClass}">${probLabel} (${marginText})</span>
             </div>
             <div class="pred-card-body">
-                <div class="pred-card-inst">${item.institute}</div>
+                <div class="pred-card-inst" data-institute="${item.institute}">${item.institute}</div>
                 <div class="pred-card-program">${item.program}</div>
             </div>
             <div class="pred-card-footer">
