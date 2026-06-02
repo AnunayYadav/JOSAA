@@ -794,8 +794,142 @@ let activePredictorTabs = new Set(['match', 'safe']);
 let predictorVisibleLimit = 40;
 let isPredictorInitialized = false;
 
+let selectedPredictorCollege = null;
+let selectedPredictorBranch = null;
+
+function setupPredictorSearchFilters() {
+    const collegeSearch = document.getElementById('pred-college-filter-search');
+    const branchSearch = document.getElementById('pred-branch-filter-search');
+    
+    if (collegeSearch) {
+        collegeSearch.addEventListener('input', () => {
+            const term = collegeSearch.value.toLowerCase().trim();
+            const items = document.querySelectorAll('#pred-college-filter-list .pred-filter-item');
+            items.forEach(item => {
+                const text = item.querySelector('.name').textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'flex' : 'none';
+            });
+        });
+    }
+    
+    if (branchSearch) {
+        branchSearch.addEventListener('input', () => {
+            const term = branchSearch.value.toLowerCase().trim();
+            const items = document.querySelectorAll('#pred-branch-filter-list .pred-filter-item');
+            items.forEach(item => {
+                const text = item.querySelector('.name').textContent.toLowerCase();
+                item.style.display = text.includes(term) ? 'flex' : 'none';
+            });
+        });
+    }
+}
+
+function populatePredictorFilters(combinedList) {
+    const collegeListContainer = document.getElementById('pred-college-filter-list');
+    const branchListContainer = document.getElementById('pred-branch-filter-list');
+    const collegeCountEl = document.getElementById('pred-colleges-count');
+    const branchCountEl = document.getElementById('pred-branches-count');
+    
+    if (!collegeListContainer || !branchListContainer) return;
+    
+    // Count options per college and branch
+    const collegeMap = new Map();
+    const branchMap = new Map();
+    
+    combinedList.forEach(({ item }) => {
+        const college = item.institute;
+        const branch = item.program;
+        
+        collegeMap.set(college, (collegeMap.get(college) || 0) + 1);
+        branchMap.set(branch, (branchMap.get(branch) || 0) + 1);
+    });
+    
+    // Sort colleges and branches alphabetically
+    const sortedColleges = Array.from(collegeMap.keys()).sort();
+    const sortedBranches = Array.from(branchMap.keys()).sort();
+    
+    // Reset selected filters if they are no longer eligible
+    if (selectedPredictorCollege && !collegeMap.has(selectedPredictorCollege)) {
+        selectedPredictorCollege = null;
+    }
+    if (selectedPredictorBranch && !branchMap.has(selectedPredictorBranch)) {
+        selectedPredictorBranch = null;
+    }
+    
+    if (collegeCountEl) collegeCountEl.textContent = sortedColleges.length;
+    if (branchCountEl) branchCountEl.textContent = sortedBranches.length;
+    
+    // Render colleges list
+    collegeListContainer.innerHTML = sortedColleges.map(college => {
+        const count = collegeMap.get(college);
+        const isActive = selectedPredictorCollege === college;
+        return `
+            <div class="pred-filter-item ${isActive ? 'active' : ''}">
+                <span class="name">${college}</span>
+                <span class="count">${count}</span>
+            </div>
+        `;
+    }).join('');
+    
+    // Render branches list
+    branchListContainer.innerHTML = sortedBranches.map(branch => {
+        const count = branchMap.get(branch);
+        const isActive = selectedPredictorBranch === branch;
+        return `
+            <div class="pred-filter-item ${isActive ? 'active' : ''}">
+                <span class="name">${branch}</span>
+                <span class="count">${count}</span>
+            </div>
+        `;
+    }).join('');
+    
+    // Setup event listeners for the new items
+    setupPredictorFilterItemEvents(collegeListContainer, 'college');
+    setupPredictorFilterItemEvents(branchListContainer, 'branch');
+}
+
+function setupPredictorFilterItemEvents(container, type) {
+    container.querySelectorAll('.pred-filter-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const value = item.querySelector('.name').textContent;
+            
+            if (type === 'college') {
+                if (selectedPredictorCollege === value) {
+                    selectedPredictorCollege = null;
+                } else {
+                    selectedPredictorCollege = value;
+                }
+            } else if (type === 'branch') {
+                if (selectedPredictorBranch === value) {
+                    selectedPredictorBranch = null;
+                } else {
+                    selectedPredictorBranch = value;
+                }
+            }
+            
+            updateFilterListsActiveStates();
+            
+            predictorVisibleLimit = 40;
+            renderPredictorCards();
+        });
+    });
+}
+
+function updateFilterListsActiveStates() {
+    document.querySelectorAll('#pred-college-filter-list .pred-filter-item').forEach(item => {
+        const value = item.querySelector('.name').textContent;
+        item.classList.toggle('active', selectedPredictorCollege === value);
+    });
+    
+    document.querySelectorAll('#pred-branch-filter-list .pred-filter-item').forEach(item => {
+        const value = item.querySelector('.name').textContent;
+        item.classList.toggle('active', selectedPredictorBranch === value);
+    });
+}
+
 function initPredictorModule() {
     if (isPredictorInitialized) return;
+    setupPredictorSearchFilters();
     
     const categorySelect = document.getElementById('pred-category');
     const categoryRankGroup = document.getElementById('category-rank-group');
@@ -952,6 +1086,21 @@ function runPredictor() {
     // By default, select Best Match and Safe options
     activePredictorTabs = new Set(['match', 'safe']);
     updatePredictorTabUI();
+    
+    // Reset college/branch filters & their search inputs
+    selectedPredictorCollege = null;
+    selectedPredictorBranch = null;
+    const collegeSearchInput = document.getElementById('pred-college-filter-search');
+    if (collegeSearchInput) collegeSearchInput.value = '';
+    const branchSearchInput = document.getElementById('pred-branch-filter-search');
+    if (branchSearchInput) branchSearchInput.value = '';
+    
+    let combinedList = [];
+    if (activePredictorTabs.has('reach')) combinedList = combinedList.concat(predictorResults.reach);
+    if (activePredictorTabs.has('match')) combinedList = combinedList.concat(predictorResults.match);
+    if (activePredictorTabs.has('safe')) combinedList = combinedList.concat(predictorResults.safe);
+    populatePredictorFilters(combinedList);
+    
     renderPredictorCards();
 }
 
@@ -968,6 +1117,14 @@ function togglePredictorTab(tabName) {
     }
     
     updatePredictorTabUI();
+    
+    // Recalculate combined list and re-populate the filters!
+    let combinedList = [];
+    if (activePredictorTabs.has('reach')) combinedList = combinedList.concat(predictorResults.reach);
+    if (activePredictorTabs.has('match')) combinedList = combinedList.concat(predictorResults.match);
+    if (activePredictorTabs.has('safe')) combinedList = combinedList.concat(predictorResults.safe);
+    populatePredictorFilters(combinedList);
+    
     renderPredictorCards();
 }
 
@@ -1012,6 +1169,14 @@ function renderPredictorCards() {
     
     // Sort combined list by closing rank ascending (best options first)
     list.sort((a, b) => a.closingRank - b.closingRank);
+    
+    // Apply selected college and/or branch filters
+    if (selectedPredictorCollege) {
+        list = list.filter(({ item }) => item.institute === selectedPredictorCollege);
+    }
+    if (selectedPredictorBranch) {
+        list = list.filter(({ item }) => item.program === selectedPredictorBranch);
+    }
     
     // Apply search filter
     const searchInput = document.getElementById('pred-card-search');
