@@ -128,6 +128,7 @@ const sortBy = document.getElementById('sort-by');
 const resetBtn = document.getElementById('reset-filters');
 const themeToggle = document.getElementById('theme-toggle');
 const googleSearchToggle = document.getElementById('google-search-toggle');
+const predGoogleSearchToggle = document.getElementById('pred-google-search-toggle');
 
 let isGoogleSearchEnabled = false;
 let currentMode = 'JOSAA'; // 'JOSAA' or 'CSAB'
