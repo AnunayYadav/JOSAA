@@ -653,8 +653,17 @@ function renderResults() {
 }
 
 function setupGoogleSearch() {
-    const syncState = () => {
-        isGoogleSearchEnabled = googleSearchToggle.checked;
+    const syncState = (sourceToggle) => {
+        if (sourceToggle) {
+            isGoogleSearchEnabled = sourceToggle.checked;
+        } else {
+            isGoogleSearchEnabled = (googleSearchToggle && googleSearchToggle.checked) || 
+                                    (predGoogleSearchToggle && predGoogleSearchToggle.checked);
+        }
+        
+        if (googleSearchToggle) googleSearchToggle.checked = isGoogleSearchEnabled;
+        if (predGoogleSearchToggle) predGoogleSearchToggle.checked = isGoogleSearchEnabled;
+        
         if (isGoogleSearchEnabled) {
             document.body.classList.add('google-search-active');
         } else {
@@ -662,7 +671,12 @@ function setupGoogleSearch() {
         }
     };
 
-    googleSearchToggle.addEventListener('change', syncState);
+    if (googleSearchToggle) {
+        googleSearchToggle.addEventListener('change', () => syncState(googleSearchToggle));
+    }
+    if (predGoogleSearchToggle) {
+        predGoogleSearchToggle.addEventListener('change', () => syncState(predGoogleSearchToggle));
+    }
     syncState(); // Initialize state
 
 
