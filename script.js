@@ -796,6 +796,53 @@ let isPredictorInitialized = false;
 
 let selectedPredictorCollege = null;
 let selectedPredictorBranch = null;
+let selectedPredictorCategory = null;
+
+const PREDICTOR_CATEGORIES = {
+    'iit': (item) => item.source === 'JOSAA' && item.type === 'IIT',
+    'nit': (item) => (item.source === 'JOSAA' || item.source === 'CSAB') && (item.type === 'NIT' || item.type === 'IIEST'),
+    'iiit': (item) => (item.source === 'JOSAA' || item.source === 'CSAB') && item.type === 'IIIT',
+    'gfti': (item) => (item.source === 'JOSAA' || item.source === 'CSAB') && (item.type === 'GFTI' || item.type === 'SPA'),
+    'jac-delhi': (item) => item.source === 'JAC_DELHI',
+    'jac-chd': (item) => item.source === 'JAC',
+    'uptac': (item) => item.source === 'UPTAC',
+    'ipu': (item) => item.source === 'GGSIPU'
+};
+
+function selectPredictorCategory(category) {
+    if (selectedPredictorCategory === category) {
+        selectedPredictorCategory = null;
+    } else {
+        selectedPredictorCategory = category;
+    }
+    
+    updateBreakdownActiveStates();
+    
+    let list = [];
+    if (activePredictorTabs.has('reach')) list = list.concat(predictorResults.reach);
+    if (activePredictorTabs.has('match')) list = list.concat(predictorResults.match);
+    if (activePredictorTabs.has('safe')) list = list.concat(predictorResults.safe);
+    
+    if (selectedPredictorCategory) {
+        const filterFn = PREDICTOR_CATEGORIES[selectedPredictorCategory];
+        if (filterFn) {
+            list = list.filter(({ item }) => filterFn(item));
+        }
+    }
+    
+    populatePredictorFilters(list);
+    
+    predictorVisibleLimit = 40;
+    renderPredictorCards();
+}
+
+function updateBreakdownActiveStates() {
+    document.querySelectorAll('.pred-breakdown-item').forEach(item => {
+        const cat = item.getAttribute('data-category');
+        const isActive = (selectedPredictorCategory === cat) || (!selectedPredictorCategory && cat === 'all');
+        item.classList.toggle('active', isActive);
+    });
+}
 
 function setupPredictorSearchFilters() {
     const collegeSearch = document.getElementById('pred-college-filter-search');
@@ -1090,6 +1137,7 @@ function runPredictor() {
     // Reset college/branch filters & their search inputs
     selectedPredictorCollege = null;
     selectedPredictorBranch = null;
+    selectedPredictorCategory = null;
     const collegeSearchInput = document.getElementById('pred-college-filter-search');
     if (collegeSearchInput) collegeSearchInput.value = '';
     const branchSearchInput = document.getElementById('pred-branch-filter-search');
@@ -1123,6 +1171,14 @@ function togglePredictorTab(tabName) {
     if (activePredictorTabs.has('reach')) combinedList = combinedList.concat(predictorResults.reach);
     if (activePredictorTabs.has('match')) combinedList = combinedList.concat(predictorResults.match);
     if (activePredictorTabs.has('safe')) combinedList = combinedList.concat(predictorResults.safe);
+    
+    if (selectedPredictorCategory) {
+        const filterFn = PREDICTOR_CATEGORIES[selectedPredictorCategory];
+        if (filterFn) {
+            combinedList = combinedList.filter(({ item }) => filterFn(item));
+        }
+    }
+    
     populatePredictorFilters(combinedList);
     
     renderPredictorCards();
@@ -1169,6 +1225,14 @@ function renderPredictorCards() {
     
     // Sort combined list by closing rank ascending (best options first)
     list.sort((a, b) => a.closingRank - b.closingRank);
+    
+    // Apply category filter if active
+    if (selectedPredictorCategory) {
+        const filterFn = PREDICTOR_CATEGORIES[selectedPredictorCategory];
+        if (filterFn) {
+            list = list.filter(({ item }) => filterFn(item));
+        }
+    }
     
     // Apply selected college and/or branch filters
     if (selectedPredictorCollege) {
@@ -1392,7 +1456,7 @@ function renderCollegeBreakdown() {
     container.style.display = 'grid';
     
     let html = `
-        <div class="pred-breakdown-item">
+        <div class="pred-breakdown-item ${!selectedPredictorCategory ? 'active' : ''}" data-category="all">
             <span class="count">${totalColleges.size}</span>
             <span class="label">Total Colleges</span>
         </div>
@@ -1400,7 +1464,7 @@ function renderCollegeBreakdown() {
     
     if (iitColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item">
+            <div class="pred-breakdown-item ${selectedPredictorCategory === 'iit' ? 'active' : ''}" data-category="iit">
                 <span class="count">${iitColleges.size}</span>
                 <span class="label">IITs</span>
             </div>
@@ -1408,7 +1472,7 @@ function renderCollegeBreakdown() {
     }
     if (nitColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item">
+            <div class="pred-breakdown-item ${selectedPredictorCategory === 'nit' ? 'active' : ''}" data-category="nit">
                 <span class="count">${nitColleges.size}</span>
                 <span class="label">NITs</span>
             </div>
@@ -1416,7 +1480,7 @@ function renderCollegeBreakdown() {
     }
     if (iiitColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item">
+            <div class="pred-breakdown-item ${selectedPredictorCategory === 'iiit' ? 'active' : ''}" data-category="iiit">
                 <span class="count">${iiitColleges.size}</span>
                 <span class="label">IIITs</span>
             </div>
@@ -1424,7 +1488,7 @@ function renderCollegeBreakdown() {
     }
     if (gftiColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item">
+            <div class="pred-breakdown-item ${selectedPredictorCategory === 'gfti' ? 'active' : ''}" data-category="gfti">
                 <span class="count">${gftiColleges.size}</span>
                 <span class="label">GFTIs</span>
             </div>
@@ -1432,7 +1496,7 @@ function renderCollegeBreakdown() {
     }
     if (jacDelhiColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item">
+            <div class="pred-breakdown-item ${selectedPredictorCategory === 'jac-delhi' ? 'active' : ''}" data-category="jac-delhi">
                 <span class="count">${jacDelhiColleges.size}</span>
                 <span class="label">JAC Delhi</span>
             </div>
@@ -1440,7 +1504,7 @@ function renderCollegeBreakdown() {
     }
     if (jacChandigarhColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item">
+            <div class="pred-breakdown-item ${selectedPredictorCategory === 'jac-chd' ? 'active' : ''}" data-category="jac-chd">
                 <span class="count">${jacChandigarhColleges.size}</span>
                 <span class="label">JAC Chd.</span>
             </div>
@@ -1448,7 +1512,7 @@ function renderCollegeBreakdown() {
     }
     if (uptacColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item">
+            <div class="pred-breakdown-item ${selectedPredictorCategory === 'uptac' ? 'active' : ''}" data-category="uptac">
                 <span class="count">${uptacColleges.size}</span>
                 <span class="label">UPTAC</span>
             </div>
@@ -1456,7 +1520,7 @@ function renderCollegeBreakdown() {
     }
     if (ipuColleges.size > 0) {
         html += `
-            <div class="pred-breakdown-item">
+            <div class="pred-breakdown-item ${selectedPredictorCategory === 'ipu' ? 'active' : ''}" data-category="ipu">
                 <span class="count">${ipuColleges.size}</span>
                 <span class="label">IPU (GGSIPU)</span>
             </div>
@@ -1464,6 +1528,17 @@ function renderCollegeBreakdown() {
     }
     
     container.innerHTML = html;
+
+    container.querySelectorAll('.pred-breakdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const cat = item.getAttribute('data-category');
+            if (cat === 'all') {
+                selectPredictorCategory(null);
+            } else {
+                selectPredictorCategory(cat);
+            }
+        });
+    });
 }
 
 function isGenderEligible(userGender, item) {
