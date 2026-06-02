@@ -2020,3 +2020,83 @@ tr:hover td {
     background: var(--primary-color);
     color: white;
 }
+
+/* Counselling Filter Bar Styling */
+.pred-counselling-filter-container {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-xl);
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .pred-counselling-filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1.25rem;
+    }
+}
+
+.pred-counselling-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.pred-counselling-label i {
+    color: var(--primary-color);
+    width: 16px;
+    height: 16px;
+}
+
+.pred-counselling-pills {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.pred-counselling-pill {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+}
+
+.dark-theme .pred-counselling-pill {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.pred-counselling-pill:hover {
+    background: rgba(99, 102, 241, 0.05);
+    color: var(--text-primary);
+    border-color: var(--primary-color);
+}
+
+.pred-counselling-pill.active {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+.light-theme .pred-counselling-pill.active {
+    color: white;
+}

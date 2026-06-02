@@ -785,6 +785,11 @@ if (aboutModal) {
 // ==========================================
 // BEST SEAT PREDICTOR MODULE
 // ==========================================
+let rawPredictorResults = {
+    reach: [],
+    match: [],
+    safe: []
+};
 let predictorResults = {
     reach: [],
     match: [],
@@ -797,6 +802,7 @@ let isPredictorInitialized = false;
 let selectedPredictorColleges = new Set();
 let selectedPredictorBranches = new Set();
 let selectedPredictorCategories = new Set();
+let selectedPredictorCounsellings = new Set(['JOSAA', 'CSAB', 'JAC', 'JAC_DELHI', 'UPTAC', 'GGSIPU']);
 
 const PREDICTOR_CATEGORIES = {
     'iit': (item) => item.source === 'JOSAA' && item.type === 'IIT',
@@ -1010,6 +1016,36 @@ function updateFilterListsActiveStates() {
     });
 }
 
+function applyCounsellingFilterToResults() {
+    predictorResults.reach = rawPredictorResults.reach.filter(({ item }) => selectedPredictorCounsellings.has(item.source));
+    predictorResults.match = rawPredictorResults.match.filter(({ item }) => selectedPredictorCounsellings.has(item.source));
+    predictorResults.safe = rawPredictorResults.safe.filter(({ item }) => selectedPredictorCounsellings.has(item.source));
+    
+    // Update counts
+    const countReachEl = document.getElementById('count-reach');
+    const countMatchEl = document.getElementById('count-match');
+    const countSafeEl = document.getElementById('count-safe');
+    
+    if (countReachEl) countReachEl.textContent = predictorResults.reach.length.toLocaleString();
+    if (countMatchEl) countMatchEl.textContent = predictorResults.match.length.toLocaleString();
+    if (countSafeEl) countSafeEl.textContent = predictorResults.safe.length.toLocaleString();
+    
+    // Render College Breakdown
+    renderCollegeBreakdown();
+    
+    // Re-populate filters
+    let combinedList = [];
+    if (activePredictorTabs.has('reach')) combinedList = combinedList.concat(predictorResults.reach);
+    if (activePredictorTabs.has('match')) combinedList = combinedList.concat(predictorResults.match);
+    if (activePredictorTabs.has('safe')) combinedList = combinedList.concat(predictorResults.safe);
+    
+    populatePredictorFilters(combinedList);
+    
+    // Render predicted cards list
+    predictorVisibleLimit = 40;
+    renderPredictorCards();
+}
+
 function initPredictorModule() {
     if (isPredictorInitialized) return;
     setupPredictorSearchFilters();
@@ -1061,6 +1097,27 @@ function initPredictorModule() {
             renderPredictorCards();
         });
     }
+
+    // Counselling filter pills event listeners
+    const pills = document.querySelectorAll('.pred-counselling-pill');
+    pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            const source = pill.getAttribute('data-source');
+            if (selectedPredictorCounsellings.has(source)) {
+                // Ensure at least one counselling option remains selected to avoid empty screens
+                if (selectedPredictorCounsellings.size > 1) {
+                    selectedPredictorCounsellings.delete(source);
+                    pill.classList.remove('active');
+                }
+            } else {
+                selectedPredictorCounsellings.add(source);
+                pill.classList.add('active');
+            }
+            
+            // Re-apply filter to results
+            applyCounsellingFilterToResults();
+        });
+    });
     
     isPredictorInitialized = true;
 }
@@ -1102,6 +1159,11 @@ function runPredictor() {
     };
     
     // Reset lists and filters
+    rawPredictorResults = {
+        reach: [],
+        match: [],
+        safe: []
+    };
     predictorResults = {
         reach: [],
         match: [],
@@ -1142,30 +1204,18 @@ function runPredictor() {
         
         // 4. Probability margins
         if (closingRank >= 0.85 * userRankToUse && closingRank < userRankToUse) {
-            predictorResults.reach.push({ item, userRankToUse, closingRank });
+            rawPredictorResults.reach.push({ item, userRankToUse, closingRank });
         } else if (closingRank >= userRankToUse && closingRank <= 1.20 * userRankToUse) {
-            predictorResults.match.push({ item, userRankToUse, closingRank });
+            rawPredictorResults.match.push({ item, userRankToUse, closingRank });
         } else if (closingRank > 1.20 * userRankToUse) {
-            predictorResults.safe.push({ item, userRankToUse, closingRank });
+            rawPredictorResults.safe.push({ item, userRankToUse, closingRank });
         }
     }
     
     // Sort ascending
-    predictorResults.reach.sort((a, b) => a.closingRank - b.closingRank);
-    predictorResults.match.sort((a, b) => a.closingRank - b.closingRank);
-    predictorResults.safe.sort((a, b) => a.closingRank - b.closingRank);
-    
-    // Update counts
-    const countReachEl = document.getElementById('count-reach');
-    const countMatchEl = document.getElementById('count-match');
-    const countSafeEl = document.getElementById('count-safe');
-    
-    if (countReachEl) countReachEl.textContent = predictorResults.reach.length.toLocaleString();
-    if (countMatchEl) countMatchEl.textContent = predictorResults.match.length.toLocaleString();
-    if (countSafeEl) countSafeEl.textContent = predictorResults.safe.length.toLocaleString();
-    
-    // Render College Breakdown
-    renderCollegeBreakdown();
+    rawPredictorResults.reach.sort((a, b) => a.closingRank - b.closingRank);
+    rawPredictorResults.match.sort((a, b) => a.closingRank - b.closingRank);
+    rawPredictorResults.safe.sort((a, b) => a.closingRank - b.closingRank);
     
     // Toggle UI panels
     const placeholder = document.getElementById('pred-placeholder');
@@ -1178,13 +1228,8 @@ function runPredictor() {
     activePredictorTabs = new Set(['match', 'safe']);
     updatePredictorTabUI();
     
-    let combinedList = [];
-    if (activePredictorTabs.has('reach')) combinedList = combinedList.concat(predictorResults.reach);
-    if (activePredictorTabs.has('match')) combinedList = combinedList.concat(predictorResults.match);
-    if (activePredictorTabs.has('safe')) combinedList = combinedList.concat(predictorResults.safe);
-    populatePredictorFilters(combinedList);
-    
-    renderPredictorCards();
+    // Apply counselling filters which will filter, update tab counts, render college breakdown, populate filters, render cards
+    applyCounsellingFilterToResults();
 }
 
 function togglePredictorTab(tabName) {
