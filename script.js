@@ -900,12 +900,26 @@ function populatePredictorFilters(combinedList) {
     const collegeScroll = collegeListContainer.scrollTop;
     const branchScroll = branchListContainer.scrollTop;
     
+    // 1. Generate colleges list (filtered by selected branches if any)
+    const collegeFilteredList = selectedPredictorBranches.size > 0
+        ? combinedList.filter(({ item }) => selectedPredictorBranches.has(item.program))
+        : combinedList;
+
     // Count options per college
     const collegeMap = new Map();
-    combinedList.forEach(({ item }) => {
+    collegeFilteredList.forEach(({ item }) => {
         const college = item.institute;
         collegeMap.set(college, (collegeMap.get(college) || 0) + 1);
     });
+
+    // Clean up selected colleges that are no longer available in the newly updated college list
+    if (selectedPredictorBranches.size > 0) {
+        for (const college of selectedPredictorColleges) {
+            if (!collegeMap.has(college)) {
+                selectedPredictorColleges.delete(college);
+            }
+        }
+    }
     
     // 2. Generate branches list (filtered by selected colleges if any)
     const branchFilteredList = selectedPredictorColleges.size > 0 
