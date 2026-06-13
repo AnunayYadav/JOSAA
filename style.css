@@ -889,14 +889,30 @@ tr:hover td {
     justify-content: center;
 }
 
-/* Spinner */
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid var(--border-color);
+/* Spinner Overlay Local */
+.spinner-overlay-local {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    background: rgba(10, 15, 30, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 50;
+    display: none; /* Controlled by JS: flex */
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+.spinner-ring {
+    width: 45px;
+    height: 45px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
     border-top-color: var(--primary-color);
     border-radius: 50%;
-    margin: 5rem auto;
     animation: spin 1s linear infinite;
 }
 
@@ -2133,3 +2149,66 @@ tr:hover td {
 .light-theme .pred-counselling-pill.active {
     color: white;
 }
+
+/* Historical cutoffs badges */
+.history-tags-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.history-tag-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    opacity: 0.7;
+    margin-right: 0.15rem;
+}
+
+.history-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.01em;
+    border: 1px solid transparent;
+    transition: var(--transition);
+}
+
+.history-tag.pos {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.15);
+}
+.light-theme .history-tag.pos {
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.history-tag.neg {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.15);
+}
+.light-theme .history-tag.neg {
+    background: rgba(239, 68, 68, 0.08);
+    color: #dc2626;
+    border-color: rgba(239, 68, 68, 0.1);
+}
+
+.history-tag.missing {
+    background: rgba(148, 163, 184, 0.05);
+    color: var(--text-secondary);
+    border-color: rgba(148, 163, 184, 0.1);
+    opacity: 0.6;
+}
+
+.pred-card .history-tags-wrapper {
+    margin-top: 0.75rem;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 0.5rem;
+}
+

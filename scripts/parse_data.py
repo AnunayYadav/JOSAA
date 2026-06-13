@@ -12,6 +12,64 @@ def clean_rank(rank_str):
         return rank_str[:-2]
     return rank_str
 
+def normalize_quota(q_str):
+    q_str = q_str.strip()
+    q_lower = q_str.lower()
+    if "all india" in q_lower or q_lower == "ai":
+        return "AI"
+    if "home state" in q_lower or q_lower == "hs":
+        if "goa" in q_lower:
+            return "GO"
+        return "HS"
+    if "other state" in q_lower or q_lower == "os":
+        return "OS"
+    if "jammu" in q_lower or q_lower == "jk":
+        return "JK"
+    if "ladakh" in q_lower or q_lower == "la":
+        return "LA"
+    if q_lower == "goa" or q_lower == "go":
+        return "GO"
+    return q_str
+
+def normalize_seat_type(s_str):
+    s_str = s_str.strip()
+    s_upper = s_str.upper()
+    if s_upper in ["OPEN", "GEN"]:
+        return "OPEN"
+    if s_upper in ["OPEN (PWD)", "OPEN(PWD)", "GEN (PWD)", "GEN(PWD)"]:
+        return "OPEN (PwD)"
+    if s_upper in ["EWS", "GEN-EWS", "GEN_EWS"]:
+        return "EWS"
+    if s_upper in ["EWS (PWD)", "EWS(PWD)", "GEN-EWS (PWD)", "GEN-EWS(PWD)"]:
+        return "EWS (PwD)"
+    if s_upper in ["OBC", "OBC-NCL", "OBC_NCL"]:
+        return "OBC-NCL"
+    if s_upper in ["OBC (PWD)", "OBC(PWD)", "OBC-NCL (PWD)", "OBC-NCL(PWD)"]:
+        return "OBC-NCL (PwD)"
+    if s_upper == "SC":
+        return "SC"
+    if s_upper in ["SC (PWD)", "SC(PWD)"]:
+        return "SC (PwD)"
+    if s_upper == "ST":
+        return "ST"
+    if s_upper in ["ST (PWD)", "ST(PWD)"]:
+        return "ST (PwD)"
+    return s_str
+
+def normalize_gender(g_str):
+    g_str = g_str.strip()
+    g_lower = g_str.lower()
+    if "female" in g_lower:
+        return "Female-only (including Supernumerary)"
+    if "neutral" in g_lower:
+        return "Gender-Neutral"
+    return g_str
+
+def normalize_program_name(p_str):
+    p_str = p_str.strip()
+    p_str = p_str.replace(" & ", " and ")
+    return p_str
+
 def parse_jac_chandigarh_data(file_path):
     print(f"Parsing {os.path.basename(file_path)}...")
     try:
@@ -83,7 +141,8 @@ def parse_jac_chandigarh_data(file_path):
             "opening_rank": opening_rank,
             "closing_rank": closing_rank,
             "source": "JAC",
-            "round": round_num
+            "round": round_num,
+            "year": "2025"
         }
         data.append(entry)
         
@@ -163,7 +222,8 @@ def parse_uptac_data(file_path):
             "opening_rank": opening_rank,
             "closing_rank": closing_rank,
             "source": "UPTAC",
-            "round": round_num
+            "round": round_num,
+            "year": "2025"
         }
         data.append(entry)
         
@@ -190,10 +250,18 @@ def parse_josaa_data(file_path):
     round_num = "6"  # Default
     
     file_name_lower = os.path.basename(file_path).lower()
+    
+    # Extract year if present (4 digits, e.g. 2022, 2023, 2024, 2025)
+    year_match = re.search(r'(?:20\d{2})', file_name_lower)
+    if year_match:
+        year = year_match.group(0)
+    else:
+        year = "2025"  # Default
+        
     if "csab" in file_name_lower:
         source = "CSAB"
-        # Extract round number if present (e.g. csab1.txt -> Round 1)
-        match = re.search(r'csab(\d+)', file_name_lower)
+        # Extract round number: e.g. csab2022_1.txt -> 1; csab1.txt -> 1
+        match = re.search(r'csab(?:20\d{2})?_?(\d+)', file_name_lower)
         if match:
             round_num = match.group(1)
         else:
@@ -237,14 +305,15 @@ def parse_josaa_data(file_path):
                 entry = {
                     "institute": inst_name,
                     "type": inst_type,
-                    "program": parts[1].strip(),
-                    "quota": parts[2].strip(),
-                    "seat_type": parts[3].strip(),
-                    "gender": parts[4].strip(),
+                    "program": normalize_program_name(parts[1].strip()),
+                    "quota": normalize_quota(parts[2].strip()),
+                    "seat_type": normalize_seat_type(parts[3].strip()),
+                    "gender": normalize_gender(parts[4].strip()),
                     "opening_rank": parts[5].strip(),
                     "closing_rank": parts[6].strip(),
                     "source": source,
-                    "round": round_num
+                    "round": round_num,
+                    "year": year
                 }
                 data.append(entry)
     
@@ -253,7 +322,11 @@ def parse_josaa_data(file_path):
 def parse_ggsipu_pdf_data(file_path):
     # This function is kept for reference or direct pdf parsing if needed,
     # but the primary data source is now the extracted .txt file.
-    import pdfplumber
+    try:
+        import pdfplumber
+    except ImportError:
+        print("Error: pdfplumber module not found. Please install it using 'pip install pdfplumber' to parse PDFs.")
+        return []
     print(f"Parsing PDF {os.path.basename(file_path)}...")
     data = []
     pattern = r'Min\s+Rank\s*-\s*(\d+)(?:\([^)]*\))?\s+Max\s+Rank\s*-\s*(\d+)(?:\([^)]*\))?'
@@ -329,7 +402,8 @@ def parse_ggsipu_pdf_data(file_path):
                                         "opening_rank": opening,
                                         "closing_rank": closing,
                                         "source": "GGSIPU",
-                                        "round": round_num
+                                        "round": round_num,
+                                        "year": "2025"
                                     })
     except Exception as e:
         print(f"Error parsing {file_path}: {e}")
@@ -406,7 +480,8 @@ def parse_ggsipu_txt_data(file_path):
             "opening_rank": opening_rank,
             "closing_rank": closing_rank,
             "source": "GGSIPU",
-            "round": r_num
+            "round": r_num,
+            "year": "2025"
         }
         data.append(entry)
         
@@ -648,7 +723,8 @@ def parse_dtu_nsut(sec_name, sec_lines, inst_name):
                         "opening_rank": str(val),
                         "closing_rank": str(val),
                         "source": "JAC_DELHI",
-                        "round": round_num
+                        "round": round_num,
+                        "year": "2025"
                     })
             continue
             
@@ -669,7 +745,8 @@ def parse_dtu_nsut(sec_name, sec_lines, inst_name):
                     "opening_rank": str(val),
                     "closing_rank": str(val),
                     "source": "JAC_DELHI",
-                    "round": round_num
+                    "round": round_num,
+                    "year": "2025"
                 })
                 
     return parsed_entries
@@ -737,7 +814,8 @@ def parse_igdtuw(sec_name, sec_lines):
                                 "opening_rank": str(val),
                                 "closing_rank": str(val),
                                 "source": "JAC_DELHI",
-                                "round": round_num
+                                "round": round_num,
+                                "year": "2025"
                             })
                             
     return parsed_entries
@@ -838,7 +916,8 @@ def parse_iiitd(sec_name, sec_lines):
                         "opening_rank": str(val),
                         "closing_rank": str(val),
                         "source": "JAC_DELHI",
-                        "round": round_num
+                        "round": round_num,
+                        "year": "2025"
                     })
                     
     return parsed_entries

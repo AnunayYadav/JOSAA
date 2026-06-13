@@ -1,8 +1,10 @@
+
 let allData = [];
 let filteredData = [];
 let currentPage = 1;
 const itemsPerPage = 50;
 let selectedOptionIds = new Set();
+const historicalMap = new Map();
 
 const MAPPINGS = {
     // Institute Types
@@ -114,7 +116,8 @@ function getDisplayName(val) {
 
 // Elements
 const resultsBody = document.getElementById('results-body');
-const loadingSpinner = document.getElementById('loading-spinner');
+const explorerSpinner = document.getElementById('explorer-spinner');
+const predictorSpinner = document.getElementById('predictor-spinner');
 const totalResultsEl = document.getElementById('total-results');
 const pageInfo = document.getElementById('page-info');
 const prevPageBtn = document.getElementById('prev-page');
@@ -141,12 +144,51 @@ async function init() {
             throw new Error("Data not found. Please run parse_data.py first.");
         }
         
-        allData = window.JOSAA_DATA.map((item, index) => ({
-            ...item,
-            id: index,
-            opening_rank_val: parseInt(String(item.opening_rank).replace('P', '')) || 0,
-            closing_rank_val: parseInt(String(item.closing_rank).replace('P', '')) || 0
-        }));
+        allData = window.JOSAA_DATA.map((item, index) => {
+            const searchStr = [
+                item.institute || '',
+                item.program || '',
+                item.source || '',
+                getDisplayName(item.source),
+                item.type || '',
+                getDisplayName(item.type),
+                getInstituteState(item.institute),
+                item.quota || '',
+                item.seat_type || '',
+                getDisplayName(item.seat_type),
+                item.type === 'JAC' ? 'JAC-C' : (item.type === 'JACD' ? 'JAC-D' : item.type)
+            ].join(' ').toLowerCase();
+
+            const mappedItem = {
+                ...item,
+                id: index,
+                opening_rank_val: parseInt(String(item.opening_rank).replace('P', '')) || 0,
+                closing_rank_val: parseInt(String(item.closing_rank).replace('P', '')) || 0,
+                searchStr
+            };
+            mappedItem.normalizedKey = getNormalizedKey(mappedItem);
+            return mappedItem;
+        });
+
+        // Pre-build historical map for CSAB historical matchups
+        historicalMap.clear();
+        allData.forEach(d => {
+            if (d.source === 'CSAB') {
+                const key = d.normalizedKey;
+                const year = parseInt(d.year || "2025");
+                if (!historicalMap.has(key)) {
+                    historicalMap.set(key, {});
+                }
+                const yearObj = historicalMap.get(key);
+                if (!yearObj[year]) {
+                    yearObj[year] = [];
+                }
+                yearObj[year].push({
+                    round: d.round,
+                    closing_rank_val: d.closing_rank_val
+                });
+            }
+        });
 
         setupModeSwitching();
         setupDropdowns();
@@ -156,7 +198,8 @@ async function init() {
         applyFilters();
         setupSelectionEvents();
         
-        loadingSpinner.style.display = 'none';
+        if (explorerSpinner) explorerSpinner.style.display = 'none';
+        if (predictorSpinner) predictorSpinner.style.display = 'none';
         lucide.createIcons();
         setupGoogleSearch();
     } catch (error) {
@@ -387,6 +430,7 @@ function populateAllFilters() {
         if (bIsNum) return 1;
         return a.localeCompare(b);
     });
+    const years = [...new Set(modeData.map(item => item.year || "2025"))].sort((a, b) => parseInt(b) - parseInt(a));
     const quotas = [...new Set(modeData.map(item => item.quota))].sort();
     const seats = [...new Set(modeData.map(item => item.seat_type))].sort();
     const genders = [...new Set(modeData.map(item => item.gender))].sort();
@@ -401,6 +445,9 @@ function populateAllFilters() {
         return `Round ${val}`;
     });
     toggleFilterVisibility('dropdown-round', rounds);
+
+    renderCheckboxOptions('year-options', years, 'dropdown-year');
+    toggleFilterVisibility('dropdown-year', years);
 
     renderCheckboxOptions('quota-options', quotas, 'dropdown-quota');
     toggleFilterVisibility('dropdown-quota', quotas);
@@ -491,6 +538,7 @@ function setupInternalSearch(inputId, containerId) {
 
 const dropdownDisplayNames = {
     'dropdown-round': 'Rounds',
+    'dropdown-year': 'Years',
     'dropdown-type': 'Types',
     'dropdown-program': 'Programs',
     'dropdown-quota': 'Quotas',
@@ -517,7 +565,28 @@ function updateDropdownButtonText(dropdownId) {
     }
 }
 
+let applyFiltersTimeout = null;
+
 function applyFilters() {
+    const spinner = currentMode === 'PREDICTOR' ? predictorSpinner : explorerSpinner;
+    if (spinner) {
+        spinner.style.display = 'flex';
+    }
+
+    if (applyFiltersTimeout) {
+        clearTimeout(applyFiltersTimeout);
+    }
+
+    applyFiltersTimeout = setTimeout(() => {
+        applyFiltersSync();
+        if (spinner) {
+            spinner.style.display = 'none';
+        }
+        applyFiltersTimeout = null;
+    }, 50);
+}
+
+function applyFiltersSync() {
     const searchTerm = mainSearch.value.toLowerCase();
     
     const getCheckedValues = (id) => {
@@ -526,13 +595,14 @@ function applyFilters() {
         return Array.from(dropdown.querySelectorAll('input:not(.select-all):checked')).map(cb => cb.value);
     };
     
-    const selectedRounds = getCheckedValues('dropdown-round');
-    const selectedTypes = getCheckedValues('dropdown-type');
-    const selectedQuotas = getCheckedValues('dropdown-quota');
-    const selectedSeats = getCheckedValues('dropdown-seat');
-    const selectedGenders = getCheckedValues('dropdown-gender');
-    const selectedPrograms = getCheckedValues('dropdown-program');
-    const selectedInstitutes = getCheckedValues('dropdown-institute');
+    const selectedRounds = new Set(getCheckedValues('dropdown-round'));
+    const selectedYears = new Set(getCheckedValues('dropdown-year'));
+    const selectedTypes = new Set(getCheckedValues('dropdown-type'));
+    const selectedQuotas = new Set(getCheckedValues('dropdown-quota'));
+    const selectedSeats = new Set(getCheckedValues('dropdown-seat'));
+    const selectedGenders = new Set(getCheckedValues('dropdown-gender'));
+    const selectedPrograms = new Set(getCheckedValues('dropdown-program'));
+    const selectedInstitutes = new Set(getCheckedValues('dropdown-institute'));
     
     const minR = parseInt(rankMin.value) || 0;
     const maxR = parseInt(rankMax.value) || Infinity;
@@ -551,49 +621,21 @@ function applyFilters() {
                 terms = rawSearch.split(/\s+/).map(t => t.trim()).filter(t => t.length > 0);
             }
             
-            matchesSearch = terms.every(term => {
-                const inst = (item.institute || '').toLowerCase();
-                const prog = (item.program || '').toLowerCase();
-                const src = (item.source || '').toLowerCase();
-                const type = (item.type || '').toLowerCase();
-                const state = getInstituteState(item.institute).toLowerCase();
-                const quota = (item.quota || '').toLowerCase();
-                const seatType = (item.seat_type || '').toLowerCase();
-                
-                const srcDisplay = getDisplayName(item.source).toLowerCase();
-                const typeDisplay = getDisplayName(item.type).toLowerCase();
-                const seatTypeDisplay = getDisplayName(item.seat_type).toLowerCase();
-                
-                const badgeText = (item.type === 'JAC' ? 'JAC-C' : (item.type === 'JACD' ? 'JAC-D' : item.type)).toLowerCase();
-                const badgeTextSpace = badgeText.replace('-', ' ');
-                
-                return inst.includes(term) || 
-                       prog.includes(term) || 
-                       src.includes(term) || 
-                       srcDisplay.includes(term) || 
-                       type.includes(term) || 
-                       typeDisplay.includes(term) || 
-                       state.includes(term) ||
-                       quota.includes(term) ||
-                       seatType.includes(term) ||
-                       seatTypeDisplay.includes(term) ||
-                       badgeText.includes(term) ||
-                       badgeTextSpace.includes(term);
-            });
+            matchesSearch = terms.every(term => item.searchStr.includes(term));
         }
         
-        const matchesRound = selectedRounds.includes(item.round);
-        const matchesType = selectedTypes.includes(item.type);
-        const matchesQuota = selectedQuotas.includes(item.quota);
-        const matchesSeat = selectedSeats.includes(item.seat_type);
-        const matchesGender = selectedGenders.includes(item.gender);
-        const matchesProgram = selectedPrograms.includes(item.program);
-        const matchesInstitute = selectedInstitutes.includes(item.institute);
+        const matchesRound = selectedRounds.has(item.round);
+        const matchesYear = selectedYears.size === 0 || selectedYears.has(item.year || "2025");
+        const matchesType = selectedTypes.has(item.type);
+        const matchesQuota = selectedQuotas.has(item.quota);
+        const matchesSeat = selectedSeats.has(item.seat_type);
+        const matchesGender = selectedGenders.has(item.gender);
+        const matchesProgram = selectedPrograms.has(item.program);
+        const matchesInstitute = selectedInstitutes.has(item.institute);
         const matchesRank = item.closing_rank_val >= minR && item.closing_rank_val <= maxR;
 
-        return matchesSearch && matchesRound && matchesType && matchesQuota && matchesSeat && matchesGender && matchesProgram && matchesInstitute && matchesRank;
+        return matchesSearch && matchesRound && matchesYear && matchesType && matchesQuota && matchesSeat && matchesGender && matchesProgram && matchesInstitute && matchesRank;
     });
-
 
     sortData();
     currentPage = 1;
@@ -609,6 +651,116 @@ function sortData() {
     } else if (val === 'institute_asc') {
         filteredData.sort((a, b) => a.institute.localeCompare(b.institute));
     }
+}
+
+function getNormalizedKey(item) {
+    const inst = (item.institute || '').toLowerCase()
+        .replace(/[^a-z0-9]/g, '')
+        .replace(/drbr/g, 'dr')
+        .replace(/indianinstituteoftechnology/g, 'iit')
+        .replace(/nationalinstituteoftechnology/g, 'nit')
+        .replace(/indianinstituteofinformationtechnology/g, 'iiit')
+        .replace(/schoolofplanningandarchitecture/g, 'spa');
+    
+    const prog = (item.program || '').toLowerCase()
+        .replace(/[^a-z0-9]/g, '')
+        .replace(/and/g, '')
+        .replace(/engineering/g, 'eng')
+        .replace(/technology/g, 'tech');
+        
+    let quota = (item.quota || '').trim().toUpperCase();
+    if (quota.includes("ALL INDIA") || quota === "AI") quota = "AI";
+    else if (quota.includes("HOME STATE") || quota === "HS") quota = "HS";
+    else if (quota.includes("OTHER STATE") || quota === "OS") quota = "OS";
+    else if (quota.includes("JAMMU") || quota === "JK") quota = "JK";
+    else if (quota.includes("LADAKH") || quota === "LA") quota = "LA";
+    else if (quota.includes("GOA") || quota === "GO") quota = "GO";
+
+    let seatType = (item.seat_type || '').trim().toUpperCase();
+    if (seatType === "GEN" || seatType === "OPEN") seatType = "OPEN";
+    else if (seatType === "OBC" || seatType === "OBC-NCL" || seatType === "OBC_NCL") seatType = "OBC-NCL";
+    else if (seatType === "EWS" || seatType === "GEN-EWS" || seatType === "GEN_EWS") seatType = "EWS";
+    else if (seatType.includes("OPEN (PWD)") || seatType.includes("OPEN(PWD)") || seatType.includes("GEN (PWD)") || seatType.includes("GEN(PWD)")) seatType = "OPEN (PwD)";
+    else if (seatType.includes("EWS (PWD)") || seatType.includes("EWS(PWD)") || seatType.includes("GEN-EWS (PWD)") || seatType.includes("GEN-EWS(PWD)")) seatType = "EWS (PwD)";
+    else if (seatType.includes("OBC (PWD)") || seatType.includes("OBC(PWD)") || seatType.includes("OBC-NCL (PWD)") || seatType.includes("OBC-NCL(PWD)")) seatType = "OBC-NCL (PwD)";
+    else if (seatType.includes("SC (PWD)") || seatType.includes("SC(PWD)")) seatType = "SC (PwD)";
+    else if (seatType.includes("ST (PWD)") || seatType.includes("ST(PWD)")) seatType = "ST (PwD)";
+
+    let gender = (item.gender || '').trim().toLowerCase();
+    if (gender.includes("female")) gender = "female-only";
+    else if (gender.includes("neutral")) gender = "gender-neutral";
+        
+    return `${inst}|${prog}|${quota}|${seatType}|${gender}`;
+}
+
+function getHistoricalComparison(item, userRank = null) {
+    if (item.source !== 'CSAB') return null;
+    
+    const normalizedKey = item.normalizedKey;
+    const currentYear = parseInt(item.year || "2025");
+    const currentClosing = item.closing_rank_val;
+    
+    const years = [2024, 2023, 2022].filter(y => y < currentYear);
+    const results = [];
+    
+    const yearObj = historicalMap.get(normalizedKey);
+    
+    years.forEach(year => {
+        const yearMatches = (yearObj && yearObj[year]) ? yearObj[year] : [];
+        
+        if (yearMatches.length === 0) {
+            results.push({ year, available: false });
+        } else {
+            // Always take the highest round available in that year (representing the final cutoff)
+            const sortedMatches = [...yearMatches].sort((a, b) => parseInt(b.round || "0") - parseInt(a.round || "0"));
+            const match = sortedMatches[0];
+            
+            const prevClosing = match.closing_rank_val;
+            
+            let diff, pct;
+            if (userRank !== null && userRank > 0) {
+                // Calculate margin relative to the user's rank
+                diff = prevClosing - userRank;
+                pct = (diff / userRank) * 100;
+            } else {
+                // Calculate historical trend relative to the previous year's cutoff
+                diff = currentClosing - prevClosing;
+                pct = prevClosing > 0 ? (diff / prevClosing) * 100 : 0;
+            }
+            
+            results.push({
+                year,
+                available: true,
+                round: match.round,
+                closing: prevClosing,
+                diff,
+                pct
+            });
+        }
+    });
+    
+    return results;
+}
+
+function generateHistoryHtml(historicalData) {
+    if (!historicalData || historicalData.length === 0) return '';
+    
+    let html = '<div class="history-tags-wrapper"><span class="history-tag-label">Prev Years:</span>';
+    
+    historicalData.forEach(res => {
+        if (!res.available) {
+            html += `<span class="history-tag missing">${res.year}: N/A</span>`;
+        } else {
+            const closingStr = res.closing >= 1000 ? `${(res.closing / 1000).toFixed(1)}k` : res.closing;
+            const diffSign = res.diff >= 0 ? '+' : '';
+            // Positive difference means closing rank went up, i.e. it became easier/less competitive.
+            const classType = res.diff >= 0 ? 'pos' : 'neg';
+            html += `<span class="history-tag ${classType}">${res.year} (R${res.round}): ${closingStr} (${diffSign}${res.pct.toFixed(1)}%)</span>`;
+        }
+    });
+    
+    html += '</div>';
+    return html;
 }
 
 function renderResults() {
@@ -631,13 +783,21 @@ function renderResults() {
         const isPrepClosing = String(item.closing_rank).includes('P');
         const isSelected = selectedOptionIds.has(item.id);
 
+        const histData = getHistoricalComparison(item);
+        const histHtml = generateHistoryHtml(histData);
+
         row.innerHTML = `
             <td style="text-align: center; vertical-align: middle;">
                 <input type="checkbox" class="row-select-cb" data-id="${item.id}" ${isSelected ? 'checked' : ''} style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer;">
             </td>
             <td><div class="inst-cell" data-institute="${item.institute}"><span class="badge type-badge ${item.type.toLowerCase()}">${item.type}</span> ${item.institute}</div></td>
-            <td>${item.program}</td>
-            <td><span class="badge round-badge">${item.round}</span></td>
+            <td>
+                <div class="program-cell-wrapper">
+                    <div class="program-name" style="font-weight: 500;">${item.program}</div>
+                    ${histHtml}
+                </div>
+            </td>
+            <td><span class="badge round-badge">${item.year ? item.year + ' - R' + item.round : item.round}</span></td>
             <td>${getDisplayName(item.type)}</td>
             <td><span class="badge">${getDisplayName(item.quota)}</span></td>
             <td><span class="badge">${getDisplayName(item.seat_type)}</span></td>
@@ -712,10 +872,18 @@ function updatePagination(totalPages) {
     nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
 }
 
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
 // Event Listeners
-mainSearch.addEventListener('input', applyFilters);
-rankMin.addEventListener('input', applyFilters);
-rankMax.addEventListener('input', applyFilters);
+mainSearch.addEventListener('input', debounce(applyFilters, 150));
+rankMin.addEventListener('input', debounce(applyFilters, 150));
+rankMax.addEventListener('input', debounce(applyFilters, 150));
 sortBy.addEventListener('change', () => {
     sortData();
     renderResults();
@@ -743,7 +911,7 @@ resetBtn.addEventListener('click', () => {
     document.querySelectorAll('.custom-dropdown input').forEach(cb => cb.checked = true);
     document.querySelectorAll('.dropdown-search input').forEach(input => input.value = '');
     document.querySelectorAll('.options-list label').forEach(label => label.style.display = 'flex');
-    ['dropdown-round', 'dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender', 'dropdown-program', 'dropdown-institute'].forEach(id => updateDropdownButtonText(id));
+    ['dropdown-round', 'dropdown-year', 'dropdown-type', 'dropdown-quota', 'dropdown-seat', 'dropdown-gender', 'dropdown-program', 'dropdown-institute'].forEach(id => updateDropdownButtonText(id));
 
 
     applyFilters();
@@ -1115,10 +1283,10 @@ function initPredictorModule() {
     
     const searchInput = document.getElementById('pred-card-search');
     if (searchInput) {
-        searchInput.addEventListener('input', () => {
+        searchInput.addEventListener('input', debounce(() => {
             predictorVisibleLimit = 40;
             renderPredictorCards();
-        });
+        }, 150));
     }
 
     // Counselling filter pills event listeners
@@ -1241,6 +1409,10 @@ function runPredictor() {
     // Run filtering
     for (let i = 0; i < allData.length; i++) {
         const item = allData[i];
+        
+        // Only predict based on the latest year (2025) to avoid year duplicates
+        if ((item.year || "2025") !== "2025") continue;
+        
         const closingRank = item.closing_rank_val;
         if (closingRank <= 0) continue;
         
@@ -1471,6 +1643,9 @@ function renderPredictorCards() {
         const counsellingName = counsellingDisplayNames[item.source] || item.source;
         const isSelected = selectedOptionIds.has(item.id);
         
+        const histData = getHistoricalComparison(item, userRankToUse);
+        const histHtml = generateHistoryHtml(histData);
+        
         card.innerHTML = `
             <div class="pred-card-header">
                 <div class="pred-card-select-wrapper">
@@ -1482,6 +1657,7 @@ function renderPredictorCards() {
             <div class="pred-card-body">
                 <div class="pred-card-inst" data-institute="${item.institute}">${item.institute}</div>
                 <div class="pred-card-program">${item.program}</div>
+                ${histHtml}
             </div>
             <div class="pred-card-footer">
                 <div class="pred-card-meta">
@@ -2083,35 +2259,7 @@ function downloadFilteredEligibleList() {
         }
         
         list = list.filter(({ item }) => {
-            const inst = (item.institute || '').toLowerCase();
-            const prog = (item.program || '').toLowerCase();
-            const src = (item.source || '').toLowerCase();
-            const type = (item.type || '').toLowerCase();
-            const state = getInstituteState(item.institute).toLowerCase();
-            const quota = (item.quota || '').toLowerCase();
-            const seatType = (item.seat_type || '').toLowerCase();
-            
-            const srcDisplay = getDisplayName(item.source).toLowerCase();
-            const typeDisplay = getDisplayName(item.type).toLowerCase();
-            const seatTypeDisplay = getDisplayName(item.seat_type).toLowerCase();
-            
-            const badgeText = (item.type === 'JAC' ? 'JAC-C' : (item.type === 'JACD' ? 'JAC-D' : item.type)).toLowerCase();
-            const badgeTextSpace = badgeText.replace('-', ' ');
-            
-            return terms.every(term => {
-                return inst.includes(term) || 
-                       prog.includes(term) || 
-                       src.includes(term) || 
-                       srcDisplay.includes(term) || 
-                       type.includes(term) || 
-                       typeDisplay.includes(term) || 
-                       state.includes(term) ||
-                       quota.includes(term) ||
-                       seatType.includes(term) ||
-                       seatTypeDisplay.includes(term) ||
-                       badgeText.includes(term) ||
-                       badgeTextSpace.includes(term);
-            });
+            return terms.every(term => item.searchStr.includes(term));
         });
     }
     
@@ -2132,25 +2280,39 @@ function downloadFilteredEligibleList() {
         instituteMap.get(college).add(branch);
     });
     
+    // Get filter details to display in the header
+    const crl = document.getElementById('pred-crl-rank')?.value || '';
+    const category = document.getElementById('pred-category')?.value || 'OPEN';
+    const catRank = document.getElementById('pred-cat-rank')?.value || '';
+    const gender = document.getElementById('pred-gender')?.value || '';
+    const state = document.getElementById('pred-state')?.value || '';
+    
     // Format text file content
     const timestamp = new Date().toLocaleString();
-    let content = `===========================================================
-ADMISSION EXPLORER - ELIGIBLE COLLEGES & BRANCHES
+    let content = `ADMISSION EXPLORER - ELIGIBLE COLLEGES & BRANCHES
 Generated on: ${timestamp}
-Active Tabs: ${Array.from(activePredictorTabs).map(t => t.toUpperCase()).join(', ')}
+
+FILTERS & USER INPUTS:
+- Candidate CRL Rank: ${crl || 'N/A'}
+- Category: ${getDisplayName(category)}${category !== 'OPEN' ? ` (Category Rank: ${catRank || 'N/A'})` : ''}
+- Gender Pool: ${gender || 'N/A'}
+- Home State: ${state || 'N/A'}
+- Prediction Tabs: ${Array.from(activePredictorTabs).map(t => t.toUpperCase()).join(', ')}
+- Counselling Types: ${Array.from(selectedPredictorCounsellings).join(', ')}
+${rawInput ? `- Card Search Term: "${rawInput}"\n` : ''}${selectedPredictorCategories.size > 0 ? `- Institution Groups: ${Array.from(selectedPredictorCategories).map(c => c.toUpperCase()).join(', ')}\n` : ''}${selectedPredictorColleges.size > 0 ? `- College Filter: ${selectedPredictorColleges.size} selected\n` : ''}${selectedPredictorBranches.size > 0 ? `- Branch Filter: ${selectedPredictorBranches.size} selected\n` : ''}
 Total Eligible Colleges: ${instituteMap.size}
-===========================================================
+
+ELIGIBLE OPTIONS BY COLLEGE:
 
 `;
 
     let index = 1;
     instituteMap.forEach((branchesSet, college) => {
         content += `${index}. ${college}\n`;
-        content += `   Eligible Branches:\n`;
         Array.from(branchesSet).sort().forEach(branch => {
             content += `   - ${branch}\n`;
         });
-        content += `\n-----------------------------------------------------------\n\n`;
+        content += `\n`;
         index++;
     });
     

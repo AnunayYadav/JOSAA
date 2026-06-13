@@ -56,6 +56,16 @@
 
         <section class="explorer-section">
             <aside class="filters-panel">
+                <div class="filter-group" id="filter-group-year">
+                    <label><i data-lucide="calendar"></i> Year</label>
+                    <div class="custom-dropdown" id="dropdown-year">
+                        <button class="dropdown-btn"><span>All Years</span> <i data-lucide="chevron-down"></i></button>
+                        <div class="dropdown-content" id="year-options">
+                            <!-- Dynamic options -->
+                        </div>
+                    </div>
+                </div>
+
                 <div class="filter-group">
                     <label><i data-lucide="calendar"></i> Round</label>
                     <div class="custom-dropdown" id="dropdown-round">
@@ -205,9 +215,11 @@
                     </div>
                 </div>
 
-                <div id="loading-spinner" class="spinner"></div>
-
-                <div class="table-wrapper">
+                <div id="explorer-results-container" style="position: relative; width: 100%;">
+                    <div id="explorer-spinner" class="spinner-overlay-local">
+                        <div class="spinner-ring"></div>
+                    </div>
+                    <div class="table-wrapper">
                     <table id="results-table">
                         <thead>
                             <tr>
@@ -228,6 +240,7 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
 
                 <div id="pagination" class="pagination">
                     <button id="prev-page" class="btn-icon"><i data-lucide="chevron-left"></i></button>
@@ -441,8 +454,10 @@
                             </div>
                         </div>
 
-                        <!-- Results List -->
-                        <div class="pred-list-wrapper">
+                        <div class="pred-list-wrapper" style="position: relative;">
+                            <div id="predictor-spinner" class="spinner-overlay-local">
+                                <div class="spinner-ring"></div>
+                            </div>
                             <div class="pred-list-header">
                                 <div class="pred-list-title-group">
                                     <h3 id="current-tab-title">Best Match Options</h3>
@@ -526,7 +541,7 @@
         </div>
     </div>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+    <script src="data.js?v=1.0.2"></script>
+    <script src="script.js?v=1.0.6"></script>
 </body>
 </html>
