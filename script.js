@@ -953,6 +953,158 @@ if (aboutModal) {
 // ==========================================
 // BEST SEAT PREDICTOR MODULE
 // ==========================================
+const BRANCH_GROUP_ORDER = [
+    "Computer Science & Engineering",
+    "Computer Science Specializations",
+    "Information Technology & Software",
+    "Electronics & Communication Engineering",
+    "Electrical & Electronics Engineering",
+    "Mechanical & Mechatronics Engineering",
+    "Civil & Environmental Engineering",
+    "Chemical, Bio & Food Technology",
+    "Aerospace & Aeronautical Engineering",
+    "Metallurgy, Materials & Mining",
+    "Sciences & Mathematics",
+    "Other Specialized Branches"
+];
+
+let expandedBranchGroups = new Set();
+
+function getBranchGroup(branch) {
+    const b = branch.toLowerCase();
+    const clean = b.replace(/[\s\-\&]/g, "");
+    
+    // 1. Sciences & Mathematics (Check early so Quantitative Economics, Math & DS, and Chemical Sciences go here)
+    if (b.includes("mathematics") || b.includes("scientific computing") || b.includes("physics") || 
+        b.includes("chemistry") || b.includes("geology") || b.includes("geophysics") || 
+        b.includes("economics") || b.includes("statistics") || /\bmac\b/.test(b) || 
+        b.includes("earth science") || b.includes("chemical science") || b.includes("physical science")) {
+        return "Sciences & Mathematics";
+    }
+
+    // 2. Chemical, Bio & Food Technology (Check early to prevent biotech containing "iot" matching CS Specializations)
+    if (b.includes("chemical") || b.includes("biotechnology") || b.includes("bio technology") || 
+        b.includes("bio-technology") || b.includes("biomedical") || b.includes("bio medical") || 
+        b.includes("bioengineering") || b.includes("bio engineering") || b.includes("biological") || 
+        b.includes("biochemical") || b.includes("food") || b.includes("pharmaceutical") || b.includes("life science")) {
+        return "Chemical, Bio & Food Technology";
+    }
+
+    // 3. Electronics & Communication Engineering
+    // Checked before EEE, but excludes "electrical" unless it also contains "communication"
+    // (e.g. "Electronics and Electrical Communication Engineering" goes to ECE, 
+    // but "Electronics and Electrical Engineering" falls through to EEE).
+    if ((b.includes("electronic") || b.includes("ece") || b.includes("communication") || b.includes("telecommunication") || 
+         b.includes("avionics") || b.includes("vlsi") || b.includes("microelectronics") || b.includes("eve") ||
+         b.includes("industrial internet of things") || b.includes("iiot") || b.includes("industrial iot") ||
+         b.includes("instrumentation") || b.includes("integrated circuit")) && 
+        !(b.includes("electrical") && !b.includes("communication"))) {
+        return "Electronics & Communication Engineering";
+    }
+
+    // 4. Electrical & Electronics Engineering
+    // Checked after ECE. Handles "elctrical" typo in dataset.
+    if (b.includes("electrical") || b.includes("elctrical") || b.includes("eee") || b.includes("power engineering") || b.includes("power system")) {
+        return "Electrical & Electronics Engineering";
+    }
+    
+    // 5. CS Specializations
+    // Checks normalized string (no spaces/hyphens/ampersands) to cleanly capture variations of AI/ML, DS, Cyber Security, etc.
+    if (clean.includes("artificial") || clean.includes("machinelearning") || clean.includes("aiml") ||
+        clean.includes("datascience") || clean.includes("dataanalytics") || clean.includes("aids") || 
+        clean.includes("cybersecurity") || clean.includes("informationsecurity") || 
+        clean.includes("internetofthings") || clean.includes("iot") || clean.includes("blockchain") || clean.includes("computationalanddata") ||
+        clean.includes("quantum") || clean.includes("humancomputer") || clean.includes("gaming") || clean.includes("cseai") || 
+        clean.includes("cseds") || clean.includes("csb") || clean.includes("csd") || clean.includes("csai") || clean.includes("csam") || clean.includes("csss") ||
+        /\b(ar|vr)\b/.test(b)) {
+        return "Computer Science Specializations";
+    }
+    
+    // 6. Pure Computer Science & Engineering
+    if (b.includes("computer science") || b.includes("computer engineering") || b.includes("cse") || b.includes("b.tech. (computer science)") || b.includes("b.tech (cs)")) {
+        return "Computer Science & Engineering";
+    }
+    
+    // 7. Information Technology & Software
+    // Uses word boundary to match "(it)" or "it" without matching parts of other words (e.g., "digital")
+    if (b.includes("information technology") || b.includes("software engineering") || b.includes("business informatics") || 
+        b.includes("b.e. in information technology") || /\bit\b/.test(b)) {
+        return "Information Technology & Software";
+    }
+    
+    // 8. Mechanical & Mechatronics
+    if (b.includes("mechanical") || b.includes("mechatronics") || b.includes("automobile") || 
+        b.includes("automation") || b.includes("robotics") || b.includes("manufacturing science") || 
+        b.includes("manufacturing technology") || b.includes("industrial automation") || b.includes("mae")) {
+        return "Mechanical & Mechatronics Engineering";
+    }
+    
+    // 9. Civil & Environmental
+    if (b.includes("civil") || b.includes("environmental") || b.includes("infrastructure") || b.includes("construction")) {
+        return "Civil & Environmental Engineering";
+    }
+    
+    // 10. Aerospace & Aeronautical
+    if (b.includes("aerospace") || b.includes("aeronautical") || b.includes("aviation") || b.includes("space science")) {
+        return "Aerospace & Aeronautical Engineering";
+    }
+    
+    // 11. Metallurgy, Materials & Mining
+    if (b.includes("metallurg") || b.includes("materials") || b.includes("mining") || 
+        b.includes("ceramic") || b.includes("mineral") || b.includes("geological") || b.includes("geophysical")) {
+        return "Metallurgy, Materials & Mining";
+    }
+    
+    // 12. Other / Specialized
+    return "Other Specialized Branches";
+}
+
+function filterGroupedBranches(term) {
+    const containers = document.querySelectorAll('#pred-branch-filter-list .pred-filter-group-container');
+    containers.forEach(container => {
+        const groupName = container.getAttribute('data-group-name');
+        const groupNameLower = groupName.toLowerCase();
+        const childrenContainer = container.querySelector('.pred-filter-group-children');
+        const chevron = container.querySelector('.pred-filter-group-chevron');
+        const items = container.querySelectorAll('.pred-filter-item');
+        
+        let groupMatches = groupNameLower.includes(term);
+        let visibleChildrenCount = 0;
+        
+        items.forEach(item => {
+            const branchName = item.getAttribute('data-branch-name').toLowerCase();
+            const childMatches = branchName.includes(term);
+            
+            if (term === '') {
+                item.style.display = 'flex';
+            } else if (groupMatches || childMatches) {
+                item.style.display = 'flex';
+                visibleChildrenCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        if (term === '') {
+            container.style.display = 'block';
+            const isExpanded = expandedBranchGroups.has(groupName);
+            if (isExpanded) {
+                childrenContainer.classList.remove('collapsed');
+                if (chevron) chevron.classList.add('expanded');
+            } else {
+                childrenContainer.classList.add('collapsed');
+                if (chevron) chevron.classList.remove('expanded');
+            }
+        } else if (groupMatches || visibleChildrenCount > 0) {
+            container.style.display = 'block';
+            childrenContainer.classList.remove('collapsed');
+            if (chevron) chevron.classList.add('expanded');
+        } else {
+            container.style.display = 'none';
+        }
+    });
+}
+
 let rawPredictorResults = {
     reach: [],
     match: [],
@@ -1047,11 +1199,7 @@ function setupPredictorSearchFilters() {
     if (branchSearch) {
         branchSearch.addEventListener('input', () => {
             const term = branchSearch.value.toLowerCase().trim();
-            const items = document.querySelectorAll('#pred-branch-filter-list .pred-filter-item');
-            items.forEach(item => {
-                const text = item.querySelector('.name').textContent.toLowerCase();
-                item.style.display = text.includes(term) ? 'flex' : 'none';
-            });
+            filterGroupedBranches(term);
         });
     }
 }
@@ -1122,6 +1270,22 @@ function populatePredictorFilters(combinedList) {
     const sortedColleges = Array.from(collegeMap.keys()).sort();
     const sortedBranches = Array.from(branchMap.keys()).sort();
     
+    // Group active branches
+    const groups = {};
+    sortedBranches.forEach(branch => {
+        const groupName = getBranchGroup(branch);
+        if (!groups[groupName]) {
+            groups[groupName] = [];
+        }
+        groups[groupName].push({
+            name: branch,
+            count: branchMap.get(branch)
+        });
+    });
+
+    const sortedGroupNames = BRANCH_GROUP_ORDER.filter(g => groups[g] && groups[g].length > 0)
+        .concat(Object.keys(groups).filter(g => !BRANCH_GROUP_ORDER.includes(g) && groups[g].length > 0));
+
     if (collegeCountEl) collegeCountEl.textContent = sortedColleges.length;
     if (branchCountEl) branchCountEl.textContent = sortedBranches.length;
     
@@ -1144,18 +1308,47 @@ function populatePredictorFilters(combinedList) {
         `;
     }).join('');
     
-    // Render branches list
-    branchListContainer.innerHTML = sortedBranches.map(branch => {
-        const count = branchMap.get(branch);
-        const isActive = selectedPredictorBranches.has(branch);
-        const isVisible = !branchSearchVal || branch.toLowerCase().includes(branchSearchVal);
-        return `
-            <div class="pred-filter-item ${isActive ? 'active' : ''}" style="display: ${isVisible ? 'flex' : 'none'}">
-                <span class="name">${branch}</span>
-                <span class="count">${count}</span>
+    // Render branches list (grouped categories with chevron arrows)
+    let branchHtml = '';
+    sortedGroupNames.forEach(groupName => {
+        const branchesInGroup = groups[groupName];
+        const selectedInGroup = branchesInGroup.filter(b => selectedPredictorBranches.has(b.name));
+        const totalGroupSeats = branchesInGroup.reduce((sum, b) => sum + b.count, 0);
+        
+        // Group is active if all available branches in it are selected
+        const isGroupActive = selectedInGroup.length === branchesInGroup.length;
+        const isExpanded = expandedBranchGroups.has(groupName);
+        const isVisible = !branchSearchVal || groupName.toLowerCase().includes(branchSearchVal) || 
+                          branchesInGroup.some(b => b.name.toLowerCase().includes(branchSearchVal));
+        
+        branchHtml += `
+            <div class="pred-filter-group-container" data-group-name="${groupName}" style="display: ${isVisible ? 'block' : 'none'}">
+                <div class="pred-filter-group-header ${isGroupActive ? 'active' : ''}">
+                    <span class="pred-filter-group-chevron ${isExpanded || (branchSearchVal && isVisible) ? 'expanded' : ''}">
+                        <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
+                    </span>
+                    <div class="pred-filter-group-title">
+                        <span class="name">${groupName}</span>
+                        <span class="count">${totalGroupSeats}</span>
+                    </div>
+                </div>
+                <div class="pred-filter-group-children ${isExpanded || (branchSearchVal && isVisible) ? '' : 'collapsed'}">
+                    ${branchesInGroup.map(b => {
+                        const isActive = selectedPredictorBranches.has(b.name);
+                        const isChildVisible = !branchSearchVal || groupName.toLowerCase().includes(branchSearchVal) || 
+                                              b.name.toLowerCase().includes(branchSearchVal);
+                        return `
+                            <div class="pred-filter-item ${isActive ? 'active' : ''}" data-branch-name="${b.name}" style="display: ${isChildVisible ? 'flex' : 'none'}">
+                                <span class="name">${b.name}</span>
+                                <span class="count">${b.count}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
             </div>
         `;
-    }).join('');
+    });
+    branchListContainer.innerHTML = branchHtml;
     
     // Restore scroll positions
     collegeListContainer.scrollTop = collegeScroll;
@@ -1163,7 +1356,82 @@ function populatePredictorFilters(combinedList) {
     
     // Setup event listeners for the new items
     setupPredictorFilterItemEvents(collegeListContainer, 'college');
-    setupPredictorFilterItemEvents(branchListContainer, 'branch');
+    setupGroupedBranchEvents(branchListContainer);
+    
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+    }
+}
+
+function setupGroupedBranchEvents(container) {
+    // 1. Accordion Toggle (click on chevron)
+    container.querySelectorAll('.pred-filter-group-chevron').forEach(chevron => {
+        chevron.addEventListener('click', (e) => {
+            e.stopPropagation(); // Stop bubbling to prevent header active state toggling
+            
+            const groupContainer = chevron.closest('.pred-filter-group-container');
+            const groupName = groupContainer.getAttribute('data-group-name');
+            const childrenContainer = groupContainer.querySelector('.pred-filter-group-children');
+            
+            const isCurrentlyCollapsed = childrenContainer.classList.contains('collapsed');
+            if (isCurrentlyCollapsed) {
+                childrenContainer.classList.remove('collapsed');
+                chevron.classList.add('expanded');
+                expandedBranchGroups.add(groupName);
+            } else {
+                childrenContainer.classList.add('collapsed');
+                chevron.classList.remove('expanded');
+                expandedBranchGroups.delete(groupName);
+            }
+        });
+    });
+    
+    // 2. Select/Deselect All (click on header/title)
+    container.querySelectorAll('.pred-filter-group-header').forEach(header => {
+        header.addEventListener('click', (e) => {
+            if (e.target.closest('.pred-filter-group-chevron')) return; // Ignore clicks on chevron
+            
+            const groupContainer = header.closest('.pred-filter-group-container');
+            const items = groupContainer.querySelectorAll('.pred-filter-group-children .pred-filter-item');
+            const isFullySelected = header.classList.contains('active');
+            
+            items.forEach(item => {
+                const branchName = item.getAttribute('data-branch-name');
+                if (!isFullySelected) {
+                    selectedPredictorBranches.add(branchName);
+                } else {
+                    selectedPredictorBranches.delete(branchName);
+                }
+            });
+            
+            // Re-populate filters to update counts and cross-filtering
+            let list = getActivePredictorList();
+            populatePredictorFilters(list);
+            
+            predictorVisibleLimit = 40;
+            renderPredictorCards();
+        });
+    });
+    
+    // 3. Child Branch Item Toggle
+    container.querySelectorAll('.pred-filter-group-children .pred-filter-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const branchName = item.getAttribute('data-branch-name');
+            
+            if (selectedPredictorBranches.has(branchName)) {
+                selectedPredictorBranches.delete(branchName);
+            } else {
+                selectedPredictorBranches.add(branchName);
+            }
+            
+            // Re-populate filters to update options under cross-filtering
+            let list = getActivePredictorList();
+            populatePredictorFilters(list);
+            
+            predictorVisibleLimit = 40;
+            renderPredictorCards();
+        });
+    });
 }
 
 function setupPredictorFilterItemEvents(container, type) {
@@ -2431,6 +2699,26 @@ function setupSelectionEvents() {
     const predDownloadEligibleBtn = document.getElementById('pred-download-eligible-btn');
     if (predDownloadEligibleBtn) {
         predDownloadEligibleBtn.addEventListener('click', downloadFilteredEligibleList);
+    }
+
+    const predReloadBtn = document.getElementById('pred-reload-btn');
+    if (predReloadBtn) {
+        predReloadBtn.addEventListener('click', () => {
+            const spinner = document.getElementById('predictor-spinner');
+            if (spinner) {
+                spinner.style.display = 'flex';
+            }
+            setTimeout(() => {
+                let list = getActivePredictorList();
+                populatePredictorFilters(list);
+                predictorVisibleLimit = 40;
+                renderPredictorCards();
+                
+                if (spinner) {
+                    spinner.style.display = 'none';
+                }
+            }, 300);
+        });
     }
 }
 

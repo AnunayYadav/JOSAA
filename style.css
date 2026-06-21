@@ -1868,6 +1868,34 @@ tr:hover td {
     background: rgba(239, 68, 68, 0.05);
 }
 
+.btn-outline-small-secondary {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--transition);
+}
+
+.btn-outline-small-secondary:hover {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.dark-theme .btn-outline-small-secondary {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+
 /* Predictor Card Selection Header */
 .pred-card-select-wrapper {
     display: flex;
@@ -2010,6 +2038,11 @@ tr:hover td {
     gap: 0.25rem;
     padding-right: 0.25rem;
 }
+
+.pred-filter-list > * {
+    flex-shrink: 0;
+}
+
 
 /* Custom Scrollbar for list */
 .pred-filter-list::-webkit-scrollbar {
@@ -2211,4 +2244,132 @@ tr:hover td {
     border-top: 1px dashed var(--border-color);
     padding-top: 0.5rem;
 }
+
+
+/* Grouped Branch Filters Styling */
+.pred-filter-group-container {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.01);
+    transition: var(--transition);
+}
+
+.dark-theme .pred-filter-group-container {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.pred-filter-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    user-select: none;
+}
+
+.dark-theme .pred-filter-group-header {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.pred-filter-group-header:hover {
+    background: rgba(99, 102, 241, 0.05);
+    color: var(--text-primary);
+}
+
+.pred-filter-group-header.active {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--primary-color);
+    border-color: rgba(99, 102, 241, 0.3);
+    font-weight: 600;
+}
+
+.pred-filter-group-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: transform 0.2s ease;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.pred-filter-group-chevron:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.pred-filter-group-chevron.expanded {
+    transform: rotate(90deg);
+}
+
+.pred-filter-group-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.pred-filter-group-title .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pred-filter-group-title .count {
+    background: rgba(148, 163, 184, 0.1);
+    color: var(--text-secondary);
+    padding: 0.1rem 0.4rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.pred-filter-group-header.active .pred-filter-group-title .count {
+    background: var(--primary-color);
+    color: white;
+}
+
+.pred-filter-group-children {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.4rem 0.4rem 0.4rem 1.75rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.light-theme .pred-filter-group-children {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.pred-filter-group-children.collapsed {
+    display: none;
+}
+
+.pred-filter-group-children .pred-filter-item {
+    background: transparent;
+    padding: 0.35rem 0.5rem;
+}
+
+.pred-filter-group-children .pred-filter-item:hover {
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.pred-filter-group-children .pred-filter-item.active {
+    background: rgba(99, 102, 241, 0.12);
+}
+
 
