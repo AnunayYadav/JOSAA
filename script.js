@@ -2016,8 +2016,7 @@ function renderPredictorCards() {
         
         const counsellingDisplayNames = {
             'JOSAA': 'JoSAA',
-            'CSAB': 'CSAB Cutoffs',
-            'CSAB_2026_MATRIX': 'CSAB 2026 Vacant Seats',
+            'CSAB': 'CSAB',
             'JAC': 'JAC Chandigarh',
             'JAC_DELHI': 'JAC Delhi',
             'UPTAC': 'UPTAC',
