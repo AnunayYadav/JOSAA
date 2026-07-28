@@ -5,6 +5,7 @@ let currentPage = 1;
 const itemsPerPage = 50;
 let selectedOptionIds = new Set();
 const historicalMap = new Map();
+const vacant2026Map = new Map();
 
 const MAPPINGS = {
     // Institute Types
@@ -190,6 +191,27 @@ async function init() {
                 });
             }
         });
+
+        // Pre-build vacant2026Map for CSAB 2026 Vacant Seat cross-matching
+        vacant2026Map.clear();
+        allData.forEach(d => {
+            if (d.source === 'CSAB_2026_MATRIX') {
+                const key = d.normalizedKey;
+                const prev = vacant2026Map.get(key) || 0;
+                vacant2026Map.set(key, prev + (d.vacancy || 0));
+            }
+        });
+
+        // Assign vacancy2026 property to all items
+        allData.forEach(d => {
+            const v = vacant2026Map.get(d.normalizedKey);
+            d.vacancy2026 = (v !== undefined) ? v : null;
+        });
+
+        const csab2026Toggle = document.getElementById('csab-2026-only-toggle');
+        if (csab2026Toggle) {
+            csab2026Toggle.addEventListener('change', applyFilters);
+        }
 
         setupModeSwitching();
         setupDropdowns();
@@ -627,9 +649,17 @@ function applyFiltersSync() {
     const minR = parseInt(rankMin.value) || 0;
     const maxR = parseInt(rankMax.value) || Infinity;
 
+    const csab2026Only = document.getElementById('csab-2026-only-toggle')?.checked || false;
+
     filteredData = allData.filter(item => {
         // Filter by Mode (Source)
         if (item.source !== currentMode) return false;
+
+        // If 2026 Vacancy Filter toggle is enabled, only show seats vacant in CSAB 2026
+        if (csab2026Only && item.source !== 'CSAB_2026_MATRIX') {
+            const v = vacant2026Map.get(item.normalizedKey);
+            if (!v || v <= 0) return false;
+        }
 
         let matchesSearch = true;
         if (searchTerm.trim()) {
@@ -829,6 +859,16 @@ function renderResults() {
         const histData = getHistoricalComparison(item);
         const histHtml = generateHistoryHtml(histData);
 
+        let v2026Badge = '';
+        if (item.source !== 'CSAB_2026_MATRIX') {
+            const v2026 = vacant2026Map.get(item.normalizedKey);
+            if (v2026 !== undefined && v2026 > 0) {
+                v2026Badge = `<span class="badge vacancy-pill active-vacancy" style="margin-top: 0.25rem; display: inline-flex; align-items: center; background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.725rem;"><i data-lucide="check-circle-2" style="width: 12px; height: 12px;"></i> CSAB 2026: ${v2026} Seats Vacant</span>`;
+            } else if (v2026 === 0) {
+                v2026Badge = `<span class="badge vacancy-pill zero-vacancy" style="margin-top: 0.25rem; display: inline-flex; align-items: center; background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); font-size: 0.725rem;"><i data-lucide="x-circle" style="width: 12px; height: 12px;"></i> CSAB 2026: 0 Vacant</span>`;
+            }
+        }
+
         let cellOpening = `<td class="${isPrepOpening ? 'prep-cell' : ''}">${item.opening_rank} ${isPrepOpening ? '<small class="prep-tag">(P)</small>' : ''}</td>`;
         let cellClosing = `<td class="${isPrepClosing ? 'prep-cell' : ''}">${item.closing_rank} ${isPrepClosing ? '<small class="prep-tag">(P)</small>' : ''}</td>`;
 
@@ -849,6 +889,7 @@ function renderResults() {
             <td>
                 <div class="program-cell-wrapper">
                     <div class="program-name" style="font-weight: 500;">${item.program}</div>
+                    ${v2026Badge}
                     ${histHtml}
                 </div>
             </td>
@@ -1730,9 +1771,17 @@ function runPredictor() {
     const searchInput = document.getElementById('pred-card-search');
     if (searchInput) searchInput.value = '';
     
+    const predCsab2026Only = document.getElementById('pred-csab-2026-only-toggle')?.checked || false;
+
     // Run filtering
     for (let i = 0; i < allData.length; i++) {
         const item = allData[i];
+
+        // If CSAB 2026 vacancy filter is enabled in Predictor, skip items with no 2026 vacancies
+        if (predCsab2026Only && item.source !== 'CSAB_2026_MATRIX') {
+            const v = vacant2026Map.get(item.normalizedKey);
+            if (!v || v <= 0) continue;
+        }
         
         if (item.source === 'CSAB_2026_MATRIX') {
             if (!isGenderEligible(userGender, item)) continue;
@@ -1995,6 +2044,16 @@ function renderPredictorCards() {
                    <span class="val ${isPrep ? 'prep-cell' : ''}">${closingRank.toLocaleString()}${isPrep ? ' (P)' : ''}</span>
                </div>`;
 
+        const v2026Val = vacant2026Map.get(item.normalizedKey);
+        let v2026CardMeta = '';
+        if (item.source !== 'CSAB_2026_MATRIX' && v2026Val !== undefined) {
+            if (v2026Val > 0) {
+                v2026CardMeta = `<div class="pred-card-meta rank-info" style="border-top: 1px solid var(--border-color); padding-top: 0.35rem; margin-top: 0.35rem;"><span class="label">CSAB 2026 Vacancy</span><span class="val" style="color: #10b981; font-weight: 700;"><i data-lucide="check-circle-2" style="width: 12px; height: 12px; display: inline;"></i> ${v2026Val} Available</span></div>`;
+            } else {
+                v2026CardMeta = `<div class="pred-card-meta rank-info" style="border-top: 1px solid var(--border-color); padding-top: 0.35rem; margin-top: 0.35rem;"><span class="label">CSAB 2026 Vacancy</span><span class="val" style="color: #ef4444;"><i data-lucide="x-circle" style="width: 12px; height: 12px; display: inline;"></i> 0 Vacant Seats</span></div>`;
+            }
+        }
+
         card.innerHTML = `
             <div class="pred-card-header">
                 <div class="pred-card-select-wrapper">
@@ -2022,6 +2081,7 @@ function renderPredictorCards() {
                     <span class="label">Gender Pool</span>
                     <span class="val">${item.gender}</span>
                 </div>
+                ${v2026CardMeta}
             </div>
         `;
         listContainer.appendChild(card);
