@@ -994,8 +994,27 @@ if __name__ == "__main__":
         else:
             all_results.extend(parse_josaa_data(txt_file))
 
-    # We do not process pdf_files anymore for GGSIPU since txt files are used instead.
-    
+    # Load CSAB 2026 Vacant Seat Matrix data if available
+    csab_2026_json = os.path.join(data_dir, "csab_vacant_2026.json")
+    if os.path.exists(csab_2026_json):
+        try:
+            with open(csab_2026_json, 'r', encoding='utf-8') as f:
+                csab_2026_data = json.load(f)
+                all_results.extend(csab_2026_data)
+                print(f"Loaded {len(csab_2026_data)} entries from {os.path.basename(csab_2026_json)}")
+        except Exception as e:
+            print(f"Error loading {csab_2026_json}: {e}")
+    else:
+        # Check if PDF exists to parse
+        pdf_path = os.path.join(data_dir, "20260728482536888.pdf")
+        if os.path.exists(pdf_path):
+            try:
+                from parse_csab_2026_matrix import parse_csab_2026_pdf
+                csab_2026_data = parse_csab_2026_pdf(pdf_path)
+                all_results.extend(csab_2026_data)
+            except Exception as e:
+                print(f"Error parsing CSAB 2026 PDF: {e}")
+
     output_js_path = os.path.join(base_dir, 'data.js')
     with open(output_js_path, 'w', encoding='utf-8') as f:
         f.write("window.JOSAA_DATA = ")
@@ -1004,6 +1023,6 @@ if __name__ == "__main__":
     
     print(f"\nFinal Statistics:")
     print(f"Total txt files processed: {len(txt_files)}")
-    print(f"Total pdf files processed: {len(pdf_files)}")
     print(f"Total entries parsed: {len(all_results)}")
     print(f"Data saved to {output_js_path}")
+

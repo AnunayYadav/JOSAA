@@ -2372,4 +2372,36 @@ tr:hover td {
     background: rgba(99, 102, 241, 0.12);
 }
 
+/* CSAB 2026 Vacant Seats Styling */
+.vacancy-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.vacancy-pill:hover {
+    transform: translateY(-1px);
+}
+
+.vacancy-pill i {
+    width: 14px;
+    height: 14px;
+}
+
+#csab-2026-info-note {
+    border-left-color: #10b981;
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.light-theme #csab-2026-info-note {
+    background: rgba(16, 185, 129, 0.08);
+}
+
+
 

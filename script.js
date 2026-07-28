@@ -18,6 +18,7 @@ const MAPPINGS = {
     'JACD': 'JAC Delhi',
     'UPTAC': 'UPTAC Institutes',
     'GGSIPU': 'GGSIPU Affiliated',
+    'CSAB_2026_MATRIX': 'CSAB 2026 Vacant Seats',
     
     // Quotas
     'AI': 'All India',
@@ -210,6 +211,7 @@ async function init() {
 function setupModeSwitching() {
     const navJosaa = document.getElementById('nav-josaa');
     const navCsab = document.getElementById('nav-csab');
+    const navCsab2026 = document.getElementById('nav-csab-2026');
     const navJac = document.getElementById('nav-jac');
     const navJacDelhi = document.getElementById('nav-jac-delhi');
     const navCounsellingGroup = document.getElementById('nav-counselling-group');
@@ -223,6 +225,7 @@ function setupModeSwitching() {
         currentMode = mode;
         navJosaa.classList.toggle('active', mode === 'JOSAA');
         navCsab.classList.toggle('active', mode === 'CSAB');
+        if (navCsab2026) navCsab2026.classList.toggle('active', mode === 'CSAB_2026_MATRIX');
         if (navJac) navJac.classList.toggle('active', mode === 'JAC');
         if (navJacDelhi) navJacDelhi.classList.toggle('active', mode === 'JAC_DELHI');
         if (navPredictor) navPredictor.classList.toggle('active', mode === 'PREDICTOR');
@@ -235,7 +238,8 @@ function setupModeSwitching() {
                 } else {
                     let label = "Counselling";
                     if (mode === 'JOSAA') label = "JoSAA";
-                    else if (mode === 'CSAB') label = "CSAB";
+                    else if (mode === 'CSAB') label = "CSAB Cutoffs";
+                    else if (mode === 'CSAB_2026_MATRIX') label = "CSAB 2026 Vacant Seats";
                     else if (mode === 'JAC') label = "JAC Chandigarh";
                     else if (mode === 'JAC_DELHI') label = "JAC Delhi";
                     else if (mode === 'UPTAC') label = "UPTAC";
@@ -258,6 +262,7 @@ function setupModeSwitching() {
         }
 
         const csabNote = document.getElementById('csab-info-note');
+        const csab2026Note = document.getElementById('csab-2026-info-note');
         const infoNoteText = document.getElementById('info-note-text');
         const explorerSection = document.querySelector('.explorer-section');
         const heroSection = document.querySelector('.hero');
@@ -280,6 +285,7 @@ function setupModeSwitching() {
             modeText.textContent = "JoSAA Explorer";
             heroDesc.textContent = "Comprehensive JoSAA 2025 Data Explorer. Round opening and closing ranks at your fingertips.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (csab2026Note) csab2026Note.classList.add('hidden');
             if (infoNoteText) {
                 infoNoteText.innerHTML = "<strong>Note:</strong> Ranks ending with <strong>'P'</strong> belong to the Preparatory Rank List. Ranks are JEE Main/JEE Advanced CRL ranks.";
             }
@@ -287,13 +293,23 @@ function setupModeSwitching() {
             modeText.textContent = "CSAB Explorer";
             heroDesc.textContent = "Comprehensive CSAB 2025 Special Round Data Explorer. Allocation details for NITs, IIITs and GFTIs.";
             if (csabNote) csabNote.classList.remove('hidden');
+            if (csab2026Note) csab2026Note.classList.add('hidden');
             if (infoNoteText) {
                 infoNoteText.innerHTML = "<strong>Note:</strong> All ranks are JEE Main All India CRL Ranks. Cutoffs represent Special Round vacancy allocations.";
+            }
+        } else if (mode === 'CSAB_2026_MATRIX') {
+            modeText.textContent = "CSAB 2026 Vacant Seats";
+            heroDesc.textContent = "Tentative Seat Vacancy Matrix Simulation for CSAB Special Rounds 2026 across NITs, IIITs, and GFTIs.";
+            if (csabNote) csabNote.classList.add('hidden');
+            if (csab2026Note) csab2026Note.classList.remove('hidden');
+            if (infoNoteText) {
+                infoNoteText.innerHTML = "<strong>Note:</strong> Data extracted directly from official CSAB 2026 Special Round seat vacancy matrix.";
             }
         } else if (mode === 'JAC') {
             modeText.textContent = "JAC Chandigarh Explorer";
             heroDesc.textContent = "Comprehensive JAC Chandigarh 2025 Data Explorer. Opening and closing ranks for UIET, UICET, CCET, and CCA.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (csab2026Note) csab2026Note.classList.add('hidden');
             if (infoNoteText) {
                 infoNoteText.innerHTML = "<strong>Note:</strong> Ranks are JEE Main All India CRL Ranks. Allotments are under Joint Admission Committee (JAC) Chandigarh.";
             }
@@ -301,6 +317,7 @@ function setupModeSwitching() {
             modeText.textContent = "JAC Delhi Explorer";
             heroDesc.textContent = "Comprehensive JAC Delhi 2025 Data Explorer. Opening and closing ranks for DTU, NSUT, IIITD, and IGDTUW.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (csab2026Note) csab2026Note.classList.add('hidden');
             if (infoNoteText) {
                 infoNoteText.innerHTML = "<strong>Note:</strong> Ranks are JEE Main All India CRL Ranks for DTU, NSUT, and IGDTUW. For IIITD, Rounds 1, 2, and 5 list JEE CRL Ranks, while Rounds 3 and 4 list local IIITD Merit Ranks.";
             }
@@ -308,6 +325,7 @@ function setupModeSwitching() {
             modeText.textContent = "UPTAC Explorer";
             heroDesc.textContent = "Comprehensive UPTAC 2025 Counselling Data Explorer. Opening and closing ranks for technical institutes in Uttar Pradesh.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (csab2026Note) csab2026Note.classList.add('hidden');
             if (infoNoteText) {
                 infoNoteText.innerHTML = "<strong>Note:</strong> Ranks are JEE Main All India CRL Ranks for B.Tech admissions across technical institutions in Uttar Pradesh.";
             }
@@ -315,6 +333,7 @@ function setupModeSwitching() {
             modeText.textContent = "GGSIPU Explorer";
             heroDesc.textContent = "Comprehensive GGSIPU 2025 Counselling Data Explorer. Round 1 opening and closing ranks for affiliated engineering colleges.";
             if (csabNote) csabNote.classList.add('hidden');
+            if (csab2026Note) csab2026Note.classList.add('hidden');
             if (infoNoteText) {
                 infoNoteText.innerHTML = "<strong>Note:</strong> Ranks are JEE Main All India CRL Ranks for B.Tech admissions across IP University affiliated engineering colleges.";
             }
@@ -339,6 +358,7 @@ function setupModeSwitching() {
 
     navJosaa.addEventListener('click', () => switchMode('JOSAA'));
     navCsab.addEventListener('click', () => switchMode('CSAB'));
+    if (navCsab2026) navCsab2026.addEventListener('click', () => switchMode('CSAB_2026_MATRIX'));
     if (navJac) navJac.addEventListener('click', () => switchMode('JAC'));
     if (navJacDelhi) navJacDelhi.addEventListener('click', () => switchMode('JAC_DELHI'));
     if (navPredictor) navPredictor.addEventListener('click', () => switchMode('PREDICTOR'));
@@ -632,7 +652,7 @@ function applyFiltersSync() {
         const matchesGender = selectedGenders.has(item.gender);
         const matchesProgram = selectedPrograms.has(item.program);
         const matchesInstitute = selectedInstitutes.has(item.institute);
-        const matchesRank = item.closing_rank_val >= minR && item.closing_rank_val <= maxR;
+        const matchesRank = item.source === 'CSAB_2026_MATRIX' ? true : (item.closing_rank_val >= minR && item.closing_rank_val <= maxR);
 
         return matchesSearch && matchesRound && matchesYear && matchesType && matchesQuota && matchesSeat && matchesGender && matchesProgram && matchesInstitute && matchesRank;
     });
@@ -644,12 +664,22 @@ function applyFiltersSync() {
 
 function sortData() {
     const val = sortBy.value;
-    if (val === 'closing_rank_asc') {
-        filteredData.sort((a, b) => a.closing_rank_val - b.closing_rank_val);
-    } else if (val === 'closing_rank_desc') {
-        filteredData.sort((a, b) => b.closing_rank_val - a.closing_rank_val);
-    } else if (val === 'institute_asc') {
-        filteredData.sort((a, b) => a.institute.localeCompare(b.institute));
+    if (currentMode === 'CSAB_2026_MATRIX') {
+        if (val === 'closing_rank_desc') {
+            filteredData.sort((a, b) => (b.vacancy || 0) - (a.vacancy || 0));
+        } else if (val === 'closing_rank_asc') {
+            filteredData.sort((a, b) => (a.vacancy || 0) - (b.vacancy || 0));
+        } else if (val === 'institute_asc') {
+            filteredData.sort((a, b) => a.institute.localeCompare(b.institute));
+        }
+    } else {
+        if (val === 'closing_rank_asc') {
+            filteredData.sort((a, b) => a.closing_rank_val - b.closing_rank_val);
+        } else if (val === 'closing_rank_desc') {
+            filteredData.sort((a, b) => b.closing_rank_val - a.closing_rank_val);
+        } else if (val === 'institute_asc') {
+            filteredData.sort((a, b) => a.institute.localeCompare(b.institute));
+        }
     }
 }
 
@@ -770,6 +800,19 @@ function renderResults() {
     const pageData = filteredData.slice(start, end);
 
     totalResultsEl.textContent = filteredData.length.toLocaleString();
+
+    // Update table header based on mode
+    const thOpening = document.querySelector('#results-table th:nth-child(9)');
+    const thClosing = document.querySelector('#results-table th:nth-child(10)');
+    if (thOpening && thClosing) {
+        if (currentMode === 'CSAB_2026_MATRIX') {
+            thOpening.textContent = 'Prog Code';
+            thClosing.textContent = 'Vacant Seats';
+        } else {
+            thOpening.textContent = 'Opening';
+            thClosing.textContent = 'Closing';
+        }
+    }
     
     if (pageData.length === 0) {
         resultsBody.innerHTML = '<tr><td colspan="10" class="no-results">No matches found for your criteria.</td></tr>';
@@ -786,6 +829,18 @@ function renderResults() {
         const histData = getHistoricalComparison(item);
         const histHtml = generateHistoryHtml(histData);
 
+        let cellOpening = `<td class="${isPrepOpening ? 'prep-cell' : ''}">${item.opening_rank} ${isPrepOpening ? '<small class="prep-tag">(P)</small>' : ''}</td>`;
+        let cellClosing = `<td class="${isPrepClosing ? 'prep-cell' : ''}">${item.closing_rank} ${isPrepClosing ? '<small class="prep-tag">(P)</small>' : ''}</td>`;
+
+        if (item.source === 'CSAB_2026_MATRIX') {
+            cellOpening = `<td style="font-family: monospace; font-weight: 600; color: var(--text-secondary);">${item.program_code || '-'}</td>`;
+            const vCount = item.vacancy || 0;
+            const vStyle = vCount > 0 
+                ? 'background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 700;'
+                : 'background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); font-weight: 600;';
+            cellClosing = `<td><span class="badge vacancy-pill" style="${vStyle}"><i data-lucide="${vCount > 0 ? 'check-circle-2' : 'x-circle'}"></i> ${vCount} Seats</span></td>`;
+        }
+
         row.innerHTML = `
             <td style="text-align: center; vertical-align: middle;">
                 <input type="checkbox" class="row-select-cb" data-id="${item.id}" ${isSelected ? 'checked' : ''} style="width: 16px; height: 16px; accent-color: var(--primary-color); cursor: pointer;">
@@ -797,17 +852,18 @@ function renderResults() {
                     ${histHtml}
                 </div>
             </td>
-            <td><span class="badge round-badge">${item.year ? item.year + ' - R' + item.round : item.round}</span></td>
+            <td><span class="badge round-badge">${item.year ? item.year + ' - ' + item.round : item.round}</span></td>
             <td>${getDisplayName(item.type)}</td>
             <td><span class="badge">${getDisplayName(item.quota)}</span></td>
             <td><span class="badge">${getDisplayName(item.seat_type)}</span></td>
             <td><span class="badge">${item.gender}</span></td>
-            <td class="${isPrepOpening ? 'prep-cell' : ''}">${item.opening_rank} ${isPrepOpening ? '<small class="prep-tag">(P)</small>' : ''}</td>
-            <td class="${isPrepClosing ? 'prep-cell' : ''}">${item.closing_rank} ${isPrepClosing ? '<small class="prep-tag">(P)</small>' : ''}</td>
+            ${cellOpening}
+            ${cellClosing}
         `;
         resultsBody.appendChild(row);
     });
 
+    if (window.lucide) lucide.createIcons();
     updatePagination(Math.ceil(filteredData.length / itemsPerPage));
     updateSelectAllResultsCbState();
 }
@@ -1678,6 +1734,20 @@ function runPredictor() {
     for (let i = 0; i < allData.length; i++) {
         const item = allData[i];
         
+        if (item.source === 'CSAB_2026_MATRIX') {
+            if (!isGenderEligible(userGender, item)) continue;
+            if (!isQuotaEligible(userState, item)) continue;
+            const userRankToUse = getEligibleUserRank(userCategory, userCrl, userCatRank, item);
+            if (userRankToUse === null) continue;
+
+            if (item.vacancy > 0) {
+                rawPredictorResults.match.push({ item, userRankToUse: userCrl, closingRank: 0 });
+            } else {
+                rawPredictorResults.reach.push({ item, userRankToUse: userCrl, closingRank: 0 });
+            }
+            continue;
+        }
+
         // Only predict based on the latest year (2025) to avoid year duplicates
         if ((item.year || "2025") !== "2025") continue;
         
@@ -1902,7 +1972,8 @@ function renderPredictorCards() {
         
         const counsellingDisplayNames = {
             'JOSAA': 'JoSAA',
-            'CSAB': 'CSAB',
+            'CSAB': 'CSAB Cutoffs',
+            'CSAB_2026_MATRIX': 'CSAB 2026 Vacant Seats',
             'JAC': 'JAC Chandigarh',
             'JAC_DELHI': 'JAC Delhi',
             'UPTAC': 'UPTAC',
@@ -1913,7 +1984,17 @@ function renderPredictorCards() {
         
         const histData = getHistoricalComparison(item, userRankToUse);
         const histHtml = generateHistoryHtml(histData);
-        
+
+        const rankMetaHtml = item.source === 'CSAB_2026_MATRIX'
+            ? `<div class="pred-card-meta rank-info">
+                   <span class="label">Vacant Seats</span>
+                   <span class="val" style="color: #10b981; font-weight: 700;">${item.vacancy} Available</span>
+               </div>`
+            : `<div class="pred-card-meta rank-info">
+                   <span class="label">Closing Rank</span>
+                   <span class="val ${isPrep ? 'prep-cell' : ''}">${closingRank.toLocaleString()}${isPrep ? ' (P)' : ''}</span>
+               </div>`;
+
         card.innerHTML = `
             <div class="pred-card-header">
                 <div class="pred-card-select-wrapper">
@@ -1932,10 +2013,7 @@ function renderPredictorCards() {
                     <span class="label">Quota / Seat</span>
                     <span class="val">${item.quota} / ${getDisplayName(item.seat_type)}</span>
                 </div>
-                <div class="pred-card-meta rank-info">
-                    <span class="label">Closing Rank</span>
-                    <span class="val ${isPrep ? 'prep-cell' : ''}">${closingRank.toLocaleString()}${isPrep ? ' (P)' : ''}</span>
-                </div>
+                ${rankMetaHtml}
                 <div class="pred-card-meta">
                     <span class="label">Counselling / Round</span>
                     <span class="val">${counsellingName} (${item.round})</span>
@@ -1998,7 +2076,7 @@ function renderCollegeBreakdown() {
         const src = item.source;
         const type = item.type;
         
-        if (src === 'JOSAA' || src === 'CSAB') {
+        if (src === 'JOSAA' || src === 'CSAB' || src === 'CSAB_2026_MATRIX') {
             if (type === 'IIT') {
                 iitColleges.add(instName);
             } else if (type === 'NIT' || type === 'IIEST') {
