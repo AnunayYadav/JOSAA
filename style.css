@@ -818,16 +818,15 @@ tr:hover td {
 }
 
 .badge {
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    background: rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.08);
     color: var(--text-secondary);
     display: inline-block;
     max-width: 100%;
-    white-space: normal;
-    word-break: break-word;
+    white-space: nowrap;
 }
 
 .type-badge { text-transform: uppercase; }
@@ -2370,37 +2369,6 @@ tr:hover td {
 
 .pred-filter-group-children .pred-filter-item.active {
     background: rgba(99, 102, 241, 0.12);
-}
-
-/* CSAB 2026 Vacant Seats Styling */
-.vacancy-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.65rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    letter-spacing: 0.01em;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
-}
-
-.vacancy-pill:hover {
-    transform: translateY(-1px);
-}
-
-.vacancy-pill i {
-    width: 14px;
-    height: 14px;
-}
-
-#csab-2026-info-note {
-    border-left-color: #10b981;
-    background: rgba(16, 185, 129, 0.05);
-}
-
-.light-theme #csab-2026-info-note {
-    background: rgba(16, 185, 129, 0.08);
 }
 
 

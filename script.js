@@ -863,9 +863,7 @@ function renderResults() {
         if (item.source !== 'CSAB_2026_MATRIX') {
             const v2026 = vacant2026Map.get(item.normalizedKey);
             if (v2026 !== undefined && v2026 > 0) {
-                v2026Badge = `<span class="badge vacancy-pill active-vacancy" style="margin-top: 0.25rem; display: inline-flex; align-items: center; background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.725rem;"><i data-lucide="check-circle-2" style="width: 12px; height: 12px;"></i> CSAB 2026: ${v2026} Seats Vacant</span>`;
-            } else if (v2026 === 0) {
-                v2026Badge = `<span class="badge vacancy-pill zero-vacancy" style="margin-top: 0.25rem; display: inline-flex; align-items: center; background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); font-size: 0.725rem;"><i data-lucide="x-circle" style="width: 12px; height: 12px;"></i> CSAB 2026: 0 Vacant</span>`;
+                v2026Badge = `<span class="badge" style="margin-top: 0.25rem; display: inline-block;">2026 Vacant: ${v2026}</span>`;
             }
         }
 
@@ -873,12 +871,9 @@ function renderResults() {
         let cellClosing = `<td class="${isPrepClosing ? 'prep-cell' : ''}">${item.closing_rank} ${isPrepClosing ? '<small class="prep-tag">(P)</small>' : ''}</td>`;
 
         if (item.source === 'CSAB_2026_MATRIX') {
-            cellOpening = `<td style="font-family: monospace; font-weight: 600; color: var(--text-secondary);">${item.program_code || '-'}</td>`;
+            cellOpening = `<td><span class="badge">${item.program_code || '-'}</span></td>`;
             const vCount = item.vacancy || 0;
-            const vStyle = vCount > 0 
-                ? 'background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 700;'
-                : 'background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); font-weight: 600;';
-            cellClosing = `<td><span class="badge vacancy-pill" style="${vStyle}"><i data-lucide="${vCount > 0 ? 'check-circle-2' : 'x-circle'}"></i> ${vCount} Seats</span></td>`;
+            cellClosing = `<td><span class="badge">${vCount} ${vCount === 1 ? 'Seat' : 'Seats'}</span></td>`;
         }
 
         row.innerHTML = `
@@ -2037,7 +2032,7 @@ function renderPredictorCards() {
         const rankMetaHtml = item.source === 'CSAB_2026_MATRIX'
             ? `<div class="pred-card-meta rank-info">
                    <span class="label">Vacant Seats</span>
-                   <span class="val" style="color: #10b981; font-weight: 700;">${item.vacancy} Available</span>
+                   <span class="val">${item.vacancy} ${item.vacancy === 1 ? 'Seat' : 'Seats'}</span>
                </div>`
             : `<div class="pred-card-meta rank-info">
                    <span class="label">Closing Rank</span>
@@ -2045,13 +2040,9 @@ function renderPredictorCards() {
                </div>`;
 
         const v2026Val = vacant2026Map.get(item.normalizedKey);
-        let v2026CardMeta = '';
-        if (item.source !== 'CSAB_2026_MATRIX' && v2026Val !== undefined) {
-            if (v2026Val > 0) {
-                v2026CardMeta = `<div class="pred-card-meta rank-info" style="border-top: 1px solid var(--border-color); padding-top: 0.35rem; margin-top: 0.35rem;"><span class="label">CSAB 2026 Vacancy</span><span class="val" style="color: #10b981; font-weight: 700;"><i data-lucide="check-circle-2" style="width: 12px; height: 12px; display: inline;"></i> ${v2026Val} Available</span></div>`;
-            } else {
-                v2026CardMeta = `<div class="pred-card-meta rank-info" style="border-top: 1px solid var(--border-color); padding-top: 0.35rem; margin-top: 0.35rem;"><span class="label">CSAB 2026 Vacancy</span><span class="val" style="color: #ef4444;"><i data-lucide="x-circle" style="width: 12px; height: 12px; display: inline;"></i> 0 Vacant Seats</span></div>`;
-            }
+        let v2026HeaderBadge = '';
+        if (item.source !== 'CSAB_2026_MATRIX' && v2026Val !== undefined && v2026Val > 0) {
+            v2026HeaderBadge = `<span class="badge" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25); font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem; white-space: nowrap;">${v2026Val} Vacant (2026)</span>`;
         }
 
         card.innerHTML = `
@@ -2059,6 +2050,7 @@ function renderPredictorCards() {
                 <div class="pred-card-select-wrapper">
                     <input type="checkbox" class="card-select-cb" data-id="${item.id}" ${isSelected ? 'checked' : ''}>
                     <span class="badge type-badge ${item.type.toLowerCase()}">${badgeText}</span>
+                    ${v2026HeaderBadge}
                 </div>
                 <span class="pred-card-prob ${probClass}">${probLabel} (${marginText})</span>
             </div>
@@ -2081,7 +2073,6 @@ function renderPredictorCards() {
                     <span class="label">Gender Pool</span>
                     <span class="val">${item.gender}</span>
                 </div>
-                ${v2026CardMeta}
             </div>
         `;
         listContainer.appendChild(card);
