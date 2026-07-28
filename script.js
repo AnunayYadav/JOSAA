@@ -2040,9 +2040,10 @@ function renderPredictorCards() {
                </div>`;
 
         const v2026Val = vacant2026Map.get(item.normalizedKey);
-        let v2026HeaderBadge = '';
-        if (item.source !== 'CSAB_2026_MATRIX' && v2026Val !== undefined && v2026Val > 0) {
-            v2026HeaderBadge = `<span class="badge" style="background: rgba(16, 185, 129, 0.12); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25); font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem; white-space: nowrap;">${v2026Val} Vacant (2026)</span>`;
+        let v2026BodyText = '';
+        if (item.source !== 'CSAB_2026_MATRIX' && v2026Val !== undefined) {
+            const vText = v2026Val > 0 ? `${v2026Val} ${v2026Val === 1 ? 'Seat' : 'Seats'} Available` : '0 Vacant Seats';
+            v2026BodyText = `<div class="pred-card-vacancy" style="font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); margin-top: 0.15rem;">CSAB 2026 Vacancy: <span style="font-weight: 600; color: var(--text-primary);">${vText}</span></div>`;
         }
 
         card.innerHTML = `
@@ -2050,13 +2051,13 @@ function renderPredictorCards() {
                 <div class="pred-card-select-wrapper">
                     <input type="checkbox" class="card-select-cb" data-id="${item.id}" ${isSelected ? 'checked' : ''}>
                     <span class="badge type-badge ${item.type.toLowerCase()}">${badgeText}</span>
-                    ${v2026HeaderBadge}
                 </div>
                 <span class="pred-card-prob ${probClass}">${probLabel} (${marginText})</span>
             </div>
             <div class="pred-card-body">
                 <div class="pred-card-inst" data-institute="${item.institute}">${item.institute}</div>
                 <div class="pred-card-program">${item.program}</div>
+                ${v2026BodyText}
                 ${histHtml}
             </div>
             <div class="pred-card-footer">
