@@ -599,7 +599,12 @@ const dropdownDisplayNames = {
     'dropdown-quota': 'Quotas',
     'dropdown-seat': 'Categories',
     'dropdown-gender': 'Genders',
-    'dropdown-institute': 'Institutes'
+    'dropdown-institute': 'Institutes',
+    'dropdown-cl-counselling': 'Counselling',
+    'dropdown-cl-quota': 'Quotas',
+    'dropdown-cl-seat': 'Categories',
+    'dropdown-cl-gender': 'Genders',
+    'dropdown-cl-type': 'Types'
 };
 
 function updateDropdownButtonText(dropdownId) {
@@ -618,6 +623,12 @@ function updateDropdownButtonText(dropdownId) {
     } else {
         btnSpan.textContent = `${checked.length} Selected`;
     }
+}
+
+function getCheckedValues(id) {
+    const dropdown = document.getElementById(id);
+    if (!dropdown) return [];
+    return Array.from(dropdown.querySelectorAll('input:not(.select-all):checked')).map(cb => cb.value);
 }
 
 let applyFiltersTimeout = null;
@@ -643,12 +654,6 @@ function applyFilters() {
 
 function applyFiltersSync() {
     const searchTerm = mainSearch.value.toLowerCase();
-    
-    const getCheckedValues = (id) => {
-        const dropdown = document.getElementById(id);
-        if (!dropdown) return [];
-        return Array.from(dropdown.querySelectorAll('input:not(.select-all):checked')).map(cb => cb.value);
-    };
     
     const selectedRounds = new Set(getCheckedValues('dropdown-round'));
     const selectedYears = new Set(getCheckedValues('dropdown-year'));
@@ -2893,15 +2898,50 @@ let isChoiceListInitialized = false;
 
 function populateChoiceListFilters() {
     const counsellings = ['JOSAA', 'CSAB', 'JAC', 'JAC_DELHI', 'UPTAC', 'GGSIPU'];
-    const seats = ['OPEN', 'EWS', 'OBC-NCL', 'SC', 'ST'];
-    const genders = ['Gender-Neutral', 'Female-only (including Supernumerary)'];
-    const quotas = ['AI', 'OS', 'HS'];
-    const types = ['IIT', 'NIT', 'IIIT', 'GFTI'];
 
-    renderCheckboxOptions('cl-counselling-options', counsellings, 'dropdown-cl-counselling');
+    // Render Counselling Systems dropdown first if not populated
+    const counsellingContainer = document.getElementById('cl-counselling-options');
+    if (counsellingContainer && counsellingContainer.querySelectorAll('input').length === 0) {
+        renderCheckboxOptions('cl-counselling-options', counsellings, 'dropdown-cl-counselling', (val) => {
+            const displayNames = {
+                'JOSAA': 'JoSAA',
+                'CSAB': 'CSAB Special Rounds',
+                'JAC': 'JAC Chandigarh',
+                'JAC_DELHI': 'JAC Delhi',
+                'UPTAC': 'UPTAC',
+                'GGSIPU': 'GGSIPU (IPU)'
+            };
+            return displayNames[val] || val;
+        });
+
+        counsellingContainer.addEventListener('change', () => {
+            populateChoiceListFilters();
+        });
+    }
+
+    // Get selected counselling sources
+    const selectedCounsellings = new Set(getCheckedValues('dropdown-cl-counselling'));
+    
+    // Filter dataset matching selected counselling systems
+    let targetData = allData.filter(item => {
+        const matchesCounselling = selectedCounsellings.size === 0 || selectedCounsellings.has(item.source);
+        const matchesYear = (item.year || "2025") === "2025";
+        return matchesCounselling && matchesYear;
+    });
+
+    if (targetData.length === 0) {
+        targetData = allData.filter(item => (item.year || "2025") === "2025");
+    }
+
+    // Extract ALL unique quotas, seats, genders, types dynamically from dataset (like Counselling Explorer)
+    const quotas = [...new Set(targetData.map(item => item.quota))].filter(Boolean).sort();
+    const seats = [...new Set(targetData.map(item => item.seat_type))].filter(Boolean).sort();
+    const genders = [...new Set(targetData.map(item => item.gender))].filter(Boolean).sort();
+    const types = [...new Set(targetData.map(item => item.type))].filter(Boolean).sort();
+
+    renderCheckboxOptions('cl-quota-options', quotas, 'dropdown-cl-quota');
     renderCheckboxOptions('cl-seat-options', seats, 'dropdown-cl-seat');
     renderCheckboxOptions('cl-gender-options', genders, 'dropdown-cl-gender');
-    renderCheckboxOptions('cl-quota-options', quotas, 'dropdown-cl-quota');
     renderCheckboxOptions('cl-type-options', types, 'dropdown-cl-type');
 
     setupDropdowns();
