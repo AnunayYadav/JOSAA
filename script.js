@@ -2891,7 +2891,24 @@ function setupSelectionEvents() {
 let currentChoiceList = [];
 let isChoiceListInitialized = false;
 
+function populateChoiceListFilters() {
+    const counsellings = ['JOSAA', 'CSAB', 'JAC', 'JAC_DELHI', 'UPTAC', 'GGSIPU'];
+    const seats = ['OPEN', 'EWS', 'OBC-NCL', 'SC', 'ST'];
+    const genders = ['Gender-Neutral', 'Female-only (including Supernumerary)'];
+    const quotas = ['AI', 'OS', 'HS'];
+    const types = ['IIT', 'NIT', 'IIIT', 'GFTI'];
+
+    renderCheckboxOptions('cl-counselling-options', counsellings, 'dropdown-cl-counselling');
+    renderCheckboxOptions('cl-seat-options', seats, 'dropdown-cl-seat');
+    renderCheckboxOptions('cl-gender-options', genders, 'dropdown-cl-gender');
+    renderCheckboxOptions('cl-quota-options', quotas, 'dropdown-cl-quota');
+    renderCheckboxOptions('cl-type-options', types, 'dropdown-cl-type');
+
+    setupDropdowns();
+}
+
 function setupChoiceListModule() {
+    populateChoiceListFilters();
     if (isChoiceListInitialized) return;
     isChoiceListInitialized = true;
 
@@ -2919,37 +2936,25 @@ function setupChoiceListModule() {
 }
 
 function generateChoiceList() {
-    const counselling = document.getElementById('cl-counselling')?.value || 'JOSAA';
-    const seatType = document.getElementById('cl-seat-type')?.value || 'OPEN';
-    const gender = document.getElementById('cl-gender')?.value || 'Gender-Neutral';
-    const quota = document.getElementById('cl-quota')?.value || 'ALL';
-    const instType = document.getElementById('cl-type')?.value || 'ALL';
+    const selectedCounsellings = new Set(getCheckedValues('dropdown-cl-counselling'));
+    const selectedSeats = new Set(getCheckedValues('dropdown-cl-seat'));
+    const selectedGenders = new Set(getCheckedValues('dropdown-cl-gender'));
+    const selectedQuotas = new Set(getCheckedValues('dropdown-cl-quota'));
+    const selectedTypes = new Set(getCheckedValues('dropdown-cl-type'));
 
     const placeholder = document.getElementById('cl-placeholder');
     const content = document.getElementById('cl-content');
 
-    // Filter items matching selected counselling system
-    const targetSource = counselling === 'CSAB' ? 'CSAB' : counselling;
-    let pool = allData.filter(item => item.source === targetSource);
+    let pool = allData.filter(item => {
+        const matchesCounselling = selectedCounsellings.size === 0 || selectedCounsellings.has(item.source);
+        const matchesSeat = selectedSeats.size === 0 || selectedSeats.has(item.seat_type);
+        const matchesGender = selectedGenders.size === 0 || selectedGenders.has(item.gender);
+        const matchesQuota = selectedQuotas.size === 0 || selectedQuotas.has(item.quota);
+        const matchesType = selectedTypes.size === 0 || selectedTypes.has(item.type);
+        const matchesYear = (item.year || "2025") === "2025";
 
-    // Filter by Seat Type / Category
-    pool = pool.filter(item => item.seat_type === seatType);
-
-    // Filter by Gender
-    pool = pool.filter(item => isGenderEligible(gender, item));
-
-    // Filter by Quota
-    if (quota !== 'ALL') {
-        pool = pool.filter(item => item.quota === quota);
-    }
-
-    // Filter by Institute Type
-    if (instType !== 'ALL') {
-        pool = pool.filter(item => item.type === instType);
-    }
-
-    // Only consider latest data year (e.g. 2025)
-    pool = pool.filter(item => (item.year || "2025") === "2025");
+        return matchesCounselling && matchesSeat && matchesGender && matchesQuota && matchesType && matchesYear;
+    });
 
     // Deduplicate choices based on institute + program + quota + seat_type + gender
     const uniqueMap = new Map();

@@ -2423,5 +2423,18 @@ tr:hover td {
     height: 14px;
 }
 
+.cl-filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+    align-items: flex-end;
+}
+
+@media (max-width: 768px) {
+    .cl-filters-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 

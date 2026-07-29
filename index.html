@@ -543,70 +543,80 @@
                 <p>Generate a universal preference list (Choice #1 to #N) ordered strictly by empirical cutoffs and popularity across colleges.</p>
             </div>
 
-            <div class="predictor-layout">
-                <!-- Sidebar Controls -->
-                <aside class="filters-sidebar">
-                    <form id="choicelist-form" onsubmit="return false;">
-                        <div class="form-group">
-                            <label for="cl-counselling"><i data-lucide="layers"></i> Counselling System</label>
-                            <select id="cl-counselling" class="form-control">
-                                <option value="JOSAA">JoSAA (IITs, NITs, IIITs, GFTIs)</option>
-                                <option value="CSAB">CSAB Special Rounds</option>
-                                <option value="JAC">JAC Chandigarh</option>
-                                <option value="JAC_DELHI">JAC Delhi</option>
-                                <option value="UPTAC">UPTAC</option>
-                                <option value="GGSIPU">GGSIPU (IPU)</option>
-                            </select>
-                        </div>
+            <!-- Controls Panel (Grid Layout with Theme Custom Multi-Select Dropdowns) -->
+            <div class="cl-controls-card" style="background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 20px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: var(--shadow);">
+                <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i data-lucide="sliders" style="color: var(--primary-color); width: 18px; height: 18px;"></i>
+                    <span>Choice List Parameters & Multi-Select Filters</span>
+                </div>
 
-                        <div class="form-group">
-                            <label for="cl-seat-type"><i data-lucide="users"></i> Seat Category</label>
-                            <select id="cl-seat-type" class="form-control">
-                                <option value="OPEN">OPEN (General)</option>
-                                <option value="EWS">GEN-EWS</option>
-                                <option value="OBC-NCL">OBC-NCL</option>
-                                <option value="SC">SC (Scheduled Caste)</option>
-                                <option value="ST">ST (Scheduled Tribe)</option>
-                            </select>
+                <div class="cl-filters-grid">
+                    <!-- 1. Counselling System -->
+                    <div class="filter-group">
+                        <label><i data-lucide="layers"></i> Counselling</label>
+                        <div class="custom-dropdown" id="dropdown-cl-counselling">
+                            <button class="dropdown-btn" type="button"><span>All Counselling</span> <i data-lucide="chevron-down"></i></button>
+                            <div class="dropdown-content" id="cl-counselling-options">
+                                <!-- Dynamic options -->
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="cl-gender"><i data-lucide="user-check"></i> Gender Pool</label>
-                            <select id="cl-gender" class="form-control">
-                                <option value="Gender-Neutral">Gender-Neutral</option>
-                                <option value="Female-only (including Supernumerary)">Female-only (including Supernumerary)</option>
-                            </select>
+                    <!-- 2. Seat Category -->
+                    <div class="filter-group">
+                        <label><i data-lucide="users"></i> Category / Seat</label>
+                        <div class="custom-dropdown" id="dropdown-cl-seat">
+                            <button class="dropdown-btn" type="button"><span>All Categories</span> <i data-lucide="chevron-down"></i></button>
+                            <div class="dropdown-content" id="cl-seat-options">
+                                <!-- Dynamic options -->
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="cl-quota"><i data-lucide="map-pin"></i> Quota / State</label>
-                            <select id="cl-quota" class="form-control">
-                                <option value="ALL">All Quotas</option>
-                                <option value="AI">All India (AI)</option>
-                                <option value="OS">Other State (OS)</option>
-                                <option value="HS">Home State (HS)</option>
-                            </select>
+                    <!-- 3. Gender Pool -->
+                    <div class="filter-group">
+                        <label><i data-lucide="user-check"></i> Gender Pool</label>
+                        <div class="custom-dropdown" id="dropdown-cl-gender">
+                            <button class="dropdown-btn" type="button"><span>All Genders</span> <i data-lucide="chevron-down"></i></button>
+                            <div class="dropdown-content" id="cl-gender-options">
+                                <!-- Dynamic options -->
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="cl-type"><i data-lucide="building-2"></i> Institute Type</label>
-                            <select id="cl-type" class="form-control">
-                                <option value="ALL">All Institute Types</option>
-                                <option value="IIT">IITs Only</option>
-                                <option value="NIT">NITs Only</option>
-                                <option value="IIIT">IIITs Only</option>
-                                <option value="GFTI">GFTIs Only</option>
-                            </select>
+                    <!-- 4. Quota -->
+                    <div class="filter-group">
+                        <label><i data-lucide="map-pin"></i> Quota</label>
+                        <div class="custom-dropdown" id="dropdown-cl-quota">
+                            <button class="dropdown-btn" type="button"><span>All Quotas</span> <i data-lucide="chevron-down"></i></button>
+                            <div class="dropdown-content" id="cl-quota-options">
+                                <!-- Dynamic options -->
+                            </div>
                         </div>
+                    </div>
 
-                        <button type="button" id="cl-generate-btn" class="btn-primary">
+                    <!-- 5. Institute Type -->
+                    <div class="filter-group">
+                        <label><i data-lucide="building-2"></i> Institute Type</label>
+                        <div class="custom-dropdown" id="dropdown-cl-type">
+                            <button class="dropdown-btn" type="button"><span>All Types</span> <i data-lucide="chevron-down"></i></button>
+                            <div class="dropdown-content" id="cl-type-options">
+                                <!-- Dynamic options -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Action Button -->
+                    <div class="filter-group" style="display: flex; align-items: flex-end;">
+                        <button type="button" id="cl-generate-btn" class="btn-primary" style="height: 44px; width: 100%; justify-content: center; margin: 0;">
                             <i data-lucide="list-ordered"></i> Generate Choice List
                         </button>
-                    </form>
-                </aside>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Choice List Display Panel -->
-                <div class="predictor-results-panel">
+            <!-- Choice List Display Panel -->
+            <div class="predictor-results-panel" style="width: 100%;">
                     <div id="cl-placeholder" class="pred-placeholder-card">
                         <i data-lucide="list-ordered" class="floating-icon"></i>
                         <h3>Generate Your Preference Order</h3>
