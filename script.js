@@ -240,6 +240,7 @@ function setupModeSwitching() {
     const navPredictor = document.getElementById('nav-predictor');
     const navUptac = document.getElementById('nav-uptac');
     const navGgsipu = document.getElementById('nav-ggsipu');
+    const navChoicelist = document.getElementById('nav-choicelist');
     const modeText = document.getElementById('mode-text');
     const heroDesc = document.getElementById('hero-desc');
 
@@ -251,11 +252,12 @@ function setupModeSwitching() {
         if (navJac) navJac.classList.toggle('active', mode === 'JAC');
         if (navJacDelhi) navJacDelhi.classList.toggle('active', mode === 'JAC_DELHI');
         if (navPredictor) navPredictor.classList.toggle('active', mode === 'PREDICTOR');
+        if (navChoicelist) navChoicelist.classList.toggle('active', mode === 'CHOICELIST');
         if (navCounsellingGroup) {
-            navCounsellingGroup.classList.toggle('active', mode !== 'PREDICTOR');
+            navCounsellingGroup.classList.toggle('active', mode !== 'PREDICTOR' && mode !== 'CHOICELIST');
             const span = navCounsellingGroup.querySelector('span');
             if (span) {
-                if (mode === 'PREDICTOR') {
+                if (mode === 'PREDICTOR' || mode === 'CHOICELIST') {
                     span.textContent = "Counselling";
                 } else {
                     let label = "Counselling";
@@ -289,18 +291,28 @@ function setupModeSwitching() {
         const explorerSection = document.querySelector('.explorer-section');
         const heroSection = document.querySelector('.hero');
         const predictorSection = document.getElementById('predictor-section');
+        const choicelistSection = document.getElementById('choicelist-view');
 
         if (mode === 'PREDICTOR') {
             if (explorerSection) explorerSection.classList.add('hidden');
             if (heroSection) heroSection.classList.add('hidden');
             if (infoNoteText) infoNoteText.closest('.info-note').classList.add('hidden');
             if (predictorSection) predictorSection.classList.remove('hidden');
+            if (choicelistSection) choicelistSection.style.display = 'none';
             initPredictorModule();
+        } else if (mode === 'CHOICELIST') {
+            if (explorerSection) explorerSection.classList.add('hidden');
+            if (heroSection) heroSection.classList.add('hidden');
+            if (infoNoteText) infoNoteText.closest('.info-note').classList.add('hidden');
+            if (predictorSection) predictorSection.classList.add('hidden');
+            if (choicelistSection) choicelistSection.style.display = 'block';
+            setupChoiceListModule();
         } else {
             if (explorerSection) explorerSection.classList.remove('hidden');
             if (heroSection) heroSection.classList.remove('hidden');
             if (infoNoteText) infoNoteText.closest('.info-note').classList.remove('hidden');
             if (predictorSection) predictorSection.classList.add('hidden');
+            if (choicelistSection) choicelistSection.style.display = 'none';
         }
 
         if (mode === 'JOSAA') {
@@ -384,6 +396,7 @@ function setupModeSwitching() {
     if (navJac) navJac.addEventListener('click', () => switchMode('JAC'));
     if (navJacDelhi) navJacDelhi.addEventListener('click', () => switchMode('JAC_DELHI'));
     if (navPredictor) navPredictor.addEventListener('click', () => switchMode('PREDICTOR'));
+    if (navChoicelist) navChoicelist.addEventListener('click', () => switchMode('CHOICELIST'));
     if (navUptac) navUptac.addEventListener('click', () => switchMode('UPTAC'));
     if (navGgsipu) navGgsipu.addEventListener('click', () => switchMode('GGSIPU'));
 
@@ -1812,8 +1825,11 @@ function runPredictor() {
         const userRankToUse = getEligibleUserRank(userCategory, userCrl, userCatRank, item);
         if (userRankToUse === null || userRankToUse <= 0) continue;
         
+        const ambitiousPct = parseInt(document.getElementById('pred-ambitious-slider')?.value || "15");
+        const ambitiousFactor = (100 - ambitiousPct) / 100;
+
         // 4. Probability margins
-        if (closingRank >= 0.85 * userRankToUse && closingRank < userRankToUse) {
+        if (ambitiousPct > 0 && closingRank >= ambitiousFactor * userRankToUse && closingRank < userRankToUse) {
             rawPredictorResults.reach.push({ item, userRankToUse, closingRank });
         } else if (closingRank >= userRankToUse && closingRank <= 1.20 * userRankToUse) {
             rawPredictorResults.match.push({ item, userRankToUse, closingRank });
@@ -1994,7 +2010,10 @@ function renderPredictorCards() {
         let probClass = 'match-prob';
         let probLabel = 'Best Match';
         
-        if (closingRank >= 0.85 * userRankToUse && closingRank < userRankToUse) {
+        const ambitiousPct = parseInt(document.getElementById('pred-ambitious-slider')?.value || "15");
+        const ambitiousFactor = (100 - ambitiousPct) / 100;
+
+        if (ambitiousPct > 0 && closingRank >= ambitiousFactor * userRankToUse && closingRank < userRankToUse) {
             tabClass = 'reach';
             probClass = 'reach-prob';
             probLabel = 'Ambitious';
@@ -2849,5 +2868,281 @@ function setupSelectionEvents() {
             }, 300);
         });
     }
+
+    const ambitiousSlider = document.getElementById('pred-ambitious-slider');
+    const ambitiousValEl = document.getElementById('pred-ambitious-val');
+    const ambitiousBadgeEl = document.getElementById('ambitious-card-badge');
+
+    if (ambitiousSlider) {
+        ambitiousSlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (ambitiousValEl) ambitiousValEl.textContent = `-${val}%`;
+            if (ambitiousBadgeEl) ambitiousBadgeEl.textContent = `(-${val}%)`;
+
+            const crlInput = document.getElementById('pred-crl');
+            if (crlInput && parseInt(crlInput.value) > 0) {
+                runPredictor();
+            }
+        });
+    }
 }
+
+/* Choice List Creator Module Logic */
+let currentChoiceList = [];
+let isChoiceListInitialized = false;
+
+function setupChoiceListModule() {
+    if (isChoiceListInitialized) return;
+    isChoiceListInitialized = true;
+
+    const generateBtn = document.getElementById('cl-generate-btn');
+    const copyBtn = document.getElementById('cl-copy-btn');
+    const exportTxtBtn = document.getElementById('cl-export-txt-btn');
+    const exportCsvBtn = document.getElementById('cl-export-csv-btn');
+    const searchInput = document.getElementById('cl-search-input');
+
+    if (generateBtn) {
+        generateBtn.addEventListener('click', generateChoiceList);
+    }
+    if (copyBtn) {
+        copyBtn.addEventListener('click', copyChoiceListToClipboard);
+    }
+    if (exportTxtBtn) {
+        exportTxtBtn.addEventListener('click', exportChoiceListTxt);
+    }
+    if (exportCsvBtn) {
+        exportCsvBtn.addEventListener('click', exportChoiceListCsv);
+    }
+    if (searchInput) {
+        searchInput.addEventListener('input', renderChoiceList);
+    }
+}
+
+function generateChoiceList() {
+    const counselling = document.getElementById('cl-counselling')?.value || 'JOSAA';
+    const seatType = document.getElementById('cl-seat-type')?.value || 'OPEN';
+    const gender = document.getElementById('cl-gender')?.value || 'Gender-Neutral';
+    const quota = document.getElementById('cl-quota')?.value || 'ALL';
+    const instType = document.getElementById('cl-type')?.value || 'ALL';
+
+    const placeholder = document.getElementById('cl-placeholder');
+    const content = document.getElementById('cl-content');
+
+    // Filter items matching selected counselling system
+    const targetSource = counselling === 'CSAB' ? 'CSAB' : counselling;
+    let pool = allData.filter(item => item.source === targetSource);
+
+    // Filter by Seat Type / Category
+    pool = pool.filter(item => item.seat_type === seatType);
+
+    // Filter by Gender
+    pool = pool.filter(item => isGenderEligible(gender, item));
+
+    // Filter by Quota
+    if (quota !== 'ALL') {
+        pool = pool.filter(item => item.quota === quota);
+    }
+
+    // Filter by Institute Type
+    if (instType !== 'ALL') {
+        pool = pool.filter(item => item.type === instType);
+    }
+
+    // Only consider latest data year (e.g. 2025)
+    pool = pool.filter(item => (item.year || "2025") === "2025");
+
+    // Deduplicate choices based on institute + program + quota + seat_type + gender
+    const uniqueMap = new Map();
+    pool.forEach(item => {
+        const key = `${item.institute}|${item.program}|${item.quota}|${item.seat_type}|${item.gender}`;
+        if (!uniqueMap.has(key)) {
+            uniqueMap.set(key, item);
+        } else {
+            // Keep the item with the valid closing rank
+            const existing = uniqueMap.get(key);
+            if ((item.closing_rank_val || 0) < (existing.closing_rank_val || Infinity) && item.closing_rank_val > 0) {
+                uniqueMap.set(key, item);
+            }
+        }
+    });
+
+    let items = Array.from(uniqueMap.values());
+
+    // Sort options strictly by empirical cutoffs (Opening / Closing Ranks) ascending
+    // Top-tier / lowest cutoff number = Choice #1
+    items.sort((a, b) => {
+        const cA = a.closing_rank_val || Infinity;
+        const cB = b.closing_rank_val || Infinity;
+        if (cA !== cB) return cA - cB;
+        const oA = a.opening_rank_val || Infinity;
+        const oB = b.opening_rank_val || Infinity;
+        return oA - oB;
+    });
+
+    currentChoiceList = items;
+
+    if (placeholder) placeholder.style.display = 'none';
+    if (content) content.style.display = 'block';
+
+    renderChoiceList();
+}
+
+function renderChoiceList() {
+    const tableBody = document.getElementById('cl-table-body');
+    const totalCountEl = document.getElementById('cl-total-count');
+    const searchVal = (document.getElementById('cl-search-input')?.value || '').toLowerCase().trim();
+
+    if (!tableBody) return;
+    tableBody.innerHTML = '';
+
+    if (totalCountEl) {
+        totalCountEl.textContent = `Optimal Choice List (${currentChoiceList.length} Choices)`;
+    }
+
+    let filtered = currentChoiceList.map((item, index) => ({ item, originalIndex: index }));
+
+    if (searchVal) {
+        filtered = filtered.filter(({ item }) => {
+            const searchStr = `${item.institute} ${item.program} ${item.quota} ${item.seat_type} ${item.type}`.toLowerCase();
+            return searchStr.includes(searchVal);
+        });
+    }
+
+    if (filtered.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 3rem; color: var(--text-secondary);">No choices found matching your search criteria.</td></tr>`;
+        return;
+    }
+
+    filtered.forEach(({ item, originalIndex }) => {
+        const choiceNum = originalIndex + 1;
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td style="text-align: center;"><span class="choice-rank-badge">#${choiceNum}</span></td>
+            <td><div class="inst-cell" data-institute="${item.institute}"><span class="badge type-badge ${item.type.toLowerCase()}">${item.type}</span> ${item.institute}</div></td>
+            <td><div style="font-weight: 500;">${item.program}</div></td>
+            <td><span class="badge">${getDisplayName(item.quota)}</span> <span class="badge">${getDisplayName(item.seat_type)}</span></td>
+            <td style="font-weight: 700; color: var(--text-primary);">${item.closing_rank_val ? item.closing_rank_val.toLocaleString() : (item.closing_rank || '-')}</td>
+            <td>
+                <div class="cl-reorder-group">
+                    <button type="button" class="cl-btn-icon" title="Move Up" onclick="moveChoiceUp(${originalIndex})">
+                        <i data-lucide="chevron-up"></i>
+                    </button>
+                    <button type="button" class="cl-btn-icon" title="Move Down" onclick="moveChoiceDown(${originalIndex})">
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <button type="button" class="cl-btn-icon delete-btn" title="Remove Choice" onclick="deleteChoice(${originalIndex})">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+
+    if (window.lucide) lucide.createIcons();
+}
+
+function moveChoiceUp(index) {
+    if (index <= 0 || index >= currentChoiceList.length) return;
+    const temp = currentChoiceList[index];
+    currentChoiceList[index] = currentChoiceList[index - 1];
+    currentChoiceList[index - 1] = temp;
+    renderChoiceList();
+}
+
+function moveChoiceDown(index) {
+    if (index < 0 || index >= currentChoiceList.length - 1) return;
+    const temp = currentChoiceList[index];
+    currentChoiceList[index] = currentChoiceList[index + 1];
+    currentChoiceList[index + 1] = temp;
+    renderChoiceList();
+}
+
+function deleteChoice(index) {
+    if (index < 0 || index >= currentChoiceList.length) return;
+    currentChoiceList.splice(index, 1);
+    renderChoiceList();
+}
+
+function copyChoiceListToClipboard() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    let text = `CHOICE FILLING PREFERENCE LIST (${currentChoiceList.length} Choices)\n`;
+    text += `=======================================================\n\n`;
+
+    currentChoiceList.forEach((item, index) => {
+        text += `Choice #${index + 1}: ${item.institute} - ${item.program} (${item.quota} / ${item.seat_type}) [Closing Rank: ${item.closing_rank_val || item.closing_rank}]\n`;
+    });
+
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Choice list copied to clipboard!");
+    }).catch(err => {
+        console.error("Copy failed: ", err);
+    });
+}
+
+function exportChoiceListTxt() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    let content = `OPTIMAL CHOICE FILLING PREFERENCE LIST\n`;
+    content += `Generated by Admission Explorer\n`;
+    content += `Total Choices: ${currentChoiceList.length}\n`;
+    content += `Date: ${new Date().toLocaleDateString()}\n`;
+    content += `=======================================================\n\n`;
+
+    currentChoiceList.forEach((item, index) => {
+        content += `${index + 1}. ${item.institute}\n`;
+        content += `   Branch: ${item.program}\n`;
+        content += `   Quota: ${item.quota} | Category: ${item.seat_type}\n`;
+        content += `   Closing Rank Cutoff: ${item.closing_rank_val || item.closing_rank}\n\n`;
+    });
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `optimal_choice_list_${new Date().toISOString().slice(0, 10)}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+function exportChoiceListCsv() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    let csv = `Choice Number,Institute,Program,Quota,Category,Closing Rank\n`;
+
+    currentChoiceList.forEach((item, index) => {
+        const inst = `"${(item.institute || '').replace(/"/g, '""')}"`;
+        const prog = `"${(item.program || '').replace(/"/g, '""')}"`;
+        const q = `"${(item.quota || '').replace(/"/g, '""')}"`;
+        const cat = `"${(item.seat_type || '').replace(/"/g, '""')}"`;
+        const rank = item.closing_rank_val || item.closing_rank || '';
+        csv += `${index + 1},${inst},${prog},${q},${cat},${rank}\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `optimal_choice_list_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+// Expose reordering functions to global scope for row inline buttons
+window.moveChoiceUp = moveChoiceUp;
+window.moveChoiceDown = moveChoiceDown;
+window.deleteChoice = deleteChoice;
 

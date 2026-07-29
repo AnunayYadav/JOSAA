@@ -35,6 +35,7 @@
                     </div>
                 </div>
                 <a href="javascript:void(0)" id="nav-predictor">Seat Predictor</a>
+                <a href="javascript:void(0)" id="nav-choicelist"><i data-lucide="list-ordered" style="width: 16px; height: 16px; display: inline;"></i> <span>Choice List Creator</span></a>
                 <a href="javascript:void(0)" id="nav-about" class="nav-about-btn"><i data-lucide="info"></i><span>About</span></a>
                 <button id="theme-toggle" class="theme-btn"><i data-lucide="moon"></i></button>
             </div>
@@ -399,6 +400,15 @@
                         </div>
 
                         <div class="form-group" style="margin-top: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                                <label style="margin: 0;"><i data-lucide="trending-up"></i> Ambitious Margin (-%)</label>
+                                <span id="pred-ambitious-val" style="font-weight: 700; color: #fda4af; font-size: 0.85rem; background: rgba(244, 63, 94, 0.15); padding: 0.15rem 0.5rem; border-radius: 6px;">-15%</span>
+                            </div>
+                            <input type="range" id="pred-ambitious-slider" min="0" max="35" step="1" value="15" style="width: 100%; accent-color: #f43f5e; cursor: pointer;">
+                            <small style="color: var(--text-secondary); font-size: 0.725rem; display: block; margin-top: 0.25rem;">Adjust reach rank buffer below your rank (Default: -15%, Min: 0%)</small>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 0.5rem;">
                             <label><i data-lucide="armchair"></i> CSAB 2026 Seats</label>
                             <div class="toggle-container">
                                 <span class="toggle-label">Only Seats Vacant in 2026</span>
@@ -440,7 +450,7 @@
                         <!-- Summary Stats -->
                         <div class="pred-summary-cards">
                             <div class="pred-summary-card reach" id="tab-reach-btn">
-                                <span class="label">Ambitious (Reach)</span>
+                                <span class="label">Ambitious (Reach) <small id="ambitious-card-badge" style="opacity: 0.85; font-size: 0.725rem;">(-15%)</small></span>
                                 <span class="value" id="count-reach">0</span>
                             </div>
                             <div class="pred-summary-card match active" id="tab-match-btn">
@@ -520,6 +530,132 @@
                             <div id="pred-cards-list" class="pred-cards-grid">
                                 <!-- Predictor Card elements will be dynamically generated here -->
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Choice List Creator View -->
+        <section id="choicelist-view" class="predictor-section" style="display: none;">
+            <div class="section-title-group" style="margin-bottom: 2rem;">
+                <h2><i data-lucide="list-ordered" style="color: var(--primary-color);"></i> Optimal Choice List Creator</h2>
+                <p>Generate a universal preference list (Choice #1 to #N) ordered strictly by empirical cutoffs and popularity across colleges.</p>
+            </div>
+
+            <div class="predictor-layout">
+                <!-- Sidebar Controls -->
+                <aside class="filters-sidebar">
+                    <form id="choicelist-form" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="cl-counselling"><i data-lucide="layers"></i> Counselling System</label>
+                            <select id="cl-counselling" class="form-control">
+                                <option value="JOSAA">JoSAA (IITs, NITs, IIITs, GFTIs)</option>
+                                <option value="CSAB">CSAB Special Rounds</option>
+                                <option value="JAC">JAC Chandigarh</option>
+                                <option value="JAC_DELHI">JAC Delhi</option>
+                                <option value="UPTAC">UPTAC</option>
+                                <option value="GGSIPU">GGSIPU (IPU)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl-seat-type"><i data-lucide="users"></i> Seat Category</label>
+                            <select id="cl-seat-type" class="form-control">
+                                <option value="OPEN">OPEN (General)</option>
+                                <option value="EWS">GEN-EWS</option>
+                                <option value="OBC-NCL">OBC-NCL</option>
+                                <option value="SC">SC (Scheduled Caste)</option>
+                                <option value="ST">ST (Scheduled Tribe)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl-gender"><i data-lucide="user-check"></i> Gender Pool</label>
+                            <select id="cl-gender" class="form-control">
+                                <option value="Gender-Neutral">Gender-Neutral</option>
+                                <option value="Female-only (including Supernumerary)">Female-only (including Supernumerary)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl-quota"><i data-lucide="map-pin"></i> Quota / State</label>
+                            <select id="cl-quota" class="form-control">
+                                <option value="ALL">All Quotas</option>
+                                <option value="AI">All India (AI)</option>
+                                <option value="OS">Other State (OS)</option>
+                                <option value="HS">Home State (HS)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cl-type"><i data-lucide="building-2"></i> Institute Type</label>
+                            <select id="cl-type" class="form-control">
+                                <option value="ALL">All Institute Types</option>
+                                <option value="IIT">IITs Only</option>
+                                <option value="NIT">NITs Only</option>
+                                <option value="IIIT">IIITs Only</option>
+                                <option value="GFTI">GFTIs Only</option>
+                            </select>
+                        </div>
+
+                        <button type="button" id="cl-generate-btn" class="btn-primary">
+                            <i data-lucide="list-ordered"></i> Generate Choice List
+                        </button>
+                    </form>
+                </aside>
+
+                <!-- Choice List Display Panel -->
+                <div class="predictor-results-panel">
+                    <div id="cl-placeholder" class="pred-placeholder-card">
+                        <i data-lucide="list-ordered" class="floating-icon"></i>
+                        <h3>Generate Your Preference Order</h3>
+                        <p>Select your preferred counselling authority and parameters on the left, then click "Generate Choice List" to build your optimal 1-to-N choice filling order.</p>
+                    </div>
+
+                    <div id="cl-content" style="display: none;">
+                        <!-- Choice List Header & Actions -->
+                        <div class="cl-header-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <h3 id="cl-total-count" style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">Optimal Choice List (0 Choices)</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary);">Ordered from 1 to N based on historical closing rank cutoffs.</p>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button type="button" id="cl-copy-btn" class="btn-outline-small-secondary">
+                                    <i data-lucide="copy"></i> Copy List
+                                </button>
+                                <button type="button" id="cl-export-txt-btn" class="btn-primary-small">
+                                    <i data-lucide="download"></i> Export TXT
+                                </button>
+                                <button type="button" id="cl-export-csv-btn" class="btn-outline-small">
+                                    <i data-lucide="file-text"></i> Export CSV
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Choice Search Input -->
+                        <div class="pred-search-container">
+                            <i data-lucide="search" class="pred-search-icon"></i>
+                            <input type="text" id="cl-search-input" placeholder="Search choice list by college, program, or quota...">
+                        </div>
+
+                        <!-- Choice List Table -->
+                        <div class="table-wrapper">
+                            <table id="cl-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 80px; text-align: center;">Choice #</th>
+                                        <th>Institute</th>
+                                        <th>Program</th>
+                                        <th>Quota / Category</th>
+                                        <th style="width: 120px;">Closing Rank</th>
+                                        <th style="width: 110px; text-align: center;">Reorder</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cl-table-body">
+                                    <!-- Choice rows will be rendered here dynamically -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
