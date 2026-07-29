@@ -2903,8 +2903,41 @@ function setupSelectionEvents() {
 let currentChoiceList = [];
 let isChoiceListInitialized = false;
 
+function getDegreeType(program) {
+    if (!program) return 'B.Tech';
+    const p = program.toLowerCase();
+    
+    // Explicit B.Tech / B.E. Engineering programs (includes Naval Architecture & Ocean Engg, Biotech, Engg Design)
+    if (p.includes('b.tech') || p.includes('bachelor of technology') || p.includes('b.e.') || p.includes('bachelor of engineering')) {
+        return 'B.Tech';
+    }
+
+    // B.Arch (Architecture)
+    if (p.includes('b.arch') || p.includes('bachelor of architecture')) {
+        return 'B.Arch';
+    }
+    
+    // B.Plan (Planning)
+    if (p.includes('b.plan') || p.includes('bachelor of planning')) {
+        return 'B.Plan';
+    }
+
+    // Standalone non-engineering B.Pharm
+    if (p.includes('b.pharm') || p.includes('bachelor of pharmacy')) {
+        return 'B.Pharm';
+    }
+
+    // Standalone non-engineering B.Des
+    if (p.includes('b.des') || p.includes('bachelor of design')) {
+        return 'B.Des';
+    }
+
+    return 'B.Tech';
+}
+
 function populateChoiceListFilters() {
     const counsellings = ['JOSAA', 'CSAB', 'JAC', 'JAC_DELHI', 'UPTAC', 'GGSIPU'];
+    const degrees = ['B.Tech', 'B.Arch', 'B.Plan', 'B.Pharm', 'B.Des'];
 
     // Render Counselling Systems dropdown first if not populated
     const counsellingContainer = document.getElementById('cl-counselling-options');
@@ -2924,6 +2957,33 @@ function populateChoiceListFilters() {
         counsellingContainer.addEventListener('change', () => {
             populateChoiceListFilters();
         });
+    }
+
+    // Render Degree Stream dropdown (Default: B.Tech)
+    const degreeContainer = document.getElementById('cl-degree-options');
+    if (degreeContainer && degreeContainer.querySelectorAll('input').length === 0) {
+        renderCheckboxOptions('cl-degree-options', degrees, 'dropdown-cl-degree', (val) => {
+            const names = {
+                'B.Tech': 'B.Tech / B.E.',
+                'B.Arch': 'B.Arch (Architecture)',
+                'B.Plan': 'B.Plan (Planning)',
+                'B.Pharm': 'B.Pharm (Pharmacy)',
+                'B.Des': 'B.Des (Design)'
+            };
+            return names[val] || val;
+        });
+
+        // Default to B.Tech only so B.Arch/B.Plan/B.Pharm Paper 2 ranks aren't mixed into B.Tech Engineering lists
+        const degreeInputs = degreeContainer.querySelectorAll('input');
+        degreeInputs.forEach(input => {
+            if (input.value !== 'B.Tech') {
+                input.checked = false;
+            }
+        });
+        const selectAllCb = degreeContainer.querySelector('.select-all');
+        if (selectAllCb) selectAllCb.checked = false;
+
+        updateDropdownButtonText('dropdown-cl-degree');
     }
 
     // Get selected counselling sources
@@ -2983,60 +3043,74 @@ function setupChoiceListModule() {
 }
 
 function generateChoiceList() {
-    const selectedCounsellings = new Set(getCheckedValues('dropdown-cl-counselling'));
-    const selectedSeats = new Set(getCheckedValues('dropdown-cl-seat'));
-    const selectedGenders = new Set(getCheckedValues('dropdown-cl-gender'));
-    const selectedQuotas = new Set(getCheckedValues('dropdown-cl-quota'));
-    const selectedTypes = new Set(getCheckedValues('dropdown-cl-type'));
+    const spinner = document.getElementById('choicelist-spinner');
+    if (spinner) {
+        spinner.style.display = 'flex';
+    }
 
-    const placeholder = document.getElementById('cl-placeholder');
-    const content = document.getElementById('cl-content');
+    setTimeout(() => {
+        const selectedCounsellings = new Set(getCheckedValues('dropdown-cl-counselling'));
+        const selectedDegrees = new Set(getCheckedValues('dropdown-cl-degree'));
+        const selectedSeats = new Set(getCheckedValues('dropdown-cl-seat'));
+        const selectedGenders = new Set(getCheckedValues('dropdown-cl-gender'));
+        const selectedQuotas = new Set(getCheckedValues('dropdown-cl-quota'));
+        const selectedTypes = new Set(getCheckedValues('dropdown-cl-type'));
 
-    let pool = allData.filter(item => {
-        const matchesCounselling = selectedCounsellings.size === 0 || selectedCounsellings.has(item.source);
-        const matchesSeat = selectedSeats.size === 0 || selectedSeats.has(item.seat_type);
-        const matchesGender = selectedGenders.size === 0 || selectedGenders.has(item.gender);
-        const matchesQuota = selectedQuotas.size === 0 || selectedQuotas.has(item.quota);
-        const matchesType = selectedTypes.size === 0 || selectedTypes.has(item.type);
-        const matchesYear = (item.year || "2025") === "2025";
+        const placeholder = document.getElementById('cl-placeholder');
+        const content = document.getElementById('cl-content');
 
-        return matchesCounselling && matchesSeat && matchesGender && matchesQuota && matchesType && matchesYear;
-    });
+        let pool = allData.filter(item => {
+            const itemDegree = getDegreeType(item.program);
+            const matchesDegree = selectedDegrees.size === 0 || selectedDegrees.has(itemDegree);
+            const matchesCounselling = selectedCounsellings.size === 0 || selectedCounsellings.has(item.source);
+            const matchesSeat = selectedSeats.size === 0 || selectedSeats.has(item.seat_type);
+            const matchesGender = selectedGenders.size === 0 || selectedGenders.has(item.gender);
+            const matchesQuota = selectedQuotas.size === 0 || selectedQuotas.has(item.quota);
+            const matchesType = selectedTypes.size === 0 || selectedTypes.has(item.type);
+            const matchesYear = (item.year || "2025") === "2025";
 
-    // Deduplicate choices based on institute + program + quota + seat_type + gender
-    const uniqueMap = new Map();
-    pool.forEach(item => {
-        const key = `${item.institute}|${item.program}|${item.quota}|${item.seat_type}|${item.gender}`;
-        if (!uniqueMap.has(key)) {
-            uniqueMap.set(key, item);
-        } else {
-            // Keep the item with the valid closing rank
-            const existing = uniqueMap.get(key);
-            if ((item.closing_rank_val || 0) < (existing.closing_rank_val || Infinity) && item.closing_rank_val > 0) {
+            return matchesDegree && matchesCounselling && matchesSeat && matchesGender && matchesQuota && matchesType && matchesYear;
+        });
+
+        // Deduplicate choices based on institute + program + quota + seat_type + gender
+        const uniqueMap = new Map();
+        pool.forEach(item => {
+            const key = `${item.institute}|${item.program}|${item.quota}|${item.seat_type}|${item.gender}`;
+            if (!uniqueMap.has(key)) {
                 uniqueMap.set(key, item);
+            } else {
+                // Keep the item with the valid closing rank
+                const existing = uniqueMap.get(key);
+                if ((item.closing_rank_val || 0) < (existing.closing_rank_val || Infinity) && item.closing_rank_val > 0) {
+                    uniqueMap.set(key, item);
+                }
             }
+        });
+
+        let items = Array.from(uniqueMap.values());
+
+        // Sort options strictly by empirical cutoffs (Opening / Closing Ranks) ascending
+        // Top-tier / lowest cutoff number = Choice #1
+        items.sort((a, b) => {
+            const cA = a.closing_rank_val || Infinity;
+            const cB = b.closing_rank_val || Infinity;
+            if (cA !== cB) return cA - cB;
+            const oA = a.opening_rank_val || Infinity;
+            const oB = b.opening_rank_val || Infinity;
+            return oA - oB;
+        });
+
+        currentChoiceList = items;
+
+        if (placeholder) placeholder.style.display = 'none';
+        if (content) content.style.display = 'block';
+
+        renderChoiceList();
+
+        if (spinner) {
+            spinner.style.display = 'none';
         }
-    });
-
-    let items = Array.from(uniqueMap.values());
-
-    // Sort options strictly by empirical cutoffs (Opening / Closing Ranks) ascending
-    // Top-tier / lowest cutoff number = Choice #1
-    items.sort((a, b) => {
-        const cA = a.closing_rank_val || Infinity;
-        const cB = b.closing_rank_val || Infinity;
-        if (cA !== cB) return cA - cB;
-        const oA = a.opening_rank_val || Infinity;
-        const oB = b.opening_rank_val || Infinity;
-        return oA - oB;
-    });
-
-    currentChoiceList = items;
-
-    if (placeholder) placeholder.style.display = 'none';
-    if (content) content.style.display = 'block';
-
-    renderChoiceList();
+    }, 40);
 }
 
 function renderChoiceList() {

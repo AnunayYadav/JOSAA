@@ -562,6 +562,17 @@
                         </div>
                     </div>
 
+                    <!-- 2. Degree Stream (B.Tech, B.Arch, B.Plan) -->
+                    <div class="filter-group">
+                        <label><i data-lucide="graduation-cap"></i> Degree Stream</label>
+                        <div class="custom-dropdown" id="dropdown-cl-degree">
+                            <button class="dropdown-btn" type="button"><span>B.Tech / B.E.</span> <i data-lucide="chevron-down"></i></button>
+                            <div class="dropdown-content" id="cl-degree-options">
+                                <!-- Dynamic options -->
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- 2. Seat Category -->
                     <div class="filter-group">
                         <label><i data-lucide="users"></i> Category / Seat</label>
@@ -616,12 +627,19 @@
             </div>
 
             <!-- Choice List Display Panel -->
-            <div class="predictor-results-panel" style="width: 100%;">
-                    <div id="cl-placeholder" class="pred-placeholder-card">
-                        <i data-lucide="list-ordered" class="floating-icon"></i>
-                        <h3>Generate Your Preference Order</h3>
-                        <p>Select your preferred counselling authority and parameters on the left, then click "Generate Choice List" to build your optimal 1-to-N choice filling order.</p>
+            <div class="predictor-results-panel" style="width: 100%; position: relative;">
+                <div id="choicelist-spinner" class="spinner-overlay-local" style="display: none;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                        <div class="spinner-ring"></div>
+                        <span style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">Generating Optimal Choice List...</span>
                     </div>
+                </div>
+
+                <div id="cl-placeholder" class="pred-placeholder-card">
+                    <i data-lucide="list-ordered" class="floating-icon"></i>
+                    <h3>Generate Your Preference Order</h3>
+                    <p>Select your preferred counselling authority and parameters on the left, then click "Generate Choice List" to build your optimal 1-to-N choice filling order.</p>
+                </div>
 
                     <div id="cl-content" style="display: none;">
                         <!-- Choice List Header & Actions -->
