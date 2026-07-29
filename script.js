@@ -241,8 +241,32 @@ function setupModeSwitching() {
     const navUptac = document.getElementById('nav-uptac');
     const navGgsipu = document.getElementById('nav-ggsipu');
     const navChoicelist = document.getElementById('nav-choicelist');
+    const navAbout = document.getElementById('nav-about');
+    const aboutModal = document.getElementById('about-modal');
+    const closeModal = document.getElementById('close-modal');
     const modeText = document.getElementById('mode-text');
     const heroDesc = document.getElementById('hero-desc');
+
+    if (navAbout && aboutModal) {
+        navAbout.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutModal.classList.remove('hidden');
+        });
+    }
+
+    if (closeModal && aboutModal) {
+        closeModal.addEventListener('click', () => {
+            aboutModal.classList.add('hidden');
+        });
+    }
+
+    if (aboutModal) {
+        aboutModal.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                aboutModal.classList.add('hidden');
+            }
+        });
+    }
 
     const switchMode = (mode) => {
         currentMode = mode;
