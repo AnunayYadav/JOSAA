@@ -441,21 +441,28 @@ function setupDropdowns() {
     dropdowns.forEach(dropdown => {
         const btn = dropdown.querySelector('.dropdown-btn');
         const content = dropdown.querySelector('.dropdown-content');
-        
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            document.querySelectorAll('.dropdown-content').forEach(c => {
-                if(c !== content) c.classList.remove('show');
+        if (!btn || !content) return;
+
+        if (!btn._dropdownHandlerSet) {
+            btn._dropdownHandlerSet = true;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.dropdown-content').forEach(c => {
+                    if (c !== content) c.classList.remove('show');
+                });
+                content.classList.toggle('show');
             });
-            content.classList.toggle('show');
+
+            content.addEventListener('click', (e) => e.stopPropagation());
+        }
+    });
+
+    if (!window._globalDropdownListenerSet) {
+        window._globalDropdownListenerSet = true;
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.dropdown-content').forEach(c => c.classList.remove('show'));
         });
-
-        content.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    document.addEventListener('click', () => {
-        document.querySelectorAll('.dropdown-content').forEach(c => c.classList.remove('show'));
-    });
+    }
 }
 
 function toggleFilterVisibility(dropdownId, options) {
