@@ -20,6 +20,12 @@
                 <span class="logo-icon"><i data-lucide="graduation-cap"></i></span>
                 <span class="logo-text">Admission<span>Explorer</span></span>
             </div>
+
+            <div class="nav-actions-mobile">
+                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon"></i></button>
+                <button id="mobile-menu-toggle" class="menu-toggle-btn"><i data-lucide="menu"></i></button>
+            </div>
+
             <div class="nav-links" id="nav-links">
                 <div class="nav-dropdown">
                     <a href="javascript:void(0)" id="nav-counselling-group" class="nav-dropdown-toggle active">
@@ -27,17 +33,16 @@
                     </a>
                     <div class="nav-dropdown-menu">
                         <a href="javascript:void(0)" id="nav-josaa" class="active">JoSAA</a>
-                        <a href="javascript:void(0)" id="nav-csab">CSAB</a>
+                        <a href="javascript:void(0)" id="nav-csab">CSAB Special</a>
                         <a href="javascript:void(0)" id="nav-jac">JAC Chandigarh</a>
                         <a href="javascript:void(0)" id="nav-jac-delhi">JAC Delhi</a>
                         <a href="javascript:void(0)" id="nav-uptac">UPTAC</a>
                         <a href="javascript:void(0)" id="nav-ggsipu">GGSIPU</a>
                     </div>
                 </div>
-                <a href="javascript:void(0)" id="nav-predictor">Seat Predictor</a>
-                <a href="javascript:void(0)" id="nav-choicelist"><i data-lucide="list-ordered" style="width: 16px; height: 16px; display: inline;"></i> <span>Choice List Creator</span></a>
-                <a href="javascript:void(0)" id="nav-about" class="nav-about-btn"><i data-lucide="info"></i><span>About</span></a>
-                <button id="theme-toggle" class="theme-btn"><i data-lucide="moon"></i></button>
+                <a href="javascript:void(0)" id="nav-predictor"><i data-lucide="target" style="width: 16px; height: 16px;"></i> <span>Seat Predictor</span></a>
+                <a href="javascript:void(0)" id="nav-choicelist"><i data-lucide="list-ordered" style="width: 16px; height: 16px;"></i> <span>Choice List Creator</span></a>
+                <a href="javascript:void(0)" id="nav-about" class="nav-about-btn"><i data-lucide="info" style="width: 16px; height: 16px;"></i> <span>About</span></a>
             </div>
         </div>
     </nav>
@@ -710,168 +715,168 @@
                 </div>
             </div>
 
-            <div class="modal-body custom-scroll">
-
-                <!-- 1. Stats Grid (Highlighting All Covered Colleges) -->
-                <div class="about-stats-container">
-                    <h3 class="about-section-heading"><i data-lucide="bar-chart-3"></i> Coverage & Database Statistics</h3>
-                    
-                    <div class="about-stats-grid">
-                        <div class="about-stat-card primary">
-                            <div class="stat-icon"><i data-lucide="building-2"></i></div>
-                            <div class="stat-number">380+</div>
-                            <div class="stat-title">Total Colleges</div>
-                            <div class="stat-desc">IITs, NITs, IIITs, GFTIs, JAC, UPTAC & IPU</div>
-                        </div>
-
-                        <div class="about-stat-card accent">
-                            <div class="stat-icon"><i data-lucide="database"></i></div>
-                            <div class="stat-number">136,000+</div>
-                            <div class="stat-title">Cutoff Records</div>
-                            <div class="stat-desc">Historical Opening & Closing Ranks</div>
-                        </div>
-
-                        <div class="about-stat-card highlight">
-                            <div class="stat-icon"><i data-lucide="award"></i></div>
-                            <div class="stat-number">23</div>
-                            <div class="stat-title">Premier IITs</div>
-                            <div class="stat-desc">Indian Institutes of Technology</div>
-                        </div>
-
-                        <div class="about-stat-card info">
-                            <div class="stat-icon"><i data-lucide="landmark"></i></div>
-                            <div class="stat-number">33</div>
-                            <div class="stat-title">Top NITs</div>
-                            <div class="stat-desc">National Institutes of Technology</div>
-                        </div>
-
-                        <div class="about-stat-card success">
-                            <div class="stat-icon"><i data-lucide="cpu"></i></div>
-                            <div class="stat-number">26+</div>
-                            <div class="stat-title">IIITs</div>
-                            <div class="stat-desc">Indian Institutes of Info Tech</div>
-                        </div>
-
-                        <div class="about-stat-card warning">
-                            <div class="stat-icon"><i data-lucide="map-pin"></i></div>
-                            <div class="stat-number">200+</div>
-                            <div class="stat-title">UPTAC Colleges</div>
-                            <div class="stat-desc">AKTU Colleges across Uttar Pradesh</div>
-                        </div>
-
-                        <div class="about-stat-card purple">
-                            <div class="stat-icon"><i data-lucide="school"></i></div>
-                            <div class="stat-number">23</div>
-                            <div class="stat-title">GGSIPU (IPU)</div>
-                            <div class="stat-desc">Indraprastha University Colleges</div>
-                        </div>
-
-                        <div class="about-stat-card rose">
-                            <div class="stat-icon"><i data-lucide="compass"></i></div>
-                            <div class="stat-number">24</div>
-                            <div class="stat-title">JAC Delhi</div>
-                            <div class="stat-desc">DTU, NSUT, IIITD, IGDTUW & DSEU</div>
-                        </div>
-
-                        <div class="about-stat-card teal">
-                            <div class="stat-icon"><i data-lucide="map"></i></div>
-                            <div class="stat-number">5</div>
-                            <div class="stat-title">JAC Chandigarh</div>
-                            <div class="stat-desc">PEC, UIET, CCET & CCA</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. Supported Counselling Authorities Grid -->
-                <div class="about-counsellings-container">
-                    <h3 class="about-section-heading"><i data-lucide="layers"></i> Supported Counselling Authorities</h3>
-                    
-                    <div class="about-counselling-cards">
-                        <div class="counselling-card">
-                            <span class="type-badge iit" style="margin-bottom: 0.5rem; display: inline-block;">JoSAA</span>
-                            <h4>JoSAA Counselling</h4>
-                            <p>Complete opening & closing rank data across all rounds for 23 IITs, 31 NITs, 26 IIITs, and 38 GFTIs.</p>
-                        </div>
-
-                        <div class="counselling-card">
-                            <span class="type-badge nit" style="margin-bottom: 0.5rem; display: inline-block;">CSAB Special</span>
-                            <h4>CSAB Special Rounds</h4>
-                            <p>Special round vacancy cutoffs and CSAB 2026 Vacant Seat Matrix overlay for NIT+ system seat allocation.</p>
-                        </div>
-
-                        <div class="counselling-card">
-                            <span class="type-badge jacd" style="margin-bottom: 0.5rem; display: inline-block;">JAC Delhi</span>
-                            <h4>JAC Delhi Counselling</h4>
-                            <p>All Delhi Region (85%) and Outside Delhi (15%) cutoffs for DTU, NSUT Main, NSUT East, NSUT West, IIIT Delhi, IGDTUW, and DSEU.</p>
-                        </div>
-
-                        <div class="counselling-card">
-                            <span class="type-badge jac" style="margin-bottom: 0.5rem; display: inline-block;">JAC Chandigarh</span>
-                            <h4>JAC Chandigarh</h4>
-                            <p>Home State and All India cutoffs for PEC Chandigarh, UIET Panjab University, CCET, and CCA.</p>
-                        </div>
-
-                        <div class="counselling-card">
-                            <span class="type-badge uptac" style="margin-bottom: 0.5rem; display: inline-block;">UPTAC (AKTU)</span>
-                            <h4>UPTAC Uttar Pradesh</h4>
-                            <p>200+ AKTU state government & private engineering colleges across Uttar Pradesh including IET Lucknow, KNIT Sultanpur, and BIET Jhansi.</p>
-                        </div>
-
-                        <div class="counselling-card">
-                            <span class="type-badge ggsipu" style="margin-bottom: 0.5rem; display: inline-block;">GGSIPU (IPU)</span>
-                            <h4>GGSIPU Delhi NCR</h4>
-                            <p>Complete Delhi & Outside Delhi cutoffs for USICT, MAIT, MSIT, BVCOE, BPIT, and all IPU engineering campuses.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. Key Capabilities & Engine Innovations -->
-                <div class="about-features-container">
-                    <h3 class="about-section-heading"><i data-lucide="zap"></i> Core Engine Innovations</h3>
-                    <div class="about-features-grid">
-                        <div class="feature-box">
-                            <i data-lucide="target" class="feat-icon"></i>
-                            <div>
-                                <h5>Rank-Based Seat Predictor</h5>
-                                <p>Evaluates your CRL or Category Rank to output your exact match categories (Dream, Target, Safe) with custom Ambitious tolerance sliders.</p>
+            <div class="modal-body-content">
+                    <!-- 1. Stats Grid -->
+                    <div class="about-stats-container">
+                        <h3 class="about-section-heading"><i data-lucide="bar-chart-3"></i> Coverage & Database Statistics</h3>
+                        
+                        <div class="about-stats-grid">
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="building-2"></i></div>
+                                <div class="stat-number">380+</div>
+                                <div class="stat-title">Total Colleges</div>
+                                <div class="stat-desc">IITs, NITs, IIITs, GFTIs, JAC, UPTAC & IPU</div>
                             </div>
-                        </div>
 
-                        <div class="feature-box">
-                            <i data-lucide="list-ordered" class="feat-icon"></i>
-                            <div>
-                                <h5>1-to-N Choice List Creator</h5>
-                                <p>Generates an optimal preference order from Choice #1 to #N based strictly on empirical cutoffs with interactive reordering and TXT/CSV exports.</p>
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="database"></i></div>
+                                <div class="stat-number">136,000+</div>
+                                <div class="stat-title">Cutoff Records</div>
+                                <div class="stat-desc">Historical Opening & Closing Ranks</div>
                             </div>
-                        </div>
 
-                        <div class="feature-box">
-                            <i data-lucide="armchair" class="feat-icon"></i>
-                            <div>
-                                <h5>CSAB 2026 Vacant Seat Integration</h5>
-                                <p>Overlays live vacant seat availability for CSAB 2026 directly on top of historical cutoff predictor cards.</p>
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="award"></i></div>
+                                <div class="stat-number">23</div>
+                                <div class="stat-title">Premier IITs</div>
+                                <div class="stat-desc">Indian Institutes of Technology</div>
                             </div>
-                        </div>
 
-                        <div class="feature-box">
-                            <i data-lucide="search" class="feat-icon"></i>
-                            <div>
-                                <h5>1-Click Google Search</h5>
-                                <p>Instantly lookup institute details, campus infrastructure, and placement reports with a single click on any college row.</p>
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="landmark"></i></div>
+                                <div class="stat-number">33</div>
+                                <div class="stat-title">Top NITs</div>
+                                <div class="stat-desc">National Institutes of Technology</div>
+                            </div>
+
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="cpu"></i></div>
+                                <div class="stat-number">26+</div>
+                                <div class="stat-title">IIITs</div>
+                                <div class="stat-desc">Indian Institutes of Info Tech</div>
+                            </div>
+
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="map-pin"></i></div>
+                                <div class="stat-number">200+</div>
+                                <div class="stat-title">UPTAC Colleges</div>
+                                <div class="stat-desc">AKTU Colleges across Uttar Pradesh</div>
+                            </div>
+
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="school"></i></div>
+                                <div class="stat-number">23</div>
+                                <div class="stat-title">GGSIPU (IPU)</div>
+                                <div class="stat-desc">Indraprastha University Colleges</div>
+                            </div>
+
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="compass"></i></div>
+                                <div class="stat-number">24</div>
+                                <div class="stat-title">JAC Delhi</div>
+                                <div class="stat-desc">DTU, NSUT, IIITD, IGDTUW & DSEU</div>
+                            </div>
+
+                            <div class="about-stat-card">
+                                <div class="stat-icon"><i data-lucide="map"></i></div>
+                                <div class="stat-number">5</div>
+                                <div class="stat-title">JAC Chandigarh</div>
+                                <div class="stat-desc">PEC, UIET, CCET & CCA</div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 4. Developer Credit -->
-                <div class="about-author-card">
-                    <div class="author-avatar"><i data-lucide="code"></i></div>
-                    <div>
-                        <h4>Developed with ❤️ by <strong>Anunay Yadav</strong></h4>
-                        <p>Engineered for JEE Main, JEE Advanced, State, and IPU candidates to navigate college admissions effortlessly.</p>
+                    <!-- 2. Supported Counselling Authorities Grid -->
+                    <div class="about-counsellings-container">
+                        <h3 class="about-section-heading"><i data-lucide="layers"></i> Supported Counselling Authorities</h3>
+                        
+                        <div class="about-counselling-cards">
+                            <div class="counselling-card">
+                                <div style="margin-bottom: 0.75rem;"><span class="about-pill josaa">JoSAA</span></div>
+                                <h4>JoSAA Counselling</h4>
+                                <p>Complete opening & closing rank data across all rounds for 23 IITs, 31 NITs, 26 IIITs, and 38 GFTIs.</p>
+                            </div>
+
+                            <div class="counselling-card">
+                                <div style="margin-bottom: 0.75rem;"><span class="about-pill csab">CSAB Special</span></div>
+                                <h4>CSAB Special Rounds</h4>
+                                <p>Special round vacancy cutoffs and CSAB 2026 Vacant Seat Matrix overlay for NIT+ system seat allocation.</p>
+                            </div>
+
+                            <div class="counselling-card">
+                                <div style="margin-bottom: 0.75rem;"><span class="about-pill jacd">JAC Delhi</span></div>
+                                <h4>JAC Delhi Counselling</h4>
+                                <p>All Delhi Region (85%) and Outside Delhi (15%) cutoffs for DTU, NSUT Main, NSUT East, NSUT West, IIIT Delhi, IGDTUW, and DSEU.</p>
+                            </div>
+
+                            <div class="counselling-card">
+                                <div style="margin-bottom: 0.75rem;"><span class="about-pill jac">JAC Chandigarh</span></div>
+                                <h4>JAC Chandigarh</h4>
+                                <p>Home State and All India cutoffs for PEC Chandigarh, UIET Panjab University, CCET, and CCA.</p>
+                            </div>
+
+                            <div class="counselling-card">
+                                <div style="margin-bottom: 0.75rem;"><span class="about-pill uptac">UPTAC (AKTU)</span></div>
+                                <h4>UPTAC Uttar Pradesh</h4>
+                                <p>200+ AKTU state government & private engineering colleges across Uttar Pradesh including IET Lucknow, KNIT Sultanpur, and BIET Jhansi.</p>
+                            </div>
+
+                            <div class="counselling-card">
+                                <div style="margin-bottom: 0.75rem;"><span class="about-pill ggsipu">GGSIPU (IPU)</span></div>
+                                <h4>GGSIPU Delhi NCR</h4>
+                                <p>Complete Delhi & Outside Delhi cutoffs for USICT, MAIT, MSIT, BVCOE, BPIT, and all IPU engineering campuses.</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
+                    <!-- 3. Key Capabilities & Engine Innovations -->
+                    <div class="about-features-container">
+                        <h3 class="about-section-heading"><i data-lucide="zap"></i> Core Engine Innovations</h3>
+                        <div class="about-features-grid">
+                            <div class="feature-box">
+                                <i data-lucide="target" class="feat-icon"></i>
+                                <div>
+                                    <h5>Rank-Based Seat Predictor</h5>
+                                    <p>Evaluates your CRL or Category Rank to output your exact match categories (Dream, Target, Safe) with custom Ambitious tolerance sliders.</p>
+                                </div>
+                            </div>
+
+                            <div class="feature-box">
+                                <i data-lucide="list-ordered" class="feat-icon"></i>
+                                <div>
+                                    <h5>1-to-N Choice List Creator</h5>
+                                    <p>Generates an optimal preference order from Choice #1 to #N based strictly on empirical cutoffs with interactive reordering and TXT/CSV exports.</p>
+                                </div>
+                            </div>
+
+                            <div class="feature-box">
+                                <i data-lucide="armchair" class="feat-icon"></i>
+                                <div>
+                                    <h5>CSAB 2026 Vacant Seat Integration</h5>
+                                    <p>Overlays live vacant seat availability for CSAB 2026 directly on top of historical cutoff predictor cards.</p>
+                                </div>
+                            </div>
+
+                            <div class="feature-box">
+                                <i data-lucide="search" class="feat-icon"></i>
+                                <div>
+                                    <h5>1-Click Google Search</h5>
+                                    <p>Instantly lookup institute details, campus infrastructure, and placement reports with a single click on any college row.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Developer Credit -->
+                    <div class="about-author-card">
+                        <div class="author-avatar"><i data-lucide="code"></i></div>
+                        <div>
+                            <h4>Developed with ❤️ by <strong>Anunay Yadav</strong></h4>
+                            <p>Engineered for JEE Main, JEE Advanced, State, and IPU candidates to navigate college admissions effortlessly.</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

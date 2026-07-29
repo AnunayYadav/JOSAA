@@ -241,16 +241,49 @@ function setupModeSwitching() {
     const navUptac = document.getElementById('nav-uptac');
     const navGgsipu = document.getElementById('nav-ggsipu');
     const navChoicelist = document.getElementById('nav-choicelist');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('show');
+            const icon = mobileMenuToggle.querySelector('i');
+            if (icon) {
+                if (navLinks.classList.contains('show')) {
+                    icon.setAttribute('data-lucide', 'x');
+                } else {
+                    icon.setAttribute('data-lucide', 'menu');
+                }
+                if (window.lucide) lucide.createIcons();
+            }
+        });
+    }
+
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && navLinks && navLinks.classList.contains('show')) {
+            if (!navLinks.contains(e.target) && (!mobileMenuToggle || !mobileMenuToggle.contains(e.target))) {
+                navLinks.classList.remove('show');
+                if (mobileMenuToggle) {
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (icon) {
+                        icon.setAttribute('data-lucide', 'menu');
+                        if (window.lucide) lucide.createIcons();
+                    }
+                }
+            }
+        }
+    });
+
     const navAbout = document.getElementById('nav-about');
     const aboutModal = document.getElementById('about-modal');
     const closeModal = document.getElementById('close-modal');
-    const modeText = document.getElementById('mode-text');
-    const heroDesc = document.getElementById('hero-desc');
 
     if (navAbout && aboutModal) {
         navAbout.addEventListener('click', (e) => {
             e.preventDefault();
             aboutModal.classList.remove('hidden');
+            if (window.innerWidth <= 768 && navLinks) navLinks.classList.remove('show');
         });
     }
 
@@ -270,6 +303,16 @@ function setupModeSwitching() {
 
     const switchMode = (mode) => {
         currentMode = mode;
+        if (window.innerWidth <= 768 && navLinks) {
+            navLinks.classList.remove('show');
+            if (mobileMenuToggle) {
+                const icon = mobileMenuToggle.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'menu');
+                    if (window.lucide) lucide.createIcons();
+                }
+            }
+        }
         navJosaa.classList.toggle('active', mode === 'JOSAA');
         navCsab.classList.toggle('active', mode === 'CSAB');
         if (navCsab2026) navCsab2026.classList.toggle('active', mode === 'CSAB_2026_MATRIX');
