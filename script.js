@@ -2968,6 +2968,7 @@ function setupSelectionEvents() {
 
 /* Choice List Creator Module Logic */
 let currentChoiceList = [];
+let currentChoiceListMode = 'FULL'; // 'FULL', 'BRANCH', 'COLLEGE'
 let isChoiceListInitialized = false;
 
 function getDegreeType(program) {
@@ -3087,25 +3088,56 @@ function setupChoiceListModule() {
     isChoiceListInitialized = true;
 
     const generateBtn = document.getElementById('cl-generate-btn');
+    const searchInput = document.getElementById('cl-search-input');
     const copyBtn = document.getElementById('cl-copy-btn');
     const exportTxtBtn = document.getElementById('cl-export-txt-btn');
     const exportCsvBtn = document.getElementById('cl-export-csv-btn');
-    const searchInput = document.getElementById('cl-search-input');
 
-    if (generateBtn) {
-        generateBtn.addEventListener('click', generateChoiceList);
+    if (generateBtn) generateBtn.addEventListener('click', generateChoiceList);
+    if (searchInput) searchInput.addEventListener('input', renderChoiceList);
+    if (copyBtn) copyBtn.addEventListener('click', handleChoiceListCopy);
+    if (exportTxtBtn) exportTxtBtn.addEventListener('click', handleChoiceListExportTxt);
+    if (exportCsvBtn) exportCsvBtn.addEventListener('click', handleChoiceListExportCsv);
+
+    // Mode Selector Tab Listeners
+    const modeTabs = document.querySelectorAll('.cl-mode-tab');
+    modeTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            modeTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentChoiceListMode = tab.dataset.mode || 'FULL';
+            renderChoiceList();
+        });
+    });
+}
+
+function handleChoiceListCopy() {
+    if (currentChoiceListMode === 'BRANCH') {
+        copyBranchOrderToClipboard();
+    } else if (currentChoiceListMode === 'COLLEGE') {
+        copyCollegeOrderToClipboard();
+    } else {
+        copyChoiceListToClipboard();
     }
-    if (copyBtn) {
-        copyBtn.addEventListener('click', copyChoiceListToClipboard);
+}
+
+function handleChoiceListExportTxt() {
+    if (currentChoiceListMode === 'BRANCH') {
+        exportBranchOrderTxt();
+    } else if (currentChoiceListMode === 'COLLEGE') {
+        exportCollegeOrderTxt();
+    } else {
+        exportChoiceListTxt();
     }
-    if (exportTxtBtn) {
-        exportTxtBtn.addEventListener('click', exportChoiceListTxt);
-    }
-    if (exportCsvBtn) {
-        exportCsvBtn.addEventListener('click', exportChoiceListCsv);
-    }
-    if (searchInput) {
-        searchInput.addEventListener('input', renderChoiceList);
+}
+
+function handleChoiceListExportCsv() {
+    if (currentChoiceListMode === 'BRANCH') {
+        exportBranchOrderCsv();
+    } else if (currentChoiceListMode === 'COLLEGE') {
+        exportCollegeOrderCsv();
+    } else {
+        exportChoiceListCsv();
     }
 }
 
@@ -3181,19 +3213,41 @@ function generateChoiceList() {
 }
 
 function renderChoiceList() {
+    const tableHeader = document.getElementById('cl-table-header');
     const tableBody = document.getElementById('cl-table-body');
     const totalCountEl = document.getElementById('cl-total-count');
+    const subCountEl = document.getElementById('cl-sub-count');
     const searchVal = (document.getElementById('cl-search-input')?.value || '').toLowerCase().trim();
 
     if (!tableBody) return;
     tableBody.innerHTML = '';
 
-    if (totalCountEl) {
-        totalCountEl.textContent = `Optimal Choice List (${currentChoiceList.length} Choices)`;
+    if (currentChoiceListMode === 'BRANCH') {
+        renderBranchOrderView(tableHeader, tableBody, totalCountEl, subCountEl, searchVal);
+    } else if (currentChoiceListMode === 'COLLEGE') {
+        renderCollegeOrderView(tableHeader, tableBody, totalCountEl, subCountEl, searchVal);
+    } else {
+        renderFullChoiceListView(tableHeader, tableBody, totalCountEl, subCountEl, searchVal);
     }
 
-    let filtered = currentChoiceList.map((item, index) => ({ item, originalIndex: index }));
+    if (window.lucide) lucide.createIcons();
+}
 
+function renderFullChoiceListView(header, body, totalEl, subEl, searchVal) {
+    if (header) {
+        header.innerHTML = `
+            <th style="width: 80px; text-align: center;">Choice #</th>
+            <th>Institute</th>
+            <th>Program</th>
+            <th>Quota / Category</th>
+            <th style="width: 120px;">Closing Rank</th>
+            <th style="width: 110px; text-align: center;">Reorder</th>
+        `;
+    }
+    if (totalEl) totalEl.textContent = `Optimal Choice List (${currentChoiceList.length} Choices)`;
+    if (subEl) subEl.textContent = `Ordered from 1 to N based on historical closing rank cutoffs.`;
+
+    let filtered = currentChoiceList.map((item, index) => ({ item, originalIndex: index }));
     if (searchVal) {
         filtered = filtered.filter(({ item }) => {
             const searchStr = `${item.institute} ${item.program} ${item.quota} ${item.seat_type} ${item.type}`.toLowerCase();
@@ -3202,14 +3256,13 @@ function renderChoiceList() {
     }
 
     if (filtered.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 3rem; color: var(--text-secondary);">No choices found matching your search criteria.</td></tr>`;
+        body.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 3rem; color: var(--text-secondary);">No choices found matching your search criteria.</td></tr>`;
         return;
     }
 
     filtered.forEach(({ item, originalIndex }) => {
         const choiceNum = originalIndex + 1;
         const row = document.createElement('tr');
-
         row.innerHTML = `
             <td style="text-align: center;"><span class="choice-rank-badge">#${choiceNum}</span></td>
             <td><div class="inst-cell" data-institute="${item.institute}"><span class="badge type-badge ${item.type.toLowerCase()}">${item.type}</span> ${item.institute}</div></td>
@@ -3230,11 +3283,163 @@ function renderChoiceList() {
                 </div>
             </td>
         `;
-
-        tableBody.appendChild(row);
+        body.appendChild(row);
     });
+}
 
-    if (window.lucide) lucide.createIcons();
+function renderBranchOrderView(header, body, totalEl, subEl, searchVal) {
+    if (header) {
+        header.innerHTML = `
+            <th style="width: 80px; text-align: center;">Rank #</th>
+            <th>Academic Program (Branch)</th>
+            <th style="width: 140px;">Best Cutoff Rank</th>
+            <th style="width: 110px; text-align: center;">Reorder</th>
+        `;
+    }
+
+    const uniqueBranchStats = getUniqueBranchStats();
+    if (totalEl) totalEl.textContent = `Branch Preference Order (${uniqueBranchStats.length} Unique Branches)`;
+    if (subEl) subEl.textContent = `Unique branch order ranked from best to worst based on cutoff preference.`;
+
+    let filtered = uniqueBranchStats.map((item, index) => ({ item, originalIndex: index }));
+    if (searchVal) {
+        filtered = filtered.filter(({ item }) => item.program.toLowerCase().includes(searchVal));
+    }
+
+    if (filtered.length === 0) {
+        body.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-secondary);">No branches found matching your search criteria.</td></tr>`;
+        return;
+    }
+
+    filtered.forEach(({ item, originalIndex }) => {
+        const rankNum = originalIndex + 1;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td style="text-align: center;"><span class="choice-rank-badge">#${rankNum}</span></td>
+            <td>
+                <div style="font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                    ${item.program}
+                    <span class="badge" style="font-weight: 500; font-size: 0.75rem;">${item.count} Choice${item.count > 1 ? 's' : ''}</span>
+                </div>
+            </td>
+            <td style="font-weight: 700; color: var(--text-primary);">${item.bestRank !== Infinity ? item.bestRank.toLocaleString() : '-'}</td>
+            <td>
+                <div class="cl-reorder-group">
+                    <button type="button" class="cl-btn-icon" title="Move Branch Up" onclick="moveBranchUp(${originalIndex})">
+                        <i data-lucide="chevron-up"></i>
+                    </button>
+                    <button type="button" class="cl-btn-icon" title="Move Branch Down" onclick="moveBranchDown(${originalIndex})">
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <button type="button" class="cl-btn-icon delete-btn" title="Remove Branch" onclick="deleteBranch(${originalIndex})">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        body.appendChild(row);
+    });
+}
+
+function renderCollegeOrderView(header, body, totalEl, subEl, searchVal) {
+    if (header) {
+        header.innerHTML = `
+            <th style="width: 80px; text-align: center;">Rank #</th>
+            <th>Institute Name</th>
+            <th style="width: 140px;">Best Cutoff Rank</th>
+            <th style="width: 110px; text-align: center;">Reorder</th>
+        `;
+    }
+
+    const uniqueCollegeStats = getUniqueCollegeStats();
+    if (totalEl) totalEl.textContent = `College Preference Order (${uniqueCollegeStats.length} Unique Colleges)`;
+    if (subEl) subEl.textContent = `Unique institution order ranked from best to worst based on cutoff preference.`;
+
+    let filtered = uniqueCollegeStats.map((item, index) => ({ item, originalIndex: index }));
+    if (searchVal) {
+        filtered = filtered.filter(({ item }) => `${item.institute} ${item.type}`.toLowerCase().includes(searchVal));
+    }
+
+    if (filtered.length === 0) {
+        body.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-secondary);">No colleges found matching your search criteria.</td></tr>`;
+        return;
+    }
+
+    filtered.forEach(({ item, originalIndex }) => {
+        const rankNum = originalIndex + 1;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td style="text-align: center;"><span class="choice-rank-badge">#${rankNum}</span></td>
+            <td>
+                <div class="inst-cell" data-institute="${item.institute}" style="font-weight: 600; color: var(--text-primary);">
+                    <span class="badge type-badge ${item.type.toLowerCase()}">${item.type}</span> ${item.institute}
+                    <span class="badge" style="font-weight: 500; font-size: 0.75rem; margin-left: 0.4rem;">${item.count} Choice${item.count > 1 ? 's' : ''}</span>
+                </div>
+            </td>
+            <td style="font-weight: 700; color: var(--text-primary);">${item.bestRank !== Infinity ? item.bestRank.toLocaleString() : '-'}</td>
+            <td>
+                <div class="cl-reorder-group">
+                    <button type="button" class="cl-btn-icon" title="Move College Up" onclick="moveCollegeUp(${originalIndex})">
+                        <i data-lucide="chevron-up"></i>
+                    </button>
+                    <button type="button" class="cl-btn-icon" title="Move College Down" onclick="moveCollegeDown(${originalIndex})">
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <button type="button" class="cl-btn-icon delete-btn" title="Remove College" onclick="deleteCollege(${originalIndex})">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        body.appendChild(row);
+    });
+}
+
+function getUniqueBranchStats() {
+    const map = new Map();
+    currentChoiceList.forEach(item => {
+        if (item && item.program) {
+            const prog = item.program.trim();
+            if (!map.has(prog)) {
+                map.set(prog, {
+                    program: prog,
+                    bestRank: item.closing_rank_val || Infinity,
+                    count: 1
+                });
+            } else {
+                const existing = map.get(prog);
+                existing.count++;
+                if (item.closing_rank_val && item.closing_rank_val < existing.bestRank) {
+                    existing.bestRank = item.closing_rank_val;
+                }
+            }
+        }
+    });
+    return Array.from(map.values());
+}
+
+function getUniqueCollegeStats() {
+    const map = new Map();
+    currentChoiceList.forEach(item => {
+        if (item && item.institute) {
+            const inst = item.institute.trim();
+            if (!map.has(inst)) {
+                map.set(inst, {
+                    institute: inst,
+                    type: item.type || 'IIT',
+                    bestRank: item.closing_rank_val || Infinity,
+                    count: 1
+                });
+            } else {
+                const existing = map.get(inst);
+                existing.count++;
+                if (item.closing_rank_val && item.closing_rank_val < existing.bestRank) {
+                    existing.bestRank = item.closing_rank_val;
+                }
+            }
+        }
+    });
+    return Array.from(map.values());
 }
 
 function moveChoiceUp(index) {
@@ -3257,6 +3462,106 @@ function deleteChoice(index) {
     if (index < 0 || index >= currentChoiceList.length) return;
     currentChoiceList.splice(index, 1);
     renderChoiceList();
+}
+
+function reorderChoiceListByItemPriority(key, targetToPlaceFirst, targetToPlaceSecond) {
+    const firstGroup = [];
+    const secondGroup = [];
+    currentChoiceList.forEach(item => {
+        if (item[key] === targetToPlaceFirst) {
+            firstGroup.push(item);
+        } else if (item[key] === targetToPlaceSecond) {
+            secondGroup.push(item);
+        }
+    });
+
+    const newList = [];
+    let inserted = false;
+    currentChoiceList.forEach(item => {
+        if (item[key] === targetToPlaceFirst || item[key] === targetToPlaceSecond) {
+            if (!inserted) {
+                newList.push(...firstGroup, ...secondGroup);
+                inserted = true;
+            }
+        } else {
+            newList.push(item);
+        }
+    });
+    currentChoiceList = newList;
+}
+
+function moveBranchUp(index) {
+    const branches = getUniqueBranchOrder();
+    if (index <= 0 || index >= branches.length) return;
+    reorderChoiceListByItemPriority('program', branches[index], branches[index - 1]);
+    renderChoiceList();
+}
+
+function moveBranchDown(index) {
+    const branches = getUniqueBranchOrder();
+    if (index < 0 || index >= branches.length - 1) return;
+    reorderChoiceListByItemPriority('program', branches[index + 1], branches[index]);
+    renderChoiceList();
+}
+
+function deleteBranch(index) {
+    const branches = getUniqueBranchOrder();
+    if (index < 0 || index >= branches.length) return;
+    const targetBranch = branches[index];
+    currentChoiceList = currentChoiceList.filter(item => item.program !== targetBranch);
+    renderChoiceList();
+}
+
+function moveCollegeUp(index) {
+    const colleges = getUniqueCollegeOrder();
+    if (index <= 0 || index >= colleges.length) return;
+    reorderChoiceListByItemPriority('institute', colleges[index], colleges[index - 1]);
+    renderChoiceList();
+}
+
+function moveCollegeDown(index) {
+    const colleges = getUniqueCollegeOrder();
+    if (index < 0 || index >= colleges.length - 1) return;
+    reorderChoiceListByItemPriority('institute', colleges[index + 1], colleges[index]);
+    renderChoiceList();
+}
+
+function deleteCollege(index) {
+    const colleges = getUniqueCollegeOrder();
+    if (index < 0 || index >= colleges.length) return;
+    const targetCollege = colleges[index];
+    currentChoiceList = currentChoiceList.filter(item => item.institute !== targetCollege);
+    renderChoiceList();
+}
+
+function getUniqueBranchOrder() {
+    const branches = [];
+    const seen = new Set();
+    currentChoiceList.forEach(item => {
+        if (item && item.program) {
+            const prog = item.program.trim();
+            if (!seen.has(prog)) {
+                seen.add(prog);
+                branches.push(prog);
+            }
+        }
+    });
+    return branches;
+}
+
+function getUniqueCollegeOrder() {
+    const colleges = [];
+    const seen = new Set();
+    currentChoiceList.forEach(item => {
+        if (item && item.institute) {
+            const inst = item.institute.trim();
+            if (!seen.has(inst)) {
+                seen.add(inst);
+                colleges.push(inst);
+            }
+        }
+    });
+    return colleges;
 }
 
 function copyChoiceListToClipboard() {
@@ -3296,15 +3601,7 @@ function exportChoiceListTxt() {
         content += `   Closing Rank Cutoff: ${item.closing_rank_val || item.closing_rank}\n\n`;
     });
 
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `optimal_choice_list_${new Date().toISOString().slice(0, 10)}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    downloadChoiceListFile(content, `optimal_choice_list_${new Date().toISOString().slice(0, 10)}.txt`, 'text/plain;charset=utf-8');
 }
 
 function exportChoiceListCsv() {
@@ -3323,11 +3620,125 @@ function exportChoiceListCsv() {
         csv += `${index + 1},${inst},${prog},${q},${cat},${rank}\n`;
     });
 
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    downloadChoiceListFile(csv, `optimal_choice_list_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8');
+}
+
+function exportBranchOrderTxt() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    const branches = getUniqueBranchOrder();
+    let content = `BRANCH PREFERENCE ORDER (BEST TO WORST)\n`;
+    content += `Generated by Admission Explorer\n`;
+    content += `Total Unique Branches: ${branches.length}\n`;
+    content += `Date: ${new Date().toLocaleDateString()}\n`;
+    content += `=======================================================\n\n`;
+
+    branches.forEach((branch, index) => {
+        content += `${index + 1}. ${branch}\n`;
+    });
+
+    downloadChoiceListFile(content, `branch_order_list_${new Date().toISOString().slice(0, 10)}.txt`, 'text/plain;charset=utf-8');
+}
+
+function exportBranchOrderCsv() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    const branches = getUniqueBranchOrder();
+    let csv = `Rank,Branch Name\n`;
+
+    branches.forEach((branch, index) => {
+        const cleanBranch = `"${(branch || '').replace(/"/g, '""')}"`;
+        csv += `${index + 1},${cleanBranch}\n`;
+    });
+
+    downloadChoiceListFile(csv, `branch_order_list_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8');
+}
+
+function copyBranchOrderToClipboard() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    const branches = getUniqueBranchOrder();
+    let text = `BRANCH PREFERENCE ORDER (${branches.length} Unique Branches - Best to Worst)\n`;
+    text += `=======================================================\n\n`;
+
+    branches.forEach((branch, index) => {
+        text += `${index + 1}. ${branch}\n`;
+    });
+
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Branch order list copied to clipboard!");
+    }).catch(err => {
+        console.error("Copy failed: ", err);
+    });
+}
+
+function exportCollegeOrderTxt() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    const colleges = getUniqueCollegeOrder();
+    let content = `COLLEGE PREFERENCE ORDER (BEST TO WORST)\n`;
+    content += `Generated by Admission Explorer\n`;
+    content += `Total Unique Colleges: ${colleges.length}\n`;
+    content += `Date: ${new Date().toLocaleDateString()}\n`;
+    content += `=======================================================\n\n`;
+
+    colleges.forEach((college, index) => {
+        content += `${index + 1}. ${college}\n`;
+    });
+
+    downloadChoiceListFile(content, `college_order_list_${new Date().toISOString().slice(0, 10)}.txt`, 'text/plain;charset=utf-8');
+}
+
+function exportCollegeOrderCsv() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    const colleges = getUniqueCollegeOrder();
+    let csv = `Rank,College Name\n`;
+
+    colleges.forEach((college, index) => {
+        const cleanCollege = `"${(college || '').replace(/"/g, '""')}"`;
+        csv += `${index + 1},${cleanCollege}\n`;
+    });
+
+    downloadChoiceListFile(csv, `college_order_list_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8');
+}
+
+function copyCollegeOrderToClipboard() {
+    if (currentChoiceList.length === 0) {
+        alert("Please generate a choice list first!");
+        return;
+    }
+    const colleges = getUniqueCollegeOrder();
+    let text = `COLLEGE PREFERENCE ORDER (${colleges.length} Unique Colleges - Best to Worst)\n`;
+    text += `=======================================================\n\n`;
+
+    colleges.forEach((college, index) => {
+        text += `${index + 1}. ${college}\n`;
+    });
+
+    navigator.clipboard.writeText(text).then(() => {
+        alert("College order list copied to clipboard!");
+    }).catch(err => {
+        console.error("Copy failed: ", err);
+    });
+}
+
+function downloadChoiceListFile(content, filename, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `optimal_choice_list_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.download = filename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -3338,4 +3749,5 @@ function exportChoiceListCsv() {
 window.moveChoiceUp = moveChoiceUp;
 window.moveChoiceDown = moveChoiceDown;
 window.deleteChoice = deleteChoice;
+
 

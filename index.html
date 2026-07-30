@@ -651,9 +651,24 @@
                         <div class="cl-header-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 id="cl-total-count" style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">Optimal Choice List (0 Choices)</h3>
-                                <p style="font-size: 0.85rem; color: var(--text-secondary);">Ordered from 1 to N based on historical closing rank cutoffs.</p>
+                                <p id="cl-sub-count" style="font-size: 0.85rem; color: var(--text-secondary);">Ordered from 1 to N based on historical closing rank cutoffs.</p>
                             </div>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+
+                            <!-- Mode Selector Tabs -->
+                            <div class="cl-mode-tabs" id="cl-mode-tabs">
+                                <button type="button" class="cl-mode-tab active" data-mode="FULL">
+                                    <i data-lucide="list"></i> Full Choice List
+                                </button>
+                                <button type="button" class="cl-mode-tab" data-mode="BRANCH">
+                                    <i data-lucide="git-branch"></i> Branch Order Only
+                                </button>
+                                <button type="button" class="cl-mode-tab" data-mode="COLLEGE">
+                                    <i data-lucide="building"></i> College Order Only
+                                </button>
+                            </div>
+
+                            <!-- Standard Export Buttons -->
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
                                 <button type="button" id="cl-copy-btn" class="btn-outline-small-secondary">
                                     <i data-lucide="copy"></i> Copy List
                                 </button>
@@ -676,7 +691,7 @@
                         <div class="table-wrapper">
                             <table id="cl-table">
                                 <thead>
-                                    <tr>
+                                    <tr id="cl-table-header">
                                         <th style="width: 80px; text-align: center;">Choice #</th>
                                         <th>Institute</th>
                                         <th>Program</th>
