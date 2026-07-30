@@ -3371,9 +3371,10 @@ function renderCollegeOrderView(header, body, totalEl, subEl, searchVal) {
         row.innerHTML = `
             <td style="text-align: center;"><span class="choice-rank-badge">#${rankNum}</span></td>
             <td>
-                <div class="inst-cell" data-institute="${item.institute}" style="font-weight: 600; color: var(--text-primary);">
-                    <span class="badge type-badge ${item.type.toLowerCase()}">${item.type}</span> ${item.institute}
-                    <span class="badge" style="font-weight: 500; font-size: 0.75rem; margin-left: 0.4rem;">${item.count} Choice${item.count > 1 ? 's' : ''}</span>
+                <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                    <span class="badge type-badge ${item.type.toLowerCase()}">${item.type}</span>
+                    <span class="inst-cell" data-institute="${item.institute}" style="font-weight: 600; color: var(--text-primary); font-size: 0.92rem;">${item.institute}</span>
+                    <span class="badge" style="font-weight: 500; font-size: 0.75rem;">${item.count} Choice${item.count > 1 ? 's' : ''}</span>
                 </div>
             </td>
             <td style="font-weight: 700; color: var(--text-primary);">${item.bestRank !== Infinity ? item.bestRank.toLocaleString() : '-'}</td>

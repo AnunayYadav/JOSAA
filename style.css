@@ -827,6 +827,7 @@ tr:hover td {
 .inst-cell {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.4rem;
     font-weight: 600;
     min-width: 200px;
@@ -867,6 +868,7 @@ tr:hover td {
     background: rgba(255, 255, 255, 0.08);
     color: var(--text-secondary);
     display: inline-block;
+    width: fit-content;
     max-width: 100%;
     white-space: nowrap;
 }
